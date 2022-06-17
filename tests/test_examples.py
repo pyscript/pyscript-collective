@@ -39,7 +39,7 @@ EXAMPLES = [
 TEST_PARAMS = {
     "hello_world": {
         "file": "hello_world.html",
-        "pattern": "\\d+/\\d+/\\d+, \\d+:\\d+:\\d+",
+        "pattern": "\\d+:\\d+:\\d+",
         "title": "PyScript Hello World",
     },
 }
