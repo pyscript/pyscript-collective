@@ -1,9 +1,6 @@
 name: '[CI] Run tests'
 
-on:
-    push:
-        branches:
-        -   main
+on: [push]
 
 env:
     MINICONDA_PYTHON_VERSION: py38
