@@ -1,0 +1,22 @@
+name: '[CI] Run tests'
+
+env:
+    MINICONDA_PYTHON_VERSION: py38
+    MINICONDA_VERSION: 4.11.0
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+
+        -   name: setup Miniconda
+            uses: conda-incubator/setup-miniconda@v2
+
+        -   name: Setup Environment
+            run: make setup
+
+        -   name: Build and Test
+            run: make test

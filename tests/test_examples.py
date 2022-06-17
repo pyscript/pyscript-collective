@@ -33,9 +33,15 @@ LOADING_MESSAGES = [
 ]
 
 EXAMPLES = [
+    "hello_world"
 ]
 
 TEST_PARAMS = {
+    "hello_world": {
+        "file": "hello_world.html",
+        "pattern": "\\d+/\\d+/\\d+, \\d+:\\d+:\\d+",
+        "title": "PyScript Hello World",
+    },
 }
 
 
