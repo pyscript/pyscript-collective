@@ -26,5 +26,5 @@ jobs:
         -   name: Setup Environment
             run: make setup
 
-        -   name: Build and Test
+        -   name: Test
             run: make test
