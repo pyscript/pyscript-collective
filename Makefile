@@ -2,7 +2,7 @@ tag := latest
 git_hash ?= $(shell git log -1 --pretty=format:%h)
 
 CONDA_EXE := conda
-CONDA_ENV ?= /Users/mariana/miniconda3/envs/test
+CONDA_ENV ?= ./env
 env := $(CONDA_ENV)
 conda_run := $(CONDA_EXE) run -p $(env)
 
