@@ -1,0 +1,31 @@
+name: Bug Report
+description: Create a report to help us improve
+labels: ["type: bug", "needs-triage"]
+body:
+-   type: markdown
+    attributes:
+        value: |
+            Thanks for helping PyScript be amazing. We are nothing without people like you helping build a better community 💐!
+-   type: checkboxes
+    id: checks
+    attributes:
+        label: Checklist
+        description: Please confirm and check all the following options.
+        options:
+        -   label: I added a descriptive title
+            required: true
+        -   label: I searched for other issues and couldn't find a solution or duplication
+            required: true
+-   type: textarea
+    id: what-happened
+    attributes:
+        label: What happened?
+        description: And what should have happened instead? This really helps everyone review quicker and greatly increases the chance that someone can get around to solve your issue
+        placeholder: Tell us what you see!
+    validations:
+        required: true
+-   type: textarea
+    id: context
+    attributes:
+        label: Additional Context
+        description: Add any additional context information or screenshots you think are useful.
