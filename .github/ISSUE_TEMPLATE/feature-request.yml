@@ -1,0 +1,51 @@
+name: Feature Request
+description: Create a feature request to make PyScript even better
+labels: ["type: enhancement", "needs-triage"]
+body:
+-   type: markdown
+    attributes:
+        value: |
+            Thanks for helping PyScript be amazing. We are nothing without people like you helping build a better community 💐!
+
+            Lets make sure you are in the right place! If you have an idea/request for PyScript Core(the software, not the community aspect of it) please head over to the [core repository](https://github.com/pyscript/pyscript).
+
+-   type: checkboxes
+    id: checks
+    attributes:
+        label: Checklist
+        description: Please confirm and check all the following options
+        options:
+        -   label: I added a descriptive title
+            required: true
+        -   label: I searched for other feature requests and couldn't find a duplicate (including also the ``type-feature`` tag)
+            required: true
+        -   label: I confirmed that it's not related to another project area (see the above section)
+            required: true
+-   type: textarea
+    id: request-idea
+    attributes:
+        label: What is the idea?
+        description: Describe what the feature is and the desired state
+        placeholder: This feature would allow any user of PyScript to type in a simple command in the console and show all variables currently in use
+    validations:
+        required: true
+-   type: textarea
+    id: why
+    attributes:
+        label: Why is this needed
+        description: |
+            Who would benefit from this and why would this add value to them? What problem does this solve?
+        placeholder: This would benefit users who would like to see what is being used so they can learn and debug faster
+-   type: textarea
+    id: what
+    attributes:
+        label: What should happen?
+        description: |
+            What should be the user experience with the feature? Describe from a user perpective what they would do and see
+        placeholder: A user would type in ``PyScript debug`` in the browser console and see a list of all variables created.
+-   type: textarea
+    id: context
+    attributes:
+        label: Additional Context
+        description: |
+            Is there any other information that you think would be valuable for the team to know?
