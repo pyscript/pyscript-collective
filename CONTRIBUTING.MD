@@ -6,7 +6,8 @@ This file will guide you through how to make your first community contribution, 
 
 The intention set for this repository is for it to be a place that's built by the community to serve the community. We want contributors to take ownership of tasks like onboarding new folks, co-maintaining examples and supporting them, and enriching this repository with their own perspectives. It's a space for users and contributors to discuss how the community should be shaped.
 
-### Table of contents:
+## Table of contents
+
 
 - **[Contributing a new example](Contributing-a-new-example)**
     - **[Recommended guidelines for an example](Recommended-guidelines-for-an-example)**
@@ -41,7 +42,7 @@ Adding docs:
 PyScript strives to be accessible to beginners, if you're writing code that might be confusing please add comments explaining your choices.
 If you need to write further docs for your program feel free to create a `README.md` file with instructions about installation, use and other details on how to run your example.
 
-#### Running tests
+#### Running the tests
 
 To run the tests it's necessary to have a local build of PyScript running, you can learn more about it in the [PyScript docs](https://docs.pyscript.net/latest/).
 
@@ -53,7 +54,13 @@ Remember to have the right path set up for your `css` and `script` tags. They sh
 
 The PyScript Collective also welcomes contributions like blog posts, videos, video tutorials, podcasts, and all of the amazing things our community is putting out there.
 
-The contributions in this topic are more similar to what an `awesome-page` would look like. If you want to add a new kind of contribution that wasn't laid out on the [README](README.md) yet, feel free to do so.
+The contributions in this topic are more similar to what an `awesome-page` would look like.
+
+*If you want to add a new kind of contribution that wasn't laid out on the [README](README.md) yet, feel free to do so.*
+
+#### Recommended guidelines for a resource
+
+TBD
 
 ### Reporting a bug
 
@@ -63,4 +70,3 @@ Please follow the guidelines on the Issue template.
 ### Opening an enhancement issue
 
 Would you like to propose an enhancement to this repository, feel free to open an enhancement proposal issue. Please follow the guidelines on the Issue template.
-
