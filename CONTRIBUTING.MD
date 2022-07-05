@@ -8,17 +8,13 @@ The intention set for this repository is for it to be a place that's built by th
 
 ## Table of contents
 
-
-- **[Contributing a new example](Contributing-a-new-example)**
-    - **[Recommended guidelines for an example](Recommended-guidelines-for-an-example)**
-    - **[Running the tests](Running-the-tests)**
-    
-- **[Contributing a new resource](Contributing-a-new-resource)**
-    - **Recommended guidelines for a resource**
-    
-- **[Reporting a bug](Reporting-a-bug)**
-
-- **[Opening an enhancement issue](Opening-an-enhancement-issue)**
+- **[Contributing a new example](#contributing-a-new-example)**
+  - **[Recommended guidelines for an example](#recommended-guidelines-for-an-example)**
+  - **[Running the tests](#running-the-tests)**
+- **[Contributing a new resource](#contributing-a-new-resource)**
+  - **[Recommended guidelines for a resource](#recommended-guidelines-for-a-resource)**
+- **[Reporting a bug](#reporting-a-bug)**
+- **[Opening an enhancement issue](#opening-an-enhancement-issue)**
 
 ### Contributing a new example
 
@@ -26,21 +22,21 @@ We try not to have strong boundaries in what kinds of contributions are accepted
 
 #### Recommended guidelines for an example
 
-Here are some great general examples of what a good contribution might be(not restrict:
+- Here are some great general examples of what a good contribution might be (not restrictive)
 
-- it showcases PyScript power to leverage other tools (either from the JavaScript or the Python ecosystem)
-- it expands on the PyScript documentation, making the use of PyScript clearer to users
-- it offers engaging educational material
+  - it showcases PyScript power to leverage other tools (either from the JavaScript or the Python ecosystem)
+  - it expands on the PyScript documentation, making the use of PyScript clearer to users
+  - it offers engaging educational material
 
-Adding meta-data:
+- Adding meta-data
 
-- adding tags to your example will help us organize this repository in a much more meaningful way. Example tags come at the beginning of your main `HTML` file in the form of a comment. See the [example](examples/hello_world.html)
-- you're also welcome to add your email or name or other forms of contact information in the header at the beginning of the file. See the [example](examples/hello_world.html)
+  - adding tags to your example will help us organize this repository in a much more meaningful way. Example tags come at the beginning of your main `HTML` file in the form of a comment. See the [example](examples/hello_world.html)
+  - you're also welcome to add your email or name or other forms of contact information in the header at the beginning of the file. See the [example](examples/hello_world.html)
 
-Adding docs:
+- Adding docs
 
-PyScript strives to be accessible to beginners, if you're writing code that might be confusing please add comments explaining your choices.
-If you need to write further docs for your program feel free to create a `README.md` file with instructions about installation, use and other details on how to run your example.
+  - PyScript strives to be accessible to beginners. If you're writing code that might be confusing, please add comments explaining your choices.
+  - If you need to write further docs for your program, feel free to create a `README.md` file with instructions about installation, use, and other details on how to run your example.
 
 #### Running the tests
 
@@ -65,6 +61,7 @@ TBD
 ### Reporting a bug
 
 You can contribute a bug you found on the tests, examples, or any other technical part of the infrastructure of this repository.
+
 Please follow the guidelines on the Issue template.
 
 ### Opening an enhancement issue
