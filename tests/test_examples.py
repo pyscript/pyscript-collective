@@ -33,7 +33,8 @@ LOADING_MESSAGES = [
 ]
 
 EXAMPLES = [
-    "hello_world"
+    "hello_world",
+    "bouncy-bubbles-p5js",
 ]
 
 TEST_PARAMS = {
@@ -41,6 +42,11 @@ TEST_PARAMS = {
         "file": "hello_world.html",
         "pattern": "\\d+:\\d+:\\d+",
         "title": "PyScript Hello World",
+    },
+    "bouncy-bubbles-p5js": {
+        "file": "bouncy-bubbles-p5js/index.html",
+        "pattern": "false",
+        "title": "Bouncy Bubbles",
     },
 }
 
@@ -87,16 +93,17 @@ def test_examples(example, http_server):
         # DOM from within the timing loop for a string that is not present in the
         # initial markup but should appear by way of rendering
 
-        re_sub_content = re.compile(TEST_PARAMS[example]["pattern"])
-        py_rendered = False  # Flag to be set to True when condition met
+        if TEST_PARAMS[example]["pattern"] != "false":
+            re_sub_content = re.compile(TEST_PARAMS[example]["pattern"])
+            py_rendered = False  # Flag to be set to True when condition met
 
-        for _ in range(TEST_ITERATIONS):
-            time.sleep(TEST_TIME_INCREMENT)
-            content = page.inner_html("*")
-            if re_sub_content.search(content):
-                py_rendered = True
-                break
+            for _ in range(TEST_ITERATIONS):
+                time.sleep(TEST_TIME_INCREMENT)
+                content = page.inner_html("*")
+                if re_sub_content.search(content):
+                    py_rendered = True
+                    break
 
-        assert py_rendered  # nosec
+            assert py_rendered  # nosec
 
         browser.close()
