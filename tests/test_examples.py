@@ -33,7 +33,8 @@ LOADING_MESSAGES = [
 ]
 
 EXAMPLES = [
-    "hello_world"
+    "hello_world",
+    "dna",
 ]
 
 TEST_PARAMS = {
@@ -42,6 +43,11 @@ TEST_PARAMS = {
         "pattern": "\\d+:\\d+:\\d+",
         "title": "PyScript Hello World",
     },
+    "dna":{
+        "file":"/dna/index.html",
+        "pattern":"Get Result",
+        "title": "dna",
+    }
 }
 
 
