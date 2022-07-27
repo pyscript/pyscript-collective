@@ -33,7 +33,8 @@ LOADING_MESSAGES = [
 ]
 
 EXAMPLES = [
-    "hello_world"
+    "hello_world",
+    "compound",
 ]
 
 TEST_PARAMS = {
@@ -41,6 +42,11 @@ TEST_PARAMS = {
         "file": "hello_world.html",
         "pattern": "\\d+:\\d+:\\d+",
         "title": "PyScript Hello World",
+    },
+    "compound": {
+        "file": "interest_calculator/index.html",
+        "pattern": "Calculate",
+        "title": "compound",
     },
 }
 
