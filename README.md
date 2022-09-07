@@ -7,3 +7,11 @@ We strive to make people feel valued and valuable and we hope to make lots of it
 ## Index
 
 [Examples]()
+
+## Resources
+
+* [PyScript Repository](https://github.com/pyscript/pyscript)
+* [Home Page](https://pyscript.net/)
+* [Discussion Board](https://community.anaconda.cloud/c/tech-topics/pyscript)
+* [Blog Post](https://engineering.anaconda.com/2022/04/welcome-pyscript.html)
+* [Stack Overflow](https://stackoverflow.com/questions/tagged/PyScript)
