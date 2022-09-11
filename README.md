@@ -6,7 +6,7 @@ We strive to make people feel valued and valuable and we hope to make lots of it
 
 ## Index
 
-[Examples]()
+TODO Link to Examples
 
 ## Resources
 
@@ -15,3 +15,8 @@ We strive to make people feel valued and valuable and we hope to make lots of it
 * [Discussion Board](https://community.anaconda.cloud/c/tech-topics/pyscript)
 * [Blog Post](https://engineering.anaconda.com/2022/04/welcome-pyscript.html)
 * [Stack Overflow](https://stackoverflow.com/questions/tagged/PyScript)
+
+<!-- github-only -->
+
+[license]: https://github.com/pyscript/pyscript-collective/blob/main/LICENSE
+[contributor guide]: https://github.com/pyscript/pyscript-collective/blob/main/CONTRIBUTING.md
