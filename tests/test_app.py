@@ -1,11 +1,11 @@
 """Test the Starlette web app for browsing examples."""
-from starlette.testclient import TestClient
 
-from psc.app import app
+from psc.fixtures import PageT
 
 
-def test_index_page() -> None:
-    """Test the view for the index route."""
-    client = TestClient(app)
-    response = client.get("/")
-    assert response.status_code == 200
+def test_index_page(client_page: PageT) -> None:
+    """See if the HTML returned by the home page matches expectations."""
+    soup = client_page("/")
+    p = soup.select_one("title")
+    if p:
+        assert p.text == "Custom Elements"

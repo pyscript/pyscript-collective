@@ -161,6 +161,8 @@ def mypy(session: Session) -> None:
         "jinja2",
         "markdown-it-py",
         "python-frontmatter",
+        "requests",
+        "types-requests",
     )
     session.run("mypy", *args)
 

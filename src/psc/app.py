@@ -1,5 +1,4 @@
 """Provide a web server to browse the examples."""
-from pathlib import Path
 
 from starlette.applications import Starlette
 from starlette.requests import Request
@@ -8,8 +7,7 @@ from starlette.routing import Mount
 from starlette.routing import Route
 from starlette.staticfiles import StaticFiles
 
-
-HERE = Path(__file__).parent
+from . import STATIC
 
 
 def index_page(request: Request) -> HTMLResponse:
@@ -19,7 +17,7 @@ def index_page(request: Request) -> HTMLResponse:
 
 routes = [
     Route("/", index_page),
-    Mount("/static", StaticFiles(directory=HERE / "static")),
+    Mount("/static", StaticFiles(directory=STATIC)),
 ]
 
 app = Starlette(debug=True, routes=routes)
