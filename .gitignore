@@ -141,3 +141,5 @@ node_modules/
 /.nox/
 /dist/
 /docs/_build/
+/src/psc/pyodide/
+/src/psc/pyscript/

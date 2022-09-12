@@ -1,9 +1,7 @@
 """PyScript Collective."""
 
-from pathlib import Path
+__all__ = [
+    "app",
+]
 
-
-# Paths that can be referenced anywhere and get the right target.
-
-SRC = Path(__file__).parent
-STATIC = SRC / "static"
+from .app import app

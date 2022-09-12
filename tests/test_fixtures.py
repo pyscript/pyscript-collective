@@ -7,7 +7,7 @@ from playwright.sync_api import Page
 from playwright.sync_api import Route
 from starlette.testclient import TestClient
 
-from psc import STATIC
+from psc.here import STATIC
 from psc.fixtures import DummyPage
 from psc.fixtures import DummyRequest
 from psc.fixtures import DummyResponse

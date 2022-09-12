@@ -14,7 +14,7 @@ from playwright.sync_api import Route
 from requests.models import Response
 from starlette.testclient import TestClient
 
-from psc import SRC
+from psc.here import HERE
 from psc.app import app
 
 
@@ -144,7 +144,7 @@ def route_handler(page: Page, route: Route) -> None:
     headers = dict()
     if is_fake:
         # We should read something from the filesystem
-        this_fs_path = SRC / this_path
+        this_fs_path = HERE / this_path
         if this_fs_path.exists():
             status = 200
             mime_type = guess_type(this_fs_path)[0]
@@ -178,5 +178,5 @@ def fake_page(page: Page) -> Page:  # pragma: no cover
     page.route("**", _route_handler)
 
     # Don't spend 30 seconds on timeout
-    page.set_default_timeout(4000)
+    page.set_default_timeout(8000)
     return page
