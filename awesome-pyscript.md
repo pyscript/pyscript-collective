@@ -19,6 +19,8 @@ Ongoing sources of articles, videos, and more.
 - [PyScript in-depth articles](https://www.jhanley.com/blog/category/pyscript/) by [John Hanley](https://twitter.com/NeoPrimeAws). 
 John has many useful articles discussing using PyScript in an app, what happens under the hood, and more.
 
+- [PyScript tutorial YouTube playlist](https://www.youtube.com/playlist?list=PLpdmBGJ6ELUJ2ujkBcMQ3n0D2J2exAVTs) multi-part video series by [@1littlecoder](https://twitter.com/1littlecoder) 
+
 ## Talks, Videos, Podcasts
 
 Resources recommended by people in the PyScript community.
