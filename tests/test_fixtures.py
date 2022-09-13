@@ -7,7 +7,6 @@ from playwright.sync_api import Page
 from playwright.sync_api import Route
 from starlette.testclient import TestClient
 
-from psc.here import STATIC
 from psc.fixtures import DummyPage
 from psc.fixtures import DummyRequest
 from psc.fixtures import DummyResponse
@@ -16,6 +15,7 @@ from psc.fixtures import MockTestClient
 from psc.fixtures import PageT
 from psc.fixtures import mocked_client_page
 from psc.fixtures import route_handler
+from psc.here import STATIC
 
 
 def test_test_client(test_client: TestClient) -> None:

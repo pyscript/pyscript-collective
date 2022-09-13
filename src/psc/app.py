@@ -1,33 +1,49 @@
 """Provide a web server to browse the examples."""
+from pathlib import Path
 
 from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import FileResponse
-from starlette.responses import HTMLResponse
 from starlette.routing import Mount
 from starlette.routing import Route
 from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
+from starlette.templating import _TemplateResponse
 
-from .here import HERE, PYSCRIPT
-from .here import PYODIDE
-from .here import STATIC
+from psc.here import PYODIDE
+from psc.here import PYSCRIPT
+from psc.here import STATIC
+
+
+HERE = Path(__file__).parent
+templates = Jinja2Templates(directory=HERE / "templates")
 
 
 async def favicon(request: Request) -> FileResponse:
-    """Route just for serving the favicon."""
+    """Handle the favicon."""
     return FileResponse(HERE / "favicon.png")
 
 
-def index_page(request: Request) -> HTMLResponse:
+async def homepage(request: Request) -> _TemplateResponse:
     """Handle the home page."""
-    return HTMLResponse("<h1>Hello, world!</h1>")
+    index_file = HERE / "index.html"
+
+    return templates.TemplateResponse(
+        "page.jinja2",
+        dict(
+            title="Home Page",
+            main=index_file.read_text(),
+            request=request,
+        ),
+    )
 
 
 routes = [
-    Route("/", index_page),
-    Mount("/static", StaticFiles(directory=STATIC)),
+    Route("/", homepage),
+    Route("/index.html", homepage),
     Route("/favicon.png", favicon),
     Mount("/examples", StaticFiles(directory=HERE / "examples")),
+    Mount("/static", StaticFiles(directory=STATIC)),
     Mount("/pyscript", StaticFiles(directory=PYSCRIPT)),
     Mount("/pyodide", StaticFiles(directory=PYODIDE)),
 ]

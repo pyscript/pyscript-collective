@@ -9,7 +9,20 @@ def test_index_page(client_page: PageT) -> None:
     soup = client_page("/")
     p = soup.select_one("title")
     if p:
-        assert p.text == "Custom Elements"
+        assert p.text == "Home Page | PyScript Collective"
+    main = soup.select_one("main")
+    assert main
+
+
+def test_bulma_css(client_page: PageT, test_client: TestClient) -> None:
+    """Get the home page, find the stylesheet link to Bulma, ensure it returns."""
+    soup = client_page("/")
+    stylesheet = soup.select_one("link[rel='stylesheet']")
+    if stylesheet:
+        href = stylesheet.attrs["href"]
+        assert href == "/static/bulma.min.css"
+        response = test_client.get(href)
+        assert response.status_code == 200
 
 
 def test_favicon(test_client: TestClient) -> None:

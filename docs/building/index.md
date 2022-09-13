@@ -30,4 +30,5 @@ proper_package
 cmd_runner
 playwright
 first_pyscript
+bulma
 ```

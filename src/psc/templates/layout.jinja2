@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }} | PyScript Collective</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/static/bulma.min.css">
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img alt="Logo" src="/static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="/">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item">
+                Home
+            </a>
+            <a class="navbar-item">
+                Examples
+            </a>
+        </div>
+    </div>
+</nav>
+{% block main %}
+{% endblock %}
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>
