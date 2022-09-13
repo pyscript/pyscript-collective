@@ -9,8 +9,26 @@ def test_hello_world(client_page: PageT) -> None:
     """Test the static HTML for Hello World."""
     soup = client_page("/examples/hello_world/index.html")
     title = soup.select_one("title")
-    if title:
-        assert title.text == "PyScript Hello World"
+    assert title
+    assert title.text == "Hello World | PyScript Collective"
+
+    # See if extra_head got filled, then resolve those
+    assert soup.find_all("link", href="hello_world.css")
+    assert soup.find_all("script", src="hello_world.js")
+
+    # Ensure the ``<main>`` got filled
+    assert soup.select_one("main")
+
+    # Only one <py-config>, pointing to local runtime
+    py_configs = soup.select("py-config")
+    assert len(py_configs) == 1
+
+    # The <py-script> is present
+    py_scripts = soup.select("py-script")
+    assert len(py_scripts) == 1
+
+    # The tracer <h6> is not present
+    assert not soup.select("h6")
 
 
 @pytest.mark.full
