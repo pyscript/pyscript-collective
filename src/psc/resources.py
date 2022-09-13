@@ -8,6 +8,7 @@ from pathlib import Path
 from pathlib import PurePath
 from typing import cast
 
+import frontmatter
 from bs4 import BeautifulSoup
 from bs4 import Tag
 from markdown_it import MarkdownIt
@@ -131,10 +132,28 @@ class Example(Resource):
 
 
 @dataclass
+class Page(Resource):
+    """A Markdown+frontmatter driven content page."""
+
+    body: str = ""
+
+    def __post_init__(self) -> None:
+        """Extract content from Markdown file."""
+        md_file = HERE / "pages" / f"{self.path}.md"
+        if not md_file.exists():
+            raise ValueError(f"No page at {self.path}")
+        md_fm = frontmatter.load(md_file)
+        self.title = md_fm["title"]
+        md = MarkdownIt()
+        self.body = str(md.render(md_fm.content))
+
+
+@dataclass
 class Resources:
     """Container for all resources in site."""
 
     examples: dict[PurePath, Example] = field(default_factory=dict)
+    pages: dict[PurePath, Page] = field(default_factory=dict)
 
 
 def get_resources() -> Resources:
@@ -148,4 +167,13 @@ def get_resources() -> Resources:
         this_path = PurePath(example.name)
         this_example = Example(path=this_path)
         resources.examples[this_path] = this_example
+
+    # Load the Pages
+    pages_dir = HERE / "pages"
+    pages = [e for e in pages_dir.iterdir()]
+    for page in pages:
+        this_path = PurePath(page.stem)
+        this_page = Page(path=this_path)
+        resources.pages[this_path] = this_page
+
     return resources

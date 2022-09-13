@@ -1,4 +1,7 @@
 {% extends "layout.jinja2" %}
 {% block main %}
-    {{ main | safe }}
+    <main id="main_container" class="container">
+        <h1 class="title is-1">{{ title }}</h1>
+        {{ main | safe }}
+    </main>
 {% endblock %}

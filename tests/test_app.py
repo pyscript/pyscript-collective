@@ -12,8 +12,8 @@ def test_index_page(client_page: PageT) -> None:
     title = soup.select_one("title")
     if title:
         assert title.text == "Home Page | PyScript Collective"
-    main = soup.select_one("main")
-    assert main
+    section = soup.select_one("section")
+    assert section
 
 
 def test_bulma_css(client_page: PageT, test_client: TestClient) -> None:
@@ -35,7 +35,7 @@ def test_favicon(test_client: TestClient) -> None:
 
 def test_examples(test_client: TestClient) -> None:
     """Ensure the app provides an /examples/ route."""
-    response = test_client.get("/examples/hello_world/index.html")
+    response = test_client.get("/gallery/hello_world/index.html")
     assert response.status_code == 200
 
 
@@ -43,7 +43,7 @@ def test_examples_listing(client_page: PageT) -> None:
     """Ensure the route lists the examples."""
     # First get the URL from the navbar.
     index_soup = client_page("/")
-    nav_examples = index_soup.select_one("#navbarExamples")
+    nav_examples = index_soup.select_one("#navbarGallery")
     assert nav_examples
     examples_href = nav_examples.get("href")
     assert examples_href
@@ -53,7 +53,7 @@ def test_examples_listing(client_page: PageT) -> None:
     # Example title
     examples_title = examples_soup.select_one("title")
     assert examples_title
-    assert examples_title.text == "Examples | PyScript Collective"
+    assert examples_title.text == "Gallery | PyScript Collective"
 
     # Example subtitle
     subtitle = examples_soup.select_one("p.subtitle")
@@ -69,7 +69,7 @@ def test_examples_listing(client_page: PageT) -> None:
     first_example = examples_soup.select_one("p.title a")
     assert first_example
     first_href = first_example.get("href")
-    assert first_href == "/examples/hello_world/"
+    assert first_href == "/gallery/hello_world/"
     hello_soup = client_page(first_href)
     assert hello_soup
     title = hello_soup.select_one("title")

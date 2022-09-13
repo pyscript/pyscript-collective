@@ -3,6 +3,10 @@ body {
     font-size: x-large;
 }
 
+#navbar {
+    margin-left: 2rem;
+}
+
 #main_container {
     margin-top: 3rem;
     margin-bottom: 3rem;

@@ -8,7 +8,7 @@ from psc.fixtures import PageT
 
 def test_hello_world(client_page: PageT) -> None:
     """Test the static HTML for Hello World."""
-    soup = client_page("/examples/hello_world/")
+    soup = client_page("/gallery/hello_world/")
 
     # Title and subtitle
     title = soup.select_one("title")
@@ -42,7 +42,7 @@ def test_hello_world(client_page: PageT) -> None:
 
 def test_hello_world_js(test_client: TestClient) -> None:
     """Test the static assets for Hello World."""
-    response = test_client.get("/examples/hello_world/hello_world.js")
+    response = test_client.get("/gallery/hello_world/hello_world.js")
     assert response.status_code == 200
 
 

@@ -21,23 +21,22 @@
         </a>
     </div>
 
-    <div class="navbar-menu">
+    <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item">
-                Home
+            <a id="navbarGallery" class="navbar-item" href="/gallery">
+                Gallery
             </a>
-            <a id="navbarExamples" class="navbar-item" href="/examples">
-                Examples
+            <a id="navbarAbout" class="navbar-item" href="/pages/about">
+                About
             </a>
         </div>
     </div>
+
 </nav>
 {% block extra_body %}
 {% endblock %}
-<main id="main_container" class="container">
-    {% block main %}
-    {% endblock %}
-</main>
+{% block main %}
+{% endblock %}
 <footer class="footer">
     <div class="content has-text-centered">
         <p>
