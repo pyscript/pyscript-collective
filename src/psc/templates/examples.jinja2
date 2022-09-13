@@ -1,0 +1,16 @@
+{% extends "layout.jinja2" %}
+{% block main %}
+    <div class="tile is-ancestor">
+        {% for example in examples %}
+            <div class="tile is-parent is-4">
+                <article class="tile is-child box">
+                    <p class="title"><a href="/examples/{{ example.path.name }}/">{{ example.title }}</a></p>
+                    <p class="subtitle">{{ example.subtitle }}</p>
+                    <div class="content">
+                        {{ example.description | safe }}
+                    </div>
+                </article>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

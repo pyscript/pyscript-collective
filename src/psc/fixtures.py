@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from mimetypes import guess_type
 from typing import Callable
+from typing import Generator
 from urllib.parse import urlparse
 
 import pytest
@@ -45,18 +46,17 @@ PageT = Callable[..., BeautifulSoup]
 
 
 @pytest.fixture
-def test_client() -> TestClient:
-    """Get a TestClient for the app."""
-    return TestClient(app)
+def test_client() -> Generator[TestClient, None, None]:
+    """Return the app in a context manager to allow lifecyle to run."""
+    with TestClient(app) as client:
+        yield client
 
 
 def _base_page(client: TestClient | MockTestClient) -> PageT:
     """Automate ``TestClient`` to return BeautifulSoup.
 
-    Along the way, default to raising an exception if the status
-    code isn't 200.
+    Default to raising an exception if the status code isn't 200.
     """
-    # Allow passing in a fake TestClient, for testing this fixture.
 
     def _page(url: str, *, enforce_status: bool = True) -> BeautifulSoup:
         """Callable that retrieves and returns soup."""

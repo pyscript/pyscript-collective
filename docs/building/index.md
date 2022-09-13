@@ -32,4 +32,5 @@ playwright
 first_pyscript
 bulma
 examples_template
+resource_listing
 ```

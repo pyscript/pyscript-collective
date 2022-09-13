@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }} | PyScript Collective</title>
     <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/static/psc.css">
     <link rel="stylesheet" href="/static/bulma.min.css">
     {% block extra_head %}
     {% endblock %}
@@ -25,7 +26,7 @@
             <a class="navbar-item">
                 Home
             </a>
-            <a class="navbar-item">
+            <a id="navbarExamples" class="navbar-item" href="/examples">
                 Examples
             </a>
         </div>
@@ -33,8 +34,10 @@
 </nav>
 {% block extra_body %}
 {% endblock %}
-{% block main %}
-{% endblock %}
+<main id="main_container" class="container">
+    {% block main %}
+    {% endblock %}
+</main>
 <footer class="footer">
     <div class="content has-text-centered">
         <p>

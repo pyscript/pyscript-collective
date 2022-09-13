@@ -1,12 +1,13 @@
 {% extends "layout.jinja2" %}
 {% block extra_head %}
+    <meta name="subtitle" content="{{ subtitle }}" >
     <script defer src="/pyscript/pyscript.js"></script>
     {{ extra_head | safe }}{% endblock %}
 {% block extra_body %}
     <py-config>
         autoclose_loader: true
         runtimes:
-        - src: "/static/pyodide.js"
+        - src: "/pyodide/pyodide.js"
         name: pyodide-0.20
         lang: python
     </py-config>
