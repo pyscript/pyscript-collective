@@ -4,6 +4,8 @@ File a ticket or even better -- send a PR!
 
 ## Apps and Uses
 
+- [Emojis and Algorithms](https://github.com/kolibril13/pyscript-emoji-skimage) by [Jan-Hendrik Müller](https://twitter.com/kolibril13) and based on a demo by Jeff Glass (Sep 2022)
+
 - [Pandas cheat sheet](https://pandas.dylancastillo.co) by [Dylan Castillo](https://twitter.com/_dylancastillo) (Aug 2022)
 
 - [MySTyc online converter](https://github.com/astrojuanlu/mystyc) by [Juan Luis Cano Rodríguez](https://twitter.com/juanluisback) (Aug 2022)
@@ -16,6 +18,7 @@ File a ticket or even better -- send a PR!
 
 Ongoing sources of articles, videos, and more.
 
+- [Articles and demos](https://jeff.glass/tags/pyscript/) by [Jeff Glass](https://twitter.com/jeffersglass) 
 - [PyScript in-depth articles](https://www.jhanley.com/blog/category/pyscript/) by [John Hanley](https://twitter.com/NeoPrimeAws). 
 John has many useful articles discussing using PyScript in an app, what happens under the hood, and more.
 
