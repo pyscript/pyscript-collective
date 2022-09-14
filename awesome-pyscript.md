@@ -31,6 +31,12 @@ Not a listing of everything -- only a few "first look" videos included.
 
 - [Inside the PyScript Source](https://www.youtube.com/watch?v=SqNNLssFzm4) video by [Paul Everitt](https://twitter.com/paulweveritt/status) (May 2022)
 
+## Other
+
+- [PyScript Discord Server](https://discord.me/tynfpgrwda) for hanging out with other PyScript folks
+
+- [Anaconda Community PyScript Channel](https://community.anaconda.cloud/c/tech-topics/pyscript/41) for questions, answers, announcements
+
 ## First Impression Videos
 
 In the month after launch, there were a number of "first impression" walkthroughs.
