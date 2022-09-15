@@ -19,6 +19,7 @@ File a ticket or even better -- send a PR!
 Ongoing sources of articles, videos, and more.
 
 - [Articles and demos](https://jeff.glass/tags/pyscript/) by [Jeff Glass](https://twitter.com/jeffersglass) 
+- GIS and data science [PyScript tutorials](https://geo.rocks/categories/pyscript/) by [Dominik Weckmüller](https://twitter.com/domegis)
 - [PyScript in-depth articles](https://www.jhanley.com/blog/category/pyscript/) by [John Hanley](https://twitter.com/NeoPrimeAws). 
 John has many useful articles discussing using PyScript in an app, what happens under the hood, and more.
 
