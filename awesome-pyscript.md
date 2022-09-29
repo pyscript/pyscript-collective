@@ -4,6 +4,9 @@ File a ticket or even better -- send a PR!
 
 ## Apps and Uses
 
+- [Train XGBoost in browser](https://www.trainxgb.com) by [Bojan Tunguz](https://twitter.com/tunguz) ([tweet thread](https://twitter.com/tunguz/status/1575466256634986497)) (Sep 2022)
+- [django-templates-live](https://github.com/thibaudcolas/django-templates-live) by []() is Live demo environment for Django Templates fully rendered in the browser, with PyScript (Sep 2022)
+
 - [Emojis and Algorithms](https://github.com/kolibril13/pyscript-emoji-skimage) by [Jan-Hendrik Müller](https://twitter.com/kolibril13) and based on a demo by Jeff Glass (Sep 2022)
 
 - [Pandas cheat sheet](https://pandas.dylancastillo.co) by [Dylan Castillo](https://twitter.com/_dylancastillo) (Aug 2022)
@@ -29,6 +32,8 @@ John has many useful articles discussing using PyScript in an app, what happens 
 
 Resources recommended by people in the PyScript community.
 Not a listing of everything -- only a few "first look" videos included.
+
+- [Rethinking Data Visualization with PyScript](https://youtu.be/Xd-tmhdLJp0) by [Valerio Maggio](https://twitter.com/leriomaggio) (July 2022)
 
 - [JupyterLite at EuroSciPy](https://twitter.com/sklearn_inria/status/1564524486057132032) ([repo](https://github.com/Vincent-Maladiere/scipy-demo)) by Vincent Maladiére and taught by 
 [@ogrisel](https://twitter.com/ogrisel) (Aug 2022)
