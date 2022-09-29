@@ -1,6 +1,9 @@
+# Awesome PyScript
+
 A curated list of awesome things related to PyScript.
-Got a submission?
-File a ticket or even better -- send a PR!
+
+Got something to list in Awesome PyScript?
+[File a ticket](https://github.com/pyscript/pyscript-collective/issues/new?assignees=&labels=type%3A+misc%2Cneeds-triage&template=misc.yml) or better still, send us a pull request.
 
 ## Apps and Uses
 
