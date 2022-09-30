@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <title>Running the Gallery</title>
+    <meta name="subtitle" content="Different ways to run the Gallery for different kinds of uses.">
+</head>
+<body>
+<p>The PyScript Gallery is a website with browseable, runnable examples.</p>
+<p>But wait -- it's also a running Python <em>application</em>! You can run it with <code>pipx</code> or a local
+    virtualenv! It's also a Python <em>package</em>. You can install it into your own project and run it from there.</p>
+<p>Let's look at the ways different kinds of uses can run the Gallery.</p>
+<section>
+    <a id="viewer"></a>
+    <h2>Viewer</h2>
+    <p>Go to the website, click the link, and PyScript runs the Python code in your browser. Yeh, duh, we all know
+        that.</p>
+</section>
+<section>
+    <a id="coder"></a>
+    <h2>Coder</h2>
+    <p>What if you want to run offline? Or poke around locally? It's a Python package, and <code>pipx</code> makes it
+        easy to run applications. This will fire up a local Starlette server. <em>Everything</em> -- including Pyodide -- will be served
+        locally. (Unless one of the examples has to make an API request.)</p>
+    <p>You'll get the same Gallery you're seeing on the website. It's just statically dumped from Starlette</p>
+</section>
+<section>
+    <a id="contributor"></a>
+    <h1>Contributor</h1>
+    <p>Maybe you're not up on <code>pipx</code>. Or maybe -- just maybe! -- you'd like to create and contribute an example.</p>
+    <p>Use virtualenv or Conda to make a project, install <code>psg</code> as a dependency.</p>
+</section>
+</body>
+</html>

@@ -12,12 +12,24 @@ def test_about_page(client_page: PageT) -> None:
     about_soup = client_page(about_href)
     assert about_soup
 
-    # Page title
+    # Page title/subtitle
     page_title = about_soup.select_one("title")
     assert page_title
-    assert page_title.text == "About PyScript Collective | PyScript Collective"
+    assert page_title.text == "About the PyScript Collective | PyScript Collective"
+    subtitle = about_soup.select_one(".subtitle")
+    assert subtitle and (
+        subtitle.text
+        == "The mission, background, and moving parts about the Collective."
+    )
 
     # Page body
     em = about_soup.select_one("main em")
     assert em
-    assert em.text == "is here"
+    assert em.text == "share"
+
+
+def test_contributing_page(client_page: PageT) -> None:
+    """Loading a Page defined as html works fine."""
+    soup = client_page("/pages/contributing")
+    page_title = soup.select_one("title")
+    assert page_title and "Contributing | PyScript Collective" == page_title.text

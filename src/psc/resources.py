@@ -135,17 +135,36 @@ class Example(Resource):
 class Page(Resource):
     """A Markdown+frontmatter driven content page."""
 
+    subtitle: str = ""
     body: str = ""
 
     def __post_init__(self) -> None:
-        """Extract content from Markdown file."""
+        """Extract content from either Markdown or HTML file."""
         md_file = HERE / "pages" / f"{self.path}.md"
-        if not md_file.exists():
+        html_file = HERE / "pages" / f"{self.path}.html"
+
+        # If this self.path resolves to a Markdown file, use it first
+        if md_file.exists():
+            md_fm = frontmatter.load(md_file)
+            self.title = md_fm.get("title", "")
+            self.subtitle = md_fm.get("subtitle", "")
+            md = MarkdownIt()
+            self.body = str(md.render(md_fm.content))
+        elif html_file.exists():
+            soup = BeautifulSoup(html_file.read_text(), "html5lib")
+            title_node = soup.find("title")
+            if title_node:
+                self.title = title_node.text
+            subtitle_node = soup.select_one('meta[name="subtitle"]')
+            if subtitle_node:
+                assert subtitle_node  # noqa
+                subtitle = cast(str, subtitle_node.get("content", ""))
+                self.subtitle = subtitle
+            body_node = soup.find("body")
+            if body_node and isinstance(body_node, Tag):
+                self.body = body_node.prettify()
+        else:  # pragma: no cover
             raise ValueError(f"No page at {self.path}")
-        md_fm = frontmatter.load(md_file)
-        self.title = md_fm["title"]
-        md = MarkdownIt()
-        self.body = str(md.render(md_fm.content))
 
 
 @dataclass

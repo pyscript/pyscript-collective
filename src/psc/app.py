@@ -86,6 +86,7 @@ async def content_page(request: Request) -> _TemplateResponse:
         "page.jinja2",
         dict(
             title=this_page.title,
+            subtitle=this_page.subtitle,
             main=this_page.body,
             request=request,
         ),

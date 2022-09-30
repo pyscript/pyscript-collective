@@ -121,11 +121,33 @@ def test_example() -> None:
     assert "<py-script>" in this_example.extra_pyscript
 
 
-def test_page() -> None:
+def test_markdown_page() -> None:
     """Make an instance of a Page resource and test it."""
     this_page = Page(path=PurePath("about"))
-    assert this_page.title == "About PyScript Collective"
-    assert "<em>is here</em>" in this_page.body
+    assert this_page.title == "About the PyScript Collective"
+    assert "<h1>Helping" in this_page.body
+
+
+def test_html_page() -> None:
+    """Make an instance of a .html Page resource and test it."""
+    this_page = Page(path=PurePath("contributing"))
+    assert this_page.title == "Contributing"
+    assert this_page.subtitle == "How to get involved in the PyCharm Collective."
+    assert 'id="viewer"' in this_page.body
+
+
+def test_page_optional_subtitle() -> None:
+    """Frontmatter does not specify a subtitle."""
+    this_page = Page(path=PurePath("contact"))
+    assert this_page.title == "Contact Us"
+    assert this_page.subtitle == ""
+
+
+def test_missing_page() -> None:
+    """Make a missing Page resource and test that it raises exception."""
+    with pytest.raises(ValueError) as exc:
+        Page(path=PurePath("xxx"))
+    assert str(exc.value) == "No page at xxx"
 
 
 def test_get_resources() -> None:
@@ -144,5 +166,5 @@ def test_get_resources() -> None:
     # Page
     about_path = PurePath("about")
     about = resources.pages[about_path]
-    assert about.title == "About PyScript Collective"
-    assert "<em>is here</em>" in about.body
+    assert about.title == "About the PyScript Collective"
+    assert "<h1>Helping" in about.body
