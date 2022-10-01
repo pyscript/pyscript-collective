@@ -36,7 +36,7 @@ flake8-docstrings = ">=1.6.0"
 flake8-rst-docstrings = ">=0.2.5"
 furo = ">=2021.11.12"
 isort = ">=5.10.1"
-mypy = ">=0.930"
+mypy = ">=0.981"
 pep8-naming = ">=0.12.1"
 pre-commit = ">=2.16.0"
 pre-commit-hooks = ">=4.1.0"
@@ -87,7 +87,7 @@ show_column_numbers = true
 show_error_codes = true
 show_error_context = true
 files = ["src/psc", "tests"]
-exclude = [".nox", "docs","static","pyodide"]
+exclude = [".nox", "docs","static","pyodide", "src/psc/gallery"]
 no_implicit_optional = true
 
 [[tool.mypy.overrides]]

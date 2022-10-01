@@ -24,12 +24,12 @@ Got something to list in Awesome PyScript?
 
 Ongoing sources of articles, videos, and more.
 
-- [Articles and demos](https://jeff.glass/tags/pyscript/) by [Jeff Glass](https://twitter.com/jeffersglass) 
+- [Articles and demos](https://jeff.glass/tags/pyscript/) by [Jeff Glass](https://twitter.com/jeffersglass)
 - GIS and data science [PyScript tutorials](https://geo.rocks/categories/pyscript/) by [Dominik Weckmüller](https://twitter.com/domegis)
-- [PyScript in-depth articles](https://www.jhanley.com/blog/category/pyscript/) by [John Hanley](https://twitter.com/NeoPrimeAws). 
+- [PyScript in-depth articles](https://www.jhanley.com/blog/category/pyscript/) by [John Hanley](https://twitter.com/NeoPrimeAws).
 John has many useful articles discussing using PyScript in an app, what happens under the hood, and more.
 
-- [PyScript tutorial YouTube playlist](https://www.youtube.com/playlist?list=PLpdmBGJ6ELUJ2ujkBcMQ3n0D2J2exAVTs) multi-part video series by [@1littlecoder](https://twitter.com/1littlecoder) 
+- [PyScript tutorial YouTube playlist](https://www.youtube.com/playlist?list=PLpdmBGJ6ELUJ2ujkBcMQ3n0D2J2exAVTs) multi-part video series by [@1littlecoder](https://twitter.com/1littlecoder)
 
 ## Talks, Videos, Podcasts
 
@@ -38,7 +38,7 @@ Not a listing of everything -- only a few "first look" videos included.
 
 - [Rethinking Data Visualization with PyScript](https://youtu.be/Xd-tmhdLJp0) by [Valerio Maggio](https://twitter.com/leriomaggio) (July 2022)
 
-- [JupyterLite at EuroSciPy](https://twitter.com/sklearn_inria/status/1564524486057132032) ([repo](https://github.com/Vincent-Maladiere/scipy-demo)) by Vincent Maladiére and taught by 
+- [JupyterLite at EuroSciPy](https://twitter.com/sklearn_inria/status/1564524486057132032) ([repo](https://github.com/Vincent-Maladiere/scipy-demo)) by Vincent Maladiére and taught by
 [@ogrisel](https://twitter.com/ogrisel) (Aug 2022)
 
 - [Inside the PyScript Source](https://www.youtube.com/watch?v=SqNNLssFzm4) video by [Paul Everitt](https://twitter.com/paulweveritt/status) (May 2022)
@@ -59,9 +59,9 @@ Here are some of the recommended ones:
 - [PyScript - Deep Dive for Developer](https://www.youtube.com/watch?v=xAtoMtCfR3g) video by [Andrej Baranovskij](https://twitter.com/andrejusb) (May 2022)
 
 - [Python In The Browser! PyScript First Look](https://www.youtube.com/watch?v=vxqBm6_0vyk) video by [Traversy Media](https://twitter.com/traversymedia) (May 2022)
- 
+
 - [Python + pyscript + WebAssembly: Python Web Apps, Running Locally with pyscript](https://www.youtube.com/watch?v=lC2jUeDKv-s) video by [Michael Kennedy](https://twitter.com/mkennedy) (May 2022)
- 
+
 - [PyScript First Impressions - Run Python in HTML Document](https://www.youtube.com/watch?v=yrn1OYu9q0E) long livestream by [Mariya Sha](https://www.pythonsimplified.org) (May 2022)
 
 - [PyCon Keynote](https://www.youtube.com/watch?v=qKfkCY7cmBQ) by [Peter Wang](https://twitter.com/pwang) unveiling PyScript (Apr 2022)

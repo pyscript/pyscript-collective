@@ -34,10 +34,11 @@ def download(
     dry_run: bool = typer.Option(False, "--dry-run")
 ) -> None:  # pragma: no cover
     """Download Pyodide and PyScript distributions into project dir."""
+    http = PoolManager()
+
     # Get Pyodide first
     pyodide_url_prefix = "https://github.com/pyodide/pyodide/releases/download"
     pyodide_url = f"{pyodide_url_prefix}/0.21.3/pyodide-build-0.21.3.tar.bz2"
-    http = PoolManager()
     pyodide_request: HTTPResponse = http.request("GET", pyodide_url)  # type: ignore
     with TemporaryDirectory() as tmp_dir_name:
         os.chdir(tmp_dir_name)
@@ -52,15 +53,19 @@ def download(
             print("Downloaded Pyodide")
 
     # Next, PyScript
-    pyscript_url = "https://pyscript.net/latest/pyscript.js"
-    pyscript_request: HTTPResponse = http.request("GET", pyscript_url)  # type: ignore
-    if not dry_run:
-        target = HERE / "pyscript"
+    filenames = ("pyscript.js", "pyscript.js.map")
+    for fn in filenames:
+        pyscript_url = f"https://pyscript.net/latest/{fn}"
+        pyscript_request: HTTPResponse = http.request(
+            "GET", pyscript_url
+        )  # type: ignore
         if not dry_run:
-            with open(target / "pyscript.js", "wb") as pyscript_output:
-                pyscript_output.write(pyscript_request.data)
+            target = HERE / "pyscript"
+            if not dry_run:
+                with open(target / fn, "wb") as pyscript_output:
+                    pyscript_output.write(pyscript_request.data)
 
-        print("Downloaded PyScript")
+    print("Downloaded PyScript")
 
 
 @app.command()

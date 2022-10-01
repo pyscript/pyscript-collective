@@ -7,5 +7,6 @@ docstring-convention = google
 per-file-ignores =
     tests/*:S101
     src/psc/static/pyscript.py:D100,D101,D102,D103,D107,D200,D212,D415,N802,N806
+    src/psc/gallery/examples/*: F821
 rst-roles = class,const,func,meth,mod,ref
 rst-directives = deprecated
