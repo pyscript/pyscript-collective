@@ -1,0 +1,12 @@
+{% extends "layout.jinja2" %}
+{% block main %}
+    <main id="main_container" class="container">
+        <div class="columns">
+            <div class="column is-three-quarters">
+                <h1 class="title is-1">{{ title }}</h1>
+                <h1 class="subtitle">{{ subtitle }}</h1>
+                <div class="content">{{ main | safe }}</div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

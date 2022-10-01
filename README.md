@@ -24,3 +24,8 @@ Got something to list in Awesome PyScript?
 * [Discussion Board](https://community.anaconda.cloud/c/tech-topics/pyscript)
 * [Blog Post](https://engineering.anaconda.com/2022/04/welcome-pyscript.html)
 * [Stack Overflow](https://stackoverflow.com/questions/tagged/PyScript)
+
+<!-- github-only -->
+
+[license]: https://github.com/pyscript/pyscript-collective/blob/main/LICENSE
+[contributor guide]: https://github.com/pyscript/pyscript-collective/blob/main/CONTRIBUTING.md

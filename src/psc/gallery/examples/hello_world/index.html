@@ -1,0 +1,37 @@
+<!--
+  contributor: example@contributor.me
+  tags: example-tag, another-example
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Hello World</title>
+    <meta name="subtitle" content="The classic hello world, but in Python -- in a browser!">
+
+    <link rel="icon" type="image/png" href="../../../favicon.png">
+    <script defer src="../../../pyscript/pyscript.js"></script>
+    <link rel="stylesheet" href="hello_world.css">
+    <script defer src="hello_world.js"></script>
+</head>
+
+<body>
+<py-config>
+    autoclose_loader = true
+
+    [[runtimes]]
+    src = "../../../pyodide/pyodide.js"
+</py-config>
+<main>
+    <h1>Hello ...</h1>
+    <div id="output"></div>
+</main>
+<h6>More Info</h6>
+<py-script>
+        pyscript.write("output", "...world")
+</py-script>
+</body>
+</html>
