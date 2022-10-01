@@ -73,8 +73,7 @@ async def example(request: Request) -> _TemplateResponse:
             title=this_example.title,
             subtitle=this_example.subtitle,
             extra_head=this_example.extra_head,
-            main=this_example.main,
-            extra_pyscript=this_example.extra_pyscript,
+            body=this_example.body,
             request=request,
         ),
     )
@@ -91,7 +90,7 @@ async def content_page(request: Request) -> _TemplateResponse:
         dict(
             title=this_page.title,
             subtitle=this_page.subtitle,
-            main=this_page.body,
+            body=this_page.body,
             request=request,
         ),
     )

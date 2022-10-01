@@ -65,7 +65,7 @@ def download(
                 with open(target / fn, "wb") as pyscript_output:
                     pyscript_output.write(pyscript_request.data)
 
-    print("Downloaded PyScript")
+            print("Downloaded PyScript")
 
 
 @app.command()

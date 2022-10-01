@@ -54,11 +54,6 @@ def test_examples_listing(client_page: PageT) -> None:
     assert subtitle
     assert "Curated" in subtitle.text
 
-    # Example description
-    description_em = examples_soup.select_one("div.content em")
-    assert description_em
-    assert description_em.text == "hello world"
-
     # Get the first example, follow the link, ensure it is Hello World
     first_example = examples_soup.select_one("p.title a")
     assert first_example

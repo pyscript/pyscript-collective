@@ -4,13 +4,10 @@ from pathlib import PurePath
 import pytest
 from bs4 import BeautifulSoup
 
-from psc.here import HERE
 from psc.resources import Example
 from psc.resources import Page
-from psc.resources import get_description
+from psc.resources import get_body_content
 from psc.resources import get_head_nodes
-from psc.resources import get_main_node_content
-from psc.resources import get_pyscript_nodes
 from psc.resources import get_resources
 from psc.resources import tag_filter
 
@@ -39,20 +36,6 @@ def test_tag_filter(head_soup: BeautifulSoup) -> None:
     assert tag_filter(included_script, exclusions=("pyscript.js",))
 
 
-def test_description_not_present() -> None:
-    """No index.md file in the example folder."""
-    index_html_file = HERE / "examples/xx/index.html"
-    html = get_description(index_html_file)
-    assert html == ""
-
-
-def test_description() -> None:
-    """An index.md file is in the example folder."""
-    index_html_file = HERE / "gallery/examples/hello_world/index.html"
-    html = get_description(index_html_file)
-    assert html == "<p>This is the <em>hello world</em> example.</p>\n"
-
-
 def test_get_head_nodes(head_soup: BeautifulSoup) -> None:
     """Test the little helper for head nodes in the post init."""
     extra_head = get_head_nodes(head_soup)
@@ -70,39 +53,17 @@ def test_get_no_head_nodes() -> None:
     assert extra_head == ""
 
 
-def test_get_no_main() -> None:
-    """Raise a ValueError if there is no main in an example."""
-    example_html = "<body>Hello</body>"
-    soup = BeautifulSoup(example_html, "html5lib")
-    with pytest.raises(ValueError):
-        get_main_node_content(soup)
-
-
 def test_get_main() -> None:
     """Return the main node from an example."""
     example_html = '<body><main class="content">Hello <em>world</em></main></body>'
     soup = BeautifulSoup(example_html, "html5lib")
-    main = get_main_node_content(soup)
-    assert main == "Hello <em>world</em>"
-
-
-def test_get_pyscript_nodes() -> None:
-    """Run the helper to extract the stuff for pyscript."""
-    example_html = """
-<body>
-  <py-config>X</py-config>
-  <py-script>Y</py-config>
-</body>
-    """
-    soup = BeautifulSoup(example_html, "html5lib")
-    pyscript_nodes = get_pyscript_nodes(soup)
-    assert "<py-config>" not in pyscript_nodes
-    assert "<py-script>" in pyscript_nodes
+    body = get_body_content(soup)
+    assert body == '<main class="content">Hello <em>world</em></main>'
 
 
 def test_example_bad_path() -> None:
     """Point at an example that does not exist, get ValueError."""
-    with pytest.raises(ValueError):
+    with pytest.raises(FileNotFoundError):
         Example(path=PurePath("XXXX"))
 
 
@@ -116,9 +77,7 @@ def test_example() -> None:
     )
     assert "hello_world.css" in this_example.extra_head
     assert "hello_world.js" in this_example.extra_head
-    assert "<h1>Hello ...</h1>" in this_example.main
-    assert "<py-config>" not in this_example.extra_pyscript
-    assert "<py-script>" in this_example.extra_pyscript
+    assert "<h1>Hello ...</h1>" in this_example.body
 
 
 def test_markdown_page() -> None:

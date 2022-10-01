@@ -3,19 +3,10 @@
     <meta name="subtitle" content="{{ subtitle }}">
     <script defer src="{{ root_path }}/pyscript/pyscript.js"></script>
     {{ extra_head | safe }}{% endblock %}
-{% block extra_body %}
-    <py-config>
-        autoclose_loader = true
-
-        [[runtimes]]
-        src = "{{ root_path }}/pyodide/pyodide.js"
-    </py-config>
-    {{ extra_pyscript | safe }}
-{% endblock %}
 {% block main %}
     <main id="main_container" class="container">
         <h1 class="title">{{ title }}</h1>
         <h1 class="subtitle">{{ subtitle }}</h1>
-        {{ main | safe }}
+        <div class="content">{{ body | safe }}</div>
     </main>
 {% endblock %}

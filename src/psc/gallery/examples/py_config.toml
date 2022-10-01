@@ -1,0 +1,4 @@
+autoclose_loader = true
+
+[[runtimes]]
+src = "../../../pyodide/pyodide.js"

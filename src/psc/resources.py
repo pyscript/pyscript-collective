@@ -15,7 +15,6 @@ from markdown_it import MarkdownIt
 
 from psc.here import HERE
 
-
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
 
@@ -35,16 +34,6 @@ def tag_filter(
     return True
 
 
-def get_description(index_html_file: Path) -> str:
-    """Read an index.md if present and convert to HTML."""
-    md_file = index_html_file.parent / "index.md"
-    if not md_file.exists():
-        return ""
-    md_content = md_file.read_text()
-    md = MarkdownIt()
-    return str(md.render(md_content))
-
-
 def get_head_nodes(s: BeautifulSoup) -> str:
     """Make post init simpler by putting head node helper here."""
     head_nodes = [
@@ -57,24 +46,10 @@ def get_head_nodes(s: BeautifulSoup) -> str:
     return ""
 
 
-def get_main_node_content(s: BeautifulSoup) -> str:
-    """Get the main node but raise an exception if not present."""
-    # Moving to a helper to allow testing ValueError without needing
-    # to ship a broken (non-main) example.
-    main_element = s.select_one("main")
-    if main_element is None:  # pragma: no cover
-        raise ValueError("Example file has no <main> element")
-    return f"{main_element.decode_contents()}"
-
-
-def get_pyscript_nodes(s: BeautifulSoup) -> str:
-    """Find any pyscript nodes that are NOT ``py-config``."""
-    pyscript_nodes = [
-        pyscript.prettify()
-        for pyscript in s.select("body > *")
-        if pyscript and pyscript.name.startswith("py-") and pyscript.name != "py-config"
-    ]
-    return "\n".join(pyscript_nodes)
+def get_body_content(s: BeautifulSoup) -> str:
+    """Get the body node but raise an exception if not present."""
+    body_element = s.select_one("body")
+    return f"{body_element.decode_contents()}"
 
 
 @dataclass
@@ -83,7 +58,7 @@ class Resource:
 
     path: PurePath
     title: str = ""
-    main: str = ""
+    body: str = ""
     extra_head: str = ""
 
 
@@ -98,37 +73,25 @@ class Example(Resource):
     """
 
     description: str = ""
-    extra_pyscript: str = ""
     subtitle: str = ""
 
     def __post_init__(self) -> None:
         """Extract most of the data from the HTML file."""
+        # Title, subtitle, description come from the example's MD file.
+        index_md_file = HERE / "gallery/examples" / self.path / "index.md"
+        md_fm = frontmatter.load(index_md_file)
+        self.title = md_fm.get("title", "")
+        self.subtitle = md_fm.get("subtitle", "")
+        md = MarkdownIt()
+        self.description = str(md.render(md_fm.content))
+
+        # Main, extra head example's HTML file.
         index_html_file = HERE / "gallery/examples" / self.path / "index.html"
         if not index_html_file.exists():
             raise ValueError(f"No example at {self.path}")
         soup = BeautifulSoup(index_html_file.read_text(), "html5lib")
-
-        # Title
-        title_node = soup.select_one("title")
-        self.title = title_node.text if title_node else ""
-
-        # Subtitle
-        subtitle_node = soup.select_one('meta[name="subtitle"]')
-        assert subtitle_node  # noqa
-        subtitle = cast(str, subtitle_node.get("content", ""))
-        self.subtitle = subtitle
-
-        # Description
-        self.description = get_description(index_html_file)
-
-        # Head
         self.extra_head = get_head_nodes(soup)
-
-        # Main
-        self.main = get_main_node_content(soup)
-
-        # Extra PyScript
-        self.extra_pyscript = get_pyscript_nodes(soup)
+        self.body = get_body_content(soup)
 
 
 @dataclass

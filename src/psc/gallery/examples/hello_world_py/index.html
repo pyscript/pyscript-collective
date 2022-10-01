@@ -9,8 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>Hello World</title>
-    <meta name="subtitle" content="The classic hello world, but in Python -- in a browser!">
+    <title>Hello World Python</title>
 
     <link rel="icon" type="image/png" href="../../../favicon.png">
     <script defer src="../../../pyscript/pyscript.js"></script>
@@ -19,11 +18,8 @@
 </head>
 
 <body>
-<py-config>
-    autoclose_loader = true
-
-    [[runtimes]]
-    src = "../../../pyodide/pyodide.js"
+<py-config src="../py_config.toml">
+    paths = ["hello_world.py"]
 </py-config>
 <main>
     <h1>Hello Python ...</h1>
