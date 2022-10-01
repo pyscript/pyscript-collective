@@ -30,6 +30,6 @@ def test_about_page(client_page: PageT) -> None:
 
 def test_contributing_page(client_page: PageT) -> None:
     """Loading a Page defined as html works fine."""
-    soup = client_page("/pages/contributing")
+    soup = client_page("/pages/contributing.html")
     page_title = soup.select_one("title")
     assert page_title and "Contributing | PyScript Collective" == page_title.text

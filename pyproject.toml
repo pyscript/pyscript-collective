@@ -60,7 +60,7 @@ Jinja2 = "^3.1.2"
 types-requests = "^2.28.10"
 
 [tool.poetry.scripts]
-psc = "psc.__main__:main"
+psc = "psc.__main__:app"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]

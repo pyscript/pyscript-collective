@@ -22,7 +22,7 @@ def test_bulma_css(client_page: PageT, test_client: TestClient) -> None:
     stylesheet = soup.select_one("link[rel='stylesheet']")
     if stylesheet:
         href = stylesheet.attrs["href"]
-        assert href == "/static/psc.css"
+        assert href == "./static/psc.css"
         response = test_client.get(href)
         assert response.status_code == 200
 
@@ -30,12 +30,6 @@ def test_bulma_css(client_page: PageT, test_client: TestClient) -> None:
 def test_favicon(test_client: TestClient) -> None:
     """Ensure the app provides a favicon route."""
     response = test_client.get("/favicon.png")
-    assert response.status_code == 200
-
-
-def test_examples(test_client: TestClient) -> None:
-    """Ensure the app provides an /examples/ route."""
-    response = test_client.get("/gallery/hello_world/index.html")
     assert response.status_code == 200
 
 
@@ -58,7 +52,7 @@ def test_examples_listing(client_page: PageT) -> None:
     # Example subtitle
     subtitle = examples_soup.select_one("p.subtitle")
     assert subtitle
-    assert subtitle.text == "The classic hello world, but in Python -- in a browser!"
+    assert "Curated" in subtitle.text
 
     # Example description
     description_em = examples_soup.select_one("div.content em")
@@ -69,7 +63,7 @@ def test_examples_listing(client_page: PageT) -> None:
     first_example = examples_soup.select_one("p.title a")
     assert first_example
     first_href = first_example.get("href")
-    assert first_href == "/gallery/hello_world/"
+    assert first_href == "../gallery/examples/hello_world/"
     hello_soup = client_page(first_href)
     assert hello_soup
     title = hello_soup.select_one("title")

@@ -103,7 +103,7 @@ class Example(Resource):
 
     def __post_init__(self) -> None:
         """Extract most of the data from the HTML file."""
-        index_html_file = HERE / "examples" / self.path / "index.html"
+        index_html_file = HERE / "gallery/examples" / self.path / "index.html"
         if not index_html_file.exists():
             raise ValueError(f"No example at {self.path}")
         soup = BeautifulSoup(index_html_file.read_text(), "html5lib")
@@ -180,7 +180,7 @@ def get_resources() -> Resources:
     resources = Resources()
 
     # Load the examples
-    examples_dir = HERE / "examples"
+    examples_dir = HERE / "gallery/examples"
     examples = [e for e in examples_dir.iterdir() if e.is_dir()]
     for example in examples:
         this_path = PurePath(example.name)

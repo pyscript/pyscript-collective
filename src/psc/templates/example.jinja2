@@ -1,20 +1,22 @@
 {% extends "layout.jinja2" %}
 {% block extra_head %}
-    <meta name="subtitle" content="{{ subtitle }}">
-    <script defer src="/pyscript/pyscript.js"></script>
+    <meta name="subtitle" content="{{ subtitle }}" >
+    <script defer src="{{ root_path }}/pyscript/pyscript.js"></script>
     {{ extra_head | safe }}{% endblock %}
 {% block extra_body %}
-    <py-config>
-        autoclose_loader: true
-        runtimes:
-        - src: "/pyodide/pyodide.js"
-        name: pyodide-0.20
-        lang: python
-    </py-config>
-    {{ extra_pyscript | safe }}
+<py-config>
+autoclose_loader: true
+runtimes:
+    - src: "{{ root_path }}/pyodide/pyodide.js"
+      name: pyodide-0.20
+      lang: python
+</py-config>
+{{ extra_pyscript | safe }}
 {% endblock %}
 {% block main %}
-    <main id="main_container" class="container">
-        {{ main | safe }}
-    </main>
+<main id="main_container" class="container">
+    <h1 class="title">{{ title }}</h1>
+    <h1 class="subtitle">{{ subtitle }}</h1>
+{{ main | safe }}
+</main>
 {% endblock %}

@@ -4,34 +4,40 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }} | PyScript Collective</title>
-    <link rel="icon" href="/favicon.png">
-    <link rel="stylesheet" href="/static/psc.css">
-    <link rel="stylesheet" href="/static/bulma.min.css">
+    <link rel="icon" href="{{ root_path }}/favicon.png">
+    <link rel="stylesheet" href="{{ root_path }}/static/psc.css">
+    <link rel="stylesheet" href="{{ root_path }}/static/bulma.min.css">
     {% block extra_head %}
     {% endblock %}
 </head>
 <body>
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-            <img alt="Logo" src="/static/pyscript-sticker-black.svg" height="28">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="{{ root_path }}/static/pyscript-sticker-black.svg" height="28">
         </a>
-        <a class="navbar-item" href="/">
+        <a class="navbar-item" href="{{ root_path }}/index.html">
             PyScript Collective
         </a>
     </div>
 
     <div id="navbar" class="navbar-menu">
+    <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
-            <a id="navbarGallery" class="navbar-item" href="/gallery">
+            <a id="navbarGallery" class="navbar-item" href="{{ root_path }}/gallery">
                 Gallery
             </a>
-            <a id="navbarAbout" class="navbar-item" href="/pages/about">
+            <a id="navbarJoin" class="navbar-item" href="{{ root_path }}/pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="{{ root_path }}/pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="{{ root_path }}/pages/about.html">
                 About
             </a>
         </div>
     </div>
-
 </nav>
 {% block extra_body %}
 {% endblock %}

@@ -178,5 +178,5 @@ def fake_page(page: Page) -> Page:  # pragma: no cover
     page.route("**", _route_handler)
 
     # Don't spend 30 seconds on timeout
-    page.set_default_timeout(8000)
+    page.set_default_timeout(12000)
     return page

@@ -142,4 +142,6 @@ node_modules/
 /dist/
 /docs/_build/
 /src/psc/pyodide/
+!/src/psc/pyodide/README.md
 /src/psc/pyscript/
+!/src/psc/pyscript/README.md

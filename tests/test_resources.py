@@ -48,7 +48,7 @@ def test_description_not_present() -> None:
 
 def test_description() -> None:
     """An index.md file is in the example folder."""
-    index_html_file = HERE / "examples/hello_world/index.html"
+    index_html_file = HERE / "gallery/examples/hello_world/index.html"
     html = get_description(index_html_file)
     assert html == "<p>This is the <em>hello world</em> example.</p>\n"
 

@@ -8,7 +8,7 @@ from psc.fixtures import PageT
 
 def test_hello_world(client_page: PageT) -> None:
     """Test the static HTML for Hello World."""
-    soup = client_page("/gallery/hello_world/")
+    soup = client_page("/gallery/examples/hello_world/")
 
     # Title and subtitle
     title = soup.select_one("title")
@@ -42,18 +42,17 @@ def test_hello_world(client_page: PageT) -> None:
 
 def test_hello_world_js(test_client: TestClient) -> None:
     """Test the static assets for Hello World."""
-    response = test_client.get("/gallery/hello_world/hello_world.js")
+    response = test_client.get("/gallery/examples/hello_world/hello_world.js")
     assert response.status_code == 200
 
 
+@pytest.mark.skip()
 @pytest.mark.full
 def test_hello_world_full(fake_page: Page) -> None:
     """Use Playwright to do a test on Hello World."""
-    # url = "http://127.0.0.1:3000/examples/hello_world/index.html"
-    url = "http://fake/examples/hello_world/index.html"
+    # Use `PWDEBUG=1` to run "head-ful" in Playwright test app
+    url = "http://xfake/gallery/examples/hello_world/index.html"
     fake_page.goto(url)
     element = fake_page.wait_for_selector("text=...world")
-    # Turn this on when using `PWDEBUG=1` to run "head-ful"
-    # fake_page.pause()
     if element:
         assert element.text_content() == "...world"

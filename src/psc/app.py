@@ -32,12 +32,14 @@ async def favicon(request: Request) -> FileResponse:
 async def homepage(request: Request) -> _TemplateResponse:
     """Handle the home page."""
     index_file = HERE / "index.html"
+    root_path = "."
 
     return templates.TemplateResponse(
         "homepage.jinja2",
         dict(
             title="Home Page",
             main=index_file.read_text(),
+            root_path=root_path,
             request=request,
         ),
     )
@@ -46,12 +48,14 @@ async def homepage(request: Request) -> _TemplateResponse:
 async def gallery(request: Request) -> _TemplateResponse:
     """Handle the gallery listing page."""
     these_examples: Iterator[Example] = request.app.state.resources.examples.values()
+    root_path = ".."
 
     return templates.TemplateResponse(
         "gallery.jinja2",
         dict(
             title="Gallery",
             examples=these_examples,
+            root_path=root_path,
             request=request,
         ),
     )
@@ -99,10 +103,10 @@ routes = [
     Route("/favicon.png", favicon),
     Route("/gallery/index.html", gallery),
     Route("/gallery", gallery),
-    Route("/gallery/{example_name}/index.html", example),
-    Route("/gallery/{example_name}/", example),
-    Route("/pages/{page_name}", content_page),
-    Mount("/gallery", StaticFiles(directory=HERE / "examples")),
+    Route("/gallery/examples/{example_name}/index.html", example),
+    Route("/gallery/examples/{example_name}/", example),
+    Route("/pages/{page_name}.html", content_page),
+    Mount("/gallery", StaticFiles(directory=HERE / "gallery")),
     Mount("/static", StaticFiles(directory=HERE / "static")),
     Mount("/pyscript", StaticFiles(directory=PYSCRIPT)),
     Mount("/pyodide", StaticFiles(directory=PYODIDE)),
