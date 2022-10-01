@@ -1,7 +1,4 @@
 """Test machinery common to all gallery examples."""
-import pytest
-from bs4 import element
-from playwright.sync_api import Page
 from starlette.testclient import TestClient
 
 from psc.fixtures import PageT
@@ -24,7 +21,6 @@ def test_hello_world(client_page: PageT) -> None:
 
     # See if extra_head got filled, then resolve those
     assert soup.find_all("link", href="hello_world.css")
-    assert soup.find_all("script", src="hello_world.js")
 
     # Ensure the ``<main>`` got filled
     assert soup.select_one("main")

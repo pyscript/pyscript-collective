@@ -16,7 +16,7 @@ classifiers = [
 Changelog = "https://github.com/pauleveritt/psc/releases"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.10"
 click = ">=8.0.1"
 nox = "^2022.1.7"
 typer = { extras = ["all"], version = "^0.6.1" }

@@ -1,5 +1,4 @@
 """Test cases for the __main__ module."""
-import pytest
 from typer.testing import CliRunner
 
 from psc.__main__ import app

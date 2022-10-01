@@ -18,6 +18,7 @@ def test_hello_world_full(fake_page: Page) -> None:
     # Use `PWDEBUG=1` to run "head-ful" in Playwright test app
     url = "http://fake/gallery/examples/hello_world/index.html"
     fake_page.goto(url)
+    assert fake_page.title() == "Hello World"
     element = fake_page.wait_for_selector("text=...world")
     if element:
         assert element.text_content() == "...world"

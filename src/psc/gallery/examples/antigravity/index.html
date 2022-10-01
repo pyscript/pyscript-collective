@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Hello World Python</title>
+    <title>xkcd Antigravity</title>
     <link rel="icon" type="image/png" href="../../../favicon.png">
     <script defer src="../../../pyscript/pyscript.js"></script>
-    <link rel="stylesheet" href="hello_world.css">
 </head>
 <body>
 <py-config src="../py_config.toml">
-    paths = ["hello_world.py"]
+    paths = ["./antigravity.py"]
 </py-config>
-<main>
-    <h1>Hello Python ...</h1>
-    <div id="output"></div>
-    <py-script src="./hello_world.py"></py-script>
-</main>
+<strong>Based on xkcd: antigravity https://xkcd.com/353/.</strong>
+<py-script>
+    import antigravity
+
+    antigravity.fly()
+</py-script>
+
 </body>
 </html>

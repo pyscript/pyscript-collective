@@ -76,7 +76,6 @@ def test_example() -> None:
         == "The classic hello world, but in Python -- in a browser!"
     )
     assert "hello_world.css" in this_example.extra_head
-    assert "hello_world.js" in this_example.extra_head
     assert "<h1>Hello ...</h1>" in this_example.body
 
 

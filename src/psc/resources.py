@@ -4,7 +4,6 @@ We use paths as the "id" values. More specifically, PurePath.
 """
 from dataclasses import dataclass
 from dataclasses import field
-from pathlib import Path
 from pathlib import PurePath
 from typing import cast
 
@@ -14,6 +13,7 @@ from bs4 import Tag
 from markdown_it import MarkdownIt
 
 from psc.here import HERE
+
 
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
