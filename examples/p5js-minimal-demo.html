@@ -1,0 +1,51 @@
+<!--
+  contributor: ben.alkov@gmail.com
+  tags: p5js, external-libs, graphics, animation
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>p5.js minimal example</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+  <py-config>
+    - autoclose_loader: true
+  </py-config>
+</head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js"></script>
+    <div>
+      <script>
+        function setup() {}
+      </script>
+    </div>
+    <py-script>
+# Ben Alkov, 2022-07
+
+# Not strictly necessary, but seeing
+# e.g. naked `document`, `window`, etc. really bothers me
+import js
+
+# Convenience
+p5js = js.window
+
+# These functions are named per convention: p5js doesn't know anything about them
+
+def setup():
+    p5js.createCanvas(200, 200)
+
+
+def draw():
+    p5js.background(0)
+    p5js.fill(255)
+    p5js.ellipse(100, 100, 50, 50)
+
+
+setup()
+draw()
+
+    </py-script>
+  </body>
+</html>
