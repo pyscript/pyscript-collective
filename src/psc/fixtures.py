@@ -1,6 +1,7 @@
 """Automate some testing."""
 from __future__ import annotations
 
+import builtins
 from dataclasses import dataclass
 from dataclasses import field
 from mimetypes import guess_type
@@ -180,3 +181,51 @@ def fake_page(page: Page) -> Page:  # pragma: no cover
     # Don't spend 30 seconds on timeout
     page.set_default_timeout(12000)
     return page
+
+
+@dataclass
+class FakeDocument:
+    """Pretend to be a DOM that holds values at id's."""
+
+    values: dict[str, str] = field(default_factory=dict)
+    log: list[str] = field(default_factory=list)
+
+
+@pytest.fixture
+def fake_document() -> FakeDocument:
+    """Yield a document that cleans up."""
+    yield FakeDocument()
+
+
+@dataclass
+class ElementNode:
+    value: str
+    document: FakeDocument
+
+    def write(self, value: str) -> None:
+        """Collect anything that is written to the node."""
+        self.document.log.append(value)
+
+    def removeAttribute(self, name) -> None:
+        """Pretend to remove an attribute from this node."""
+        pass
+
+
+@dataclass
+class ElementCallable:
+    document: FakeDocument
+
+    def __call__(self, key: str) -> ElementNode:
+        value = self.document.values[key]
+        node = ElementNode(value, self.document)
+        return node
+
+
+@pytest.fixture
+def fake_element(fake_document) -> None:
+    """Install the stateful Element into builtins."""
+    try:
+        builtins.Element = ElementCallable(fake_document)
+        yield
+    finally:
+        delattr(builtins, "Element")

@@ -50,6 +50,7 @@ typeguard = ">=2.13.3"
 xdoctest = { extras = ["colors"], version = ">=0.15.10" }
 myst-parser = { version = ">=0.16.1" }
 requests = "^2.28.1"
+playwright = "^1.27"
 pytest-playwright = "^0.3.0"
 pytest-asyncio-cooperative = "^0.28.0"
 nox-poetry = "^1.0.1"

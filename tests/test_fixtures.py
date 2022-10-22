@@ -133,3 +133,37 @@ def test_route_handler_fake_bad_path() -> None:
         cast(Route, dummy_route),
     )
     assert dummy_route.status == "404"
+
+
+def test_fake_element_not_installed() -> None:
+    """We don't request the fixture so it isn't available."""
+    with pytest.raises(NameError):
+        Element  # noqa
+
+
+def test_fake_element_installed(fake_element) -> None:
+    """Element is available as ``fake_element`` installed it."""
+    Element  # noqa
+
+
+def test_fake_element_find_element(fake_document, fake_element) -> None:
+    """The Element can get a value from the fake document."""
+    fake_document.values["btn1"] = "value1"
+    button = Element("btn1")  # noqa
+    assert button.value == "value1"
+
+
+def test_fake_element_write(fake_document, fake_element) -> None:
+    """The Element can write a value that is captured."""
+    fake_document.values["btn1"] = "value1"
+    button = Element("btn1")  # noqa
+    button.write("Some Value")
+    assert fake_document.log[0] == "Some Value"
+
+
+def test_fake_element_remove_attribute(fake_document, fake_element) -> None:
+    """The Element can pretend to remove an attribute."""
+    fake_document.values["btn1"] = "value1"
+    button = Element("btn1")  # noqa
+    button.removeAttribute("disabled")
+    assert fake_document.log == []
