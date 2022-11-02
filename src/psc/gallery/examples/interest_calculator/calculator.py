@@ -2,7 +2,7 @@ def interest(*args, **kwargs):
     # Signal that PyScript is alive by setting the ``Calculate``
     # button away from disabled.
     calculate_button = Element("calc")  # noqa
-    calculate_button.element.setAttribute("disabled")
+    # calculate_button.element.setAttribute("disabled")
 
     # Now get the various inputs
     element_principal = Element("principal")  # noqa
@@ -15,8 +15,8 @@ def interest(*args, **kwargs):
     output2 = Element("compound_interest")  # noqa
     res1 = round(principal + (principal * rate * time))
     res2 = round(principal * ((1 + rate) ** time))
-    output1.write("simple interest: " + str(res1))
-    output2.write("compound interest: " + str(res2))
+    output1.write(f"simple interest: {res1}")
+    output2.write(f"compound interest: {res2}")
 
 
 def setup():
