@@ -63,6 +63,10 @@ img {
     border: 0;
 }
 
+#form button:disabled, #form button[disabled] {
+    background-color: #0097e863;
+}
+
 header {
     height: 100px;
 }

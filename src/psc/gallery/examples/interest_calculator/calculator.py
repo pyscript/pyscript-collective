@@ -1,24 +1,25 @@
 def interest(*args, **kwargs):
     # Signal that PyScript is alive by setting the ``Calculate``
     # button away from disabled.
-    ec = Element("calc")  # noqa
+    calculate_button = Element("calc")  # noqa
+    calculate_button.element.setAttribute("disabled")
 
     # Now get the various inputs
-    ep = Element("principal")  # noqa
-    er = Element("interest_rate")  # noqa
-    et = Element("time")  # noqa
-    p = float(ep.value)
-    r = float(er.value)
-    t = float(et.value)
+    element_principal = Element("principal")  # noqa
+    element_rate = Element("interest_rate")  # noqa
+    element_time = Element("time")  # noqa
+    principal = float(element_principal.value)
+    rate = float(element_rate.value)
+    time = float(element_time.value)
     output1 = Element("simple_interest")  # noqa
     output2 = Element("compound_interest")  # noqa
-    res1 = round(p + (p * r * t))
-    res2 = round(p * ((1 + r) ** t))
+    res1 = round(principal + (principal * rate * time))
+    res2 = round(principal * ((1 + rate) ** time))
     output1.write("simple interest: " + str(res1))
     output2.write("compound interest: " + str(res2))
 
 
 def setup():
     """When Pyodide starts up, enable the Calculate button."""
-    ec = Element("calc")  # noqa
-    ec.element.removeAttribute("disabled")
+    calculate_button = Element("calc")  # noqa
+    calculate_button.element.removeAttribute("disabled")
