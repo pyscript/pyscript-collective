@@ -3,6 +3,10 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 main {
@@ -56,6 +60,7 @@ img {
     width: 100%;
     height: 12%;
     margin-bottom: 5px;
+    border: 0;
 }
 
 header {

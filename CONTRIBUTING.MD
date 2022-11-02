@@ -31,9 +31,9 @@ We try not to have strong boundaries in what kinds of contributions are accepted
 - Adding meta-data
 
   - adding tags to your example will help us organize this repository in a much more meaningful way. Example tags come at the beginning of your main `HTML` file in the form of a comment.
-  - you're also welcome to add your email or name or other forms of contact information in the header at the beginning of the file.
+  - you're also welcome to add your email or name or other forms of contact information in the header at the beginning of the file. For reference see the [example](examples/hello_world.html).
 
-TODO Add back in `See the example  examples/hello_world.html`
+TODO Add back in `See the example examples/hello_world.html`
 
 - Adding docs
 
@@ -54,7 +54,7 @@ The PyScript Collective also welcomes contributions like blog posts, videos, vid
 
 The contributions in this topic are more similar to what an `awesome-page` would look like.
 
-*If you want to add a new kind of contribution that wasn't laid out on the [README](index) yet, feel free to do so.*
+_If you want to add a new kind of contribution that wasn't laid out on the [README](index) yet, feel free to do so._
 
 #### Recommended guidelines for a resource
 
