@@ -2,11 +2,11 @@
 from __future__ import annotations
 
 import builtins
+from collections.abc import Callable
+from collections.abc import Generator
 from dataclasses import dataclass
 from dataclasses import field
 from mimetypes import guess_type
-from typing import Callable
-from typing import Generator
 from urllib.parse import urlparse
 
 import pytest
@@ -199,6 +199,8 @@ def fake_document() -> FakeDocument:
 
 @dataclass
 class ElementNode:
+    """An element node."""
+
     value: str
     document: FakeDocument
 
@@ -206,16 +208,19 @@ class ElementNode:
         """Collect anything that is written to the node."""
         self.document.log.append(value)
 
-    def removeAttribute(self, name) -> None:
+    def removeAttribute(self, name) -> None:  # noqa
         """Pretend to remove an attribute from this node."""
         pass
 
 
 @dataclass
 class ElementCallable:
+    """A callable that returns an ElementNode."""
+
     document: FakeDocument
 
     def __call__(self, key: str) -> ElementNode:
+        """Return an ElementNode."""
         value = self.document.values[key]
         node = ElementNode(value, self.document)
         return node

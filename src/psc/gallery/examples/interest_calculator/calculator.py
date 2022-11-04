@@ -1,4 +1,5 @@
 def interest(*args, **kwargs):
+    """Main interest calculation function."""
     # Signal that PyScript is alive by setting the ``Calculate``
     # button away from disabled.
     calculate_button = Element("calc")  # noqa
