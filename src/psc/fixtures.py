@@ -4,6 +4,7 @@ from __future__ import annotations
 import builtins
 from collections.abc import Callable
 from collections.abc import Generator
+from collections.abc import Iterable
 from dataclasses import dataclass
 from dataclasses import field
 from mimetypes import guess_type
@@ -192,7 +193,7 @@ class FakeDocument:
 
 
 @pytest.fixture
-def fake_document() -> FakeDocument:
+def fake_document() -> Iterable[FakeDocument]:
     """Yield a document that cleans up."""
     yield FakeDocument()
 
@@ -208,7 +209,7 @@ class ElementNode:
         """Collect anything that is written to the node."""
         self.document.log.append(value)
 
-    def removeAttribute(self, name) -> None:  # noqa
+    def removeAttribute(self, name: str) -> None:  # noqa
         """Pretend to remove an attribute from this node."""
         pass
 
@@ -227,10 +228,10 @@ class ElementCallable:
 
 
 @pytest.fixture
-def fake_element(fake_document) -> None:
+def fake_element(fake_document: FakeDocument) -> None: # type: ignore [misc]
     """Install the stateful Element into builtins."""
     try:
-        builtins.Element = ElementCallable(fake_document)
+        builtins.Element = ElementCallable(fake_document) #type: ignore [attr-defined]
         yield
     finally:
         delattr(builtins, "Element")
