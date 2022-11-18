@@ -1,88 +1,83 @@
-﻿<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
     <title>Interest Calculator</title>
+    <link rel="icon" type="image/png" href="../../../favicon.png">
     <link rel="stylesheet" href="styles.css"/>
     <script defer src="../../../pyscript/pyscript.js"></script>
 </head>
-
 <body>
 
-<header>
-    <h1 id="header_h1">Welcome to the Compound Calculator!</h1>
-</header>
+<section class="calculator-demo">
+    <section class="calculator-inner">
+        <div class="flexelement" id="first_div">
+            <p id="first_p">
+                Welcome to the "Simple and Compound Interest Calculator!"
+                <br/>
+                <strong>"how does it work?"</strong>
+                to use the "Simple and Compound Interest Calculator", please enter the input data into the form.
+                after clicking "Calculate", your result will be shown at the bottom of the form.
+            </p>
 
-<main>
+            <div style="margin-left: 15%;">
+                <div style="width: 100%;">
+                    <input type="radio" name='expander' id="expander-1">
+                    <label class="expander_label" for="expander-1">Compound Interest Formula &#187;</label>
+                    <img src="compound-interest.png" alt="Compound Interest"
+                         style="height: 200px;"/>
+                </div>
 
-    <div class="flexelement" id="first_div">
-        <p id="first_p">
-            Welcome to the "Simple and Compound Interest Calculator!"
-            <br/>
-            <strong>"how does it work?"</strong>
-            to use the "Simple and Compound Interest Calculator", please enter the input data into the form.
-            after clicking "Calculate", your result will be shown at the bottom of the form.
-        </p>
-
-        <div style="margin-left: 15%;">
-            <div style="width: 100%;">
-                <input type="radio" name='expander' id="expander-1">
-                <label class="expander_label" for="expander-1">Compound Interest Formula &#187;</label>
-                <img src="compound-interest.png" alt="Compound Interest"
-                     style="height: 200px;"/>
-            </div>
-
-            <div style="margin-top: 25px;">
-                <input type="radio" name='expander' id="expander-2">
-                <label class="expander_label" for="expander-2">Simple Interest Formula &#187;</label>
-                <img src="simple-interest.png" alt="Simple Interest"
-                     style="height: 150px;"/>
+                <div style="margin-top: 25px;">
+                    <input type="radio" name='expander' id="expander-2">
+                    <label class="expander_label" for="expander-2">Simple Interest Formula &#187;</label>
+                    <img src="simple-interest.png" alt="Simple Interest"
+                         style="height: 150px;"/>
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="flexelement">
+        <div class="flexelement">
 
-        <div id="form">
+            <div id="form">
 
-            <div>
-                <label>Principal
-                    <input id="principal" type="number" step="1", style="color: black; min-height: 60px;"/></label>
-                <br/><br>
-                <label>Interest rate
-                    <input id="interest_rate" type="number" step="0.1" style="color: black; min-height: 60px;"
-                           placeholder="Decimal, f.e. 0.8"/>
-                </label>
-                <br>
-                <br/>
-
-                <label>Time
-                    <input id="time" type="number" step="1" min="0" style="color: black; min-height: 60px;"
-                           placeholder="in years"/></label>
-                <br> <br/>
-
-                <button py-click="interest()" id="calc" style="min-height: 60px;" disabled>Calculate</button>
-
-                <div style="margin-top: 2%;">
-                    <span id="simple_interest"></span>
+                <div>
+                    <label>Principal
+                        <input id="principal" type="number" step="1" , style="color: black; min-height: 60px;"/></label>
+                    <br/><br>
+                    <label>Interest rate
+                        <input id="interest_rate" type="number" step="0.1" style="color: black; min-height: 60px;"
+                               placeholder="Decimal, f.e. 0.8"/>
+                    </label>
+                    <br>
                     <br/>
-                    <span id="compound_interest"></span>
+
+                    <label>Time
+                        <input id="time" type="number" step="1" min="0" style="color: black; min-height: 60px;"
+                               placeholder="in years"/></label>
+                    <br> <br/>
+
+                    <button py-click="interest()" id="calc" style="min-height: 60px;" disabled>Calculate</button>
+
+                    <div style="margin-top: 2%;">
+                        <span id="simple_interest"></span>
+                        <br/>
+                        <span id="compound_interest"></span>
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
 
-    </div>
-
-    <py-config src="../py_config.toml"></py-config>
-    <py-script src="calculator.py"></py-script>
-    <py-script>
-            setup()
-    </py-script>
-</main>
+        <py-config src="../py_config.toml"></py-config>
+        <py-script src="calculator.py"></py-script>
+        <py-script>
+                setup()
+        </py-script>
+    </section>
+</section>
 
 <footer>
     <p id="footer_p">
@@ -94,3 +89,4 @@
 </body>
 
 </html>
+

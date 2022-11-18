@@ -15,6 +15,7 @@ def test_calculator(fake_document, fake_element) -> None:
     fake_document.values["time"] = "10"
     fake_document.values["simple_interest"] = "0.1"
     fake_document.values["compound_interest"] = "0.1"
+    fake_document.values["calc"] = "Calculate"
     interest()
     assert fake_document.log[0] == "simple interest: 200"
     assert fake_document.log[1] == "compound interest: 259"

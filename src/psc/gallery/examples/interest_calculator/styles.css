@@ -1,4 +1,4 @@
-﻿body {
+﻿section.calculator-demo {
     background-color: #F3F6F8;
     min-height: 100vh;
     display: flex;
@@ -9,7 +9,7 @@
     line-height: 1.5;
 }
 
-main {
+section.calculator-inner {
     display: flex;
     flex-direction: row;
 }
