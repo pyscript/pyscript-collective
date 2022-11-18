@@ -1218,7 +1218,7 @@ test = ["black (>=22.3.0,<23.0.0)", "coverage (>=5.2,<6.0)", "isort (>=5.0.6,<6.
 
 [[package]]
 name = "types-beautifulsoup4"
-version = "4.11.6"
+version = "4.11.6.1"
 description = "Typing stubs for beautifulsoup4"
 category = "dev"
 optional = false
@@ -2012,8 +2012,8 @@ typer = [
     {file = "typer-0.6.1.tar.gz", hash = "sha256:2d5720a5e63f73eaf31edaa15f6ab87f35f0690f8ca233017d7d23d743a91d73"},
 ]
 types-beautifulsoup4 = [
-    {file = "types-beautifulsoup4-4.11.6.tar.gz", hash = "sha256:2670dd71995df464041e2941fa9bbb694795271e3dedd7262b4766649a1cbe82"},
-    {file = "types_beautifulsoup4-4.11.6-py3-none-any.whl", hash = "sha256:ac9dd1383481201ea07f27c5a43e7b1ee71caf9c720b7ae951db15d60d126e80"},
+    {file = "types-beautifulsoup4-4.11.6.1.tar.gz", hash = "sha256:d46be8f409ddccb6daaa9d118484185e70bcf552085c39c6d05b157cd1462e04"},
+    {file = "types_beautifulsoup4-4.11.6.1-py3-none-any.whl", hash = "sha256:c1f803367a2b07ad4fdac40ddbea557010dc4ddd1ee92d801f317eb02e2e3c72"},
 ]
 types-requests = [
     {file = "types-requests-2.28.11.5.tar.gz", hash = "sha256:a7df37cc6fb6187a84097da951f8e21d335448aa2501a6b0a39cbd1d7ca9ee2a"},
