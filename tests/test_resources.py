@@ -90,7 +90,7 @@ def test_html_page() -> None:
     """Make an instance of a .html Page resource and test it."""
     this_page = Page(path=PurePath("contributing"))
     assert this_page.title == "Contributing"
-    assert this_page.subtitle == "How to get involved in the PyCharm Collective."
+    assert this_page.subtitle == "How to get involved in the PyScript Collective."
     assert 'id="viewer"' in this_page.body
 
 

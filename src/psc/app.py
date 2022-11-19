@@ -1,8 +1,8 @@
 """Provide a web server to browse the examples."""
 import contextlib
+from collections.abc import Iterator
 from pathlib import PurePath
 from typing import AsyncContextManager
-from typing import Iterator
 
 from starlette.applications import Starlette
 from starlette.requests import Request

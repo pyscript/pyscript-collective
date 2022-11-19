@@ -1,11 +1,13 @@
 """Automate some testing."""
 from __future__ import annotations
 
+import builtins
+from collections.abc import Callable
+from collections.abc import Generator
+from collections.abc import Iterable
 from dataclasses import dataclass
 from dataclasses import field
 from mimetypes import guess_type
-from typing import Callable
-from typing import Generator
 from urllib.parse import urlparse
 
 import pytest
@@ -180,3 +182,56 @@ def fake_page(page: Page) -> Page:  # pragma: no cover
     # Don't spend 30 seconds on timeout
     page.set_default_timeout(12000)
     return page
+
+
+@dataclass
+class FakeDocument:
+    """Pretend to be a DOM that holds values at id's."""
+
+    values: dict[str, str] = field(default_factory=dict)
+    log: list[str] = field(default_factory=list)
+
+
+@pytest.fixture
+def fake_document() -> Iterable[FakeDocument]:
+    """Yield a document that cleans up."""
+    yield FakeDocument()
+
+
+@dataclass
+class ElementNode:
+    """An element node."""
+
+    value: str
+    document: FakeDocument
+
+    def write(self, value: str) -> None:
+        """Collect anything that is written to the node."""
+        self.document.log.append(value)
+
+    def removeAttribute(self, name: str) -> None:  # noqa
+        """Pretend to remove an attribute from this node."""
+        pass
+
+
+@dataclass
+class ElementCallable:
+    """A callable that returns an ElementNode."""
+
+    document: FakeDocument
+
+    def __call__(self, key: str) -> ElementNode:
+        """Return an ElementNode."""
+        value = self.document.values[key]
+        node = ElementNode(value, self.document)
+        return node
+
+
+@pytest.fixture
+def fake_element(fake_document: FakeDocument) -> None: # type: ignore [misc]
+    """Install the stateful Element into builtins."""
+    try:
+        builtins.Element = ElementCallable(fake_document) #type: ignore [attr-defined]
+        yield
+    finally:
+        delattr(builtins, "Element")
