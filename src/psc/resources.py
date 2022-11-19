@@ -51,9 +51,17 @@ def is_local(test_path: Path | None = PYODIDE) -> bool:
     return test_path.exists()
 
 
-def get_body_content(s: BeautifulSoup) -> str:
+def get_body_content(s: BeautifulSoup, test_path: Path | None = PYODIDE) -> str:
     """Get the body node but raise an exception if not present."""
+
+    # Choose the correct TOML file for local vs remote.
+    toml_name = "local" if is_local(test_path) else "cdn"
+    src = f"../py_config.{toml_name}.toml"
+
+    # Get the body and patch the py_config src
     body_element = s.select_one("body")
+    py_config = body_element.find("py-config")
+    py_config["src"] = src
     return f"{body_element.decode_contents()}"
 
 

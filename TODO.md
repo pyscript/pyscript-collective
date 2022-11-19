@@ -11,7 +11,7 @@
 
 ## Eventually
 
-- Get nox to work with downloaded pyodide/pyscript
+- Get numpy, pandas, etc. downloaded into local dir
 - Get rid of Poetry
 
 ## Done

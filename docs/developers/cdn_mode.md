@@ -82,11 +82,12 @@ We'll just look for the `src/pyscript` and `src/pyodide` directory.
 If they exist, then someone downloaded the assets.
 That's a good flag for whether to point at those directories.
 
+What is the action to take?
+The `py_config.local.toml` file has a `runtimes.src` entry pointing to the local `pyodide.js`.
+The `py_config.cdn.toml` file points at the CDN version.
+
 ## Actions
 
 - Remove the timeout
 - Test/implementation that calls a `is_local` function to detect the correct mode
 - Test/implementation which wires that into the HTML munger
-- Make a `pyscript_path` which is passed into the `example.jinja2` template
-- E2E test which detects correct case
-- Revisit if `fake` and interceptor are needed

@@ -54,11 +54,34 @@ def test_get_no_head_nodes() -> None:
 
 
 def test_get_main() -> None:
-    """Return the main node from an example."""
-    example_html = '<body><main class="content">Hello <em>world</em></main></body>'
+    """Return the body nodes from an example."""
+    example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
     soup = BeautifulSoup(example_html, "html5lib")
     body = get_body_content(soup)
-    assert body == '<main class="content">Hello <em>world</em></main>'
+    assert body == '<py-config src="../py_config.local.toml">abc</py-config>'
+
+
+def test_get_py_config_local() -> None:
+    """Return the main node and test setting py-config src."""
+    example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
+    soup = BeautifulSoup(example_html, "html5lib")
+    body = get_body_content(soup)
+    body_soup = BeautifulSoup(body, "html5lib")
+    py_config = body_soup.find("py-config")
+    actual = py_config["src"]
+    assert "../py_config.local.toml" == actual
+
+
+def test_get_py_config_cdn() -> None:
+    """Return the main node and test setting py-config src."""
+    example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
+    soup = BeautifulSoup(example_html, "html5lib")
+    test_path = Path("/x")
+    body = get_body_content(soup, test_path=test_path)
+    body_soup = BeautifulSoup(body, "html5lib")
+    py_config = body_soup.find("py-config")
+    actual = py_config["src"]
+    assert "../py_config.cdn.toml" == actual
 
 
 def test_example_bad_path() -> None:
@@ -136,6 +159,6 @@ def test_is_local_no_path() -> None:
 
 def test_is_local_broken_path() -> None:
     """Test the local case where a directory will not exist."""
-    test_path = Path("/xxxxxx")
+    test_path = Path("/xxx")
     actual = is_local(test_path)
     assert not actual
