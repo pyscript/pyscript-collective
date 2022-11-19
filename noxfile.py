@@ -137,11 +137,10 @@ def precommit(session: Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-
 @session(python=python_versions)
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
-    args = session.posargs or ["src", "tests", "docs/conf.py"]
+    args = session.posargs or ["--exclude=examples", "src", "tests", "docs/conf.py"]
     session.install(".")
     session.install(
         "mypy",

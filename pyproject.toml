@@ -11,6 +11,10 @@ documentation = "https://psc.readthedocs.io"
 classifiers = [
     "Development Status :: 1 - Planning",
 ]
+exclude = [
+    "src/psc/pyodide/",
+    "src/psc/pyscript/",
+]
 
 [tool.poetry.urls]
 Changelog = "https://github.com/pauleveritt/psc/releases"
