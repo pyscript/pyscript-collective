@@ -38,15 +38,3 @@ def test_hello_world_js(test_client: TestClient) -> None:
     """Test the static assets for Hello World."""
     response = test_client.get("/gallery/examples/hello_world/hello_world.js")
     assert response.status_code == 200
-
-
-#
-#
-# @pytest.mark.full
-# def test_hello_world_full(fake_page: Page) -> None:
-#     """Use Playwright to do a test on Hello World."""
-#     # Use `PWDEBUG=1` to run "head-ful" in Playwright test app
-#     url = "http://fake/gallery/examples/hello_world/index.html"
-#     fake_page.goto(url)
-#     title = fake_page.title()
-#     assert title == "Hello World Python"

@@ -11,6 +11,10 @@ documentation = "https://psc.readthedocs.io"
 classifiers = [
     "Development Status :: 1 - Planning",
 ]
+exclude = [
+    "src/psc/pyodide/",
+    "src/psc/pyscript/",
+]
 
 [tool.poetry.urls]
 Changelog = "https://github.com/pauleveritt/psc/releases"
@@ -42,7 +46,6 @@ pre-commit = ">=2.16.0"
 pre-commit-hooks = ">=4.1.0"
 pytest = ">=6.2.5"
 pyupgrade = ">=2.29.1"
-safety = ">=1.10.3"
 sphinx = ">=4.3.2"
 sphinx-autobuild = ">=2021.3.14"
 sphinx-click = ">=3.0.2"

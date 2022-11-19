@@ -179,8 +179,6 @@ def fake_page(page: Page) -> Page:  # pragma: no cover
     # fake server and run through the interceptor instead.
     page.route("**", _route_handler)
 
-    # Don't spend 30 seconds on timeout
-    page.set_default_timeout(12000)
     return page
 
 
@@ -190,6 +188,7 @@ class FakeDocument:
 
     values: dict[str, str] = field(default_factory=dict)
     log: list[str] = field(default_factory=list)
+    nodes: dict[str, FakeElement] = field(default_factory=dict)
 
 
 @pytest.fixture
@@ -199,39 +198,57 @@ def fake_document() -> Iterable[FakeDocument]:
 
 
 @dataclass
-class ElementNode:
-    """An element node."""
+class FakeElementNode:
+    """Fake for PyScript's ``element`` accessor that gets DOM node."""
+
+    log: list[str] = field(default_factory=list)
+
+    def removeAttribute(self, name: str) -> None:  # noqa
+        """Pretend to remove an attribute from this node."""
+        self.log.append(f"Removed {name}")
+
+
+@dataclass
+class FakeElement:
+    """A fake for PyScript's Element global."""
 
     value: str
     document: FakeDocument
+    element: FakeElementNode = FakeElementNode()
 
     def write(self, value: str) -> None:
         """Collect anything that is written to the node."""
         self.document.log.append(value)
 
-    def removeAttribute(self, name: str) -> None:  # noqa
-        """Pretend to remove an attribute from this node."""
-        pass
-
 
 @dataclass
 class ElementCallable:
-    """A callable that returns an ElementNode."""
+    """A callable that registers and returns an ElementNode."""
 
     document: FakeDocument
 
-    def __call__(self, key: str) -> ElementNode:
+    def __call__(self, key: str) -> FakeElement:
         """Return an ElementNode."""
         value = self.document.values[key]
-        node = ElementNode(value, self.document)
+        node = FakeElement(value, self.document)
+        self.document.nodes[key] = node
         return node
+
+    def removeAttribute(self, attr: str) -> None:  # noqa: N802
+        """Fake the remove attribute call."""
+        pass
+
+    def write(self, content: str) -> None:
+        """Fake the write call."""
+        pass
 
 
 @pytest.fixture
-def fake_element(fake_document: FakeDocument) -> None: # type: ignore [misc]
+def fake_element(fake_document: FakeDocument) -> ElementCallable:  # type: ignore [misc]
     """Install the stateful Element into builtins."""
     try:
-        builtins.Element = ElementCallable(fake_document) #type: ignore [attr-defined]
-        yield
+        this_element = ElementCallable(fake_document)
+        builtins.Element = this_element  # type: ignore [attr-defined]
+        yield this_element
     finally:
         delattr(builtins, "Element")

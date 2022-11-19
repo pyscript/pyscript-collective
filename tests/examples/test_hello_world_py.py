@@ -9,7 +9,7 @@ from playwright.sync_api import Page
 from psc.fixtures import PageT
 
 
-def test_hello_world(client_page: PageT) -> None:
+def test_hello_world_client(client_page: PageT) -> None:
     """Test the static HTML for Hello World."""
     soup = client_page("/gallery/examples/hello_world_py/")
     title = soup.select_one("title")
@@ -31,7 +31,7 @@ class FakeElement:
 def test_hello_world_python() -> None:
     """Unit test the hello_world.py that is loaded."""
     try:
-        builtins.Element = FakeElement
+        builtins.Element = FakeElement  # type: ignore
         from psc.gallery.examples.hello_world_py.hello_world import output
     finally:
         delattr(builtins, "Element")
@@ -40,7 +40,7 @@ def test_hello_world_python() -> None:
 
 
 @pytest.mark.full
-def test_hello_world_full(fake_page: Page) -> None:
+def test_hello_world_py_full(fake_page: Page) -> None:
     """Use Playwright to do a test on Hello World."""
     # Use `PWDEBUG=1` to run "head-ful" in Playwright test app
     url = "http://fake/gallery/examples/hello_world_py/index.html"

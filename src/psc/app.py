@@ -107,9 +107,10 @@ routes = [
     Route("/pages/{page_name}.html", content_page),
     Mount("/gallery", StaticFiles(directory=HERE / "gallery")),
     Mount("/static", StaticFiles(directory=HERE / "static")),
+]
+if PYODIDE.exists():
     Mount("/pyscript", StaticFiles(directory=PYSCRIPT)),
     Mount("/pyodide", StaticFiles(directory=PYODIDE)),
-]
 
 
 @contextlib.asynccontextmanager  # type: ignore

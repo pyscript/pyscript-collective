@@ -1,4 +1,5 @@
 """Ensure the test fixtures work as expected."""
+import builtins
 from typing import cast
 
 import pytest
@@ -7,10 +8,11 @@ from playwright.sync_api import Page
 from playwright.sync_api import Route
 from starlette.testclient import TestClient
 
-from psc.fixtures import DummyPage, ElementCallable
+from psc.fixtures import DummyPage
 from psc.fixtures import DummyRequest
 from psc.fixtures import DummyResponse
 from psc.fixtures import DummyRoute
+from psc.fixtures import ElementCallable
 from psc.fixtures import FakeDocument
 from psc.fixtures import MockTestClient
 from psc.fixtures import PageT
@@ -21,7 +23,7 @@ from psc.here import STATIC
 
 def test_test_client(test_client: TestClient) -> None:
     """Ensure fixture returns an initialized TestClient."""
-    assert test_client.app
+    assert test_client.base_url == "http://testserver"
 
 
 def test_mock_test_client() -> None:
@@ -138,33 +140,38 @@ def test_route_handler_fake_bad_path() -> None:
 
 def test_fake_element_not_installed() -> None:
     """We don't request the fixture so it isn't available."""
-    with pytest.raises(NameError):
-        Element  # noqa
+    assert not hasattr(builtins, "Element")
 
 
 def test_fake_element_installed(fake_element: ElementCallable) -> None:
     """Element is available as ``fake_element`` installed it."""
-    Element  # noqa
+    assert hasattr(builtins, "Element")
 
 
-def test_fake_element_find_element(fake_document: FakeDocument, fake_element: ElementCallable) -> None:
+def test_fake_element_find_element(
+    fake_document: FakeDocument, fake_element: ElementCallable
+) -> None:
     """The Element can get a value from the fake document."""
     fake_document.values["btn1"] = "value1"
-    button = Element("btn1")  # noqa
+    button = fake_element("btn1")
     assert button.value == "value1"
 
 
-def test_fake_element_write(fake_document: FakeDocument, fake_element: ElementCallable) -> None:
+def test_fake_element_write(
+    fake_document: FakeDocument, fake_element: ElementCallable
+) -> None:
     """The Element can write a value that is captured."""
     fake_document.values["btn1"] = "value1"
-    button = Element("btn1")  # noqa
+    button = fake_element("btn1")
     button.write("Some Value")
     assert fake_document.log[0] == "Some Value"
 
 
-def test_fake_element_remove_attribute(fake_document: FakeDocument, fake_element: ElementCallable) -> None:
+def test_fake_element_remove_attribute(
+    fake_document: FakeDocument, fake_element: ElementCallable
+) -> None:
     """The Element can pretend to remove an attribute."""
     fake_document.values["btn1"] = "value1"
-    button = Element("btn1")  # noqa
-    button.removeAttribute("disabled")
+    button = fake_element("btn1")
+    button.element.removeAttribute("disabled")
     assert fake_document.log == []

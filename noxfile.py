@@ -28,7 +28,6 @@ python_versions = [
 nox.needs_version = ">= 2021.6.6"
 nox.options.sessions = (
     "pre-commit",
-    "safety",
     "mypy",
     "tests",
     # "typeguard",
@@ -138,18 +137,10 @@ def precommit(session: Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@session(python=python_versions[0])
-def safety(session: Session) -> None:
-    """Scan dependencies for insecure packages."""
-    requirements = session.poetry.export_requirements()
-    session.install("safety")
-    session.run("safety", "check", "--full-report", f"--file={requirements}")
-
-
 @session(python=python_versions)
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
-    args = session.posargs or ["src", "tests", "docs/conf.py"]
+    args = session.posargs or ["--exclude=examples", "src", "tests", "docs/conf.py"]
     session.install(".")
     session.install(
         "mypy",
@@ -185,7 +176,16 @@ def tests(session: Session) -> None:
         "python-frontmatter",
     )
     try:
-        session.run("coverage", "run", "--parallel", "-m", "pytest", *session.posargs)
+        session.run(
+            "coverage",
+            "run",
+            "--parallel",
+            "-m",
+            "pytest",
+            "-m",
+            "not full",
+            *session.posargs,
+        )
     finally:
         if session.interactive:
             session.notify("coverage", posargs=[])

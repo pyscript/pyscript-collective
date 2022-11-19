@@ -1,4 +1,5 @@
 """Construct the various kinds of resources: example, page, contributor."""
+from pathlib import Path
 from pathlib import PurePath
 
 import pytest
@@ -9,7 +10,12 @@ from psc.resources import Page
 from psc.resources import get_body_content
 from psc.resources import get_head_nodes
 from psc.resources import get_resources
+from psc.resources import get_sorted_examples
+from psc.resources import is_local
 from psc.resources import tag_filter
+
+
+IS_LOCAL = is_local()
 
 
 @pytest.fixture
@@ -54,11 +60,51 @@ def test_get_no_head_nodes() -> None:
 
 
 def test_get_main() -> None:
-    """Return the main node from an example."""
-    example_html = '<body><main class="content">Hello <em>world</em></main></body>'
+    """Return the body nodes from an example."""
+    example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
     soup = BeautifulSoup(example_html, "html5lib")
     body = get_body_content(soup)
-    assert body == '<main class="content">Hello <em>world</em></main>'
+    if IS_LOCAL:
+        assert body == '<py-config src="../py_config.local.toml">abc</py-config>'
+    else:
+        assert body == '<py-config src="../py_config.cdn.toml">abc</py-config>'
+
+
+def test_get_py_config_local() -> None:
+    """Return the body node and test setting py-config src."""
+    example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
+    soup = BeautifulSoup(example_html, "html5lib")
+    body = get_body_content(soup)
+    body_soup = BeautifulSoup(body, "html5lib")
+    py_config = body_soup.select_one("py-config")
+    if py_config:
+        actual = py_config.attrs["src"]
+        if IS_LOCAL:
+            assert "../py_config.local.toml" == actual
+        else:
+            assert "../py_config.cdn.toml" == actual
+
+
+def test_get_py_config_cdn() -> None:
+    """Return the body node and test setting py-config src."""
+    example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
+    soup = BeautifulSoup(example_html, "html5lib")
+    test_path = Path("/x")
+    body = get_body_content(soup, test_path=test_path)
+    body_soup = BeautifulSoup(body, "html5lib")
+    py_config = body_soup.select_one("py-config")
+    if py_config:
+        actual = py_config.attrs["src"]
+        assert "../py_config.cdn.toml" == actual
+
+
+def test_get_py_config_no_body() -> None:
+    """There is not a body node to get py-config from."""
+    example_html = "<div></div>"
+    soup = BeautifulSoup(example_html, "html5lib")
+    test_path = Path("/x")
+    body = get_body_content(soup, test_path=test_path)
+    assert "" == body
 
 
 def test_example_bad_path() -> None:
@@ -108,6 +154,13 @@ def test_missing_page() -> None:
     assert str(exc.value) == "No page at xxx"
 
 
+def test_sorted_examples() -> None:
+    """Ensure a stable listing."""
+    examples = get_sorted_examples()
+    first_example = examples[0]
+    assert "altair" == first_example.name
+
+
 def test_get_resources() -> None:
     """Ensure the dict-of-dicts is generated with PurePath keys."""
     resources = get_resources()
@@ -126,3 +179,10 @@ def test_get_resources() -> None:
     about = resources.pages[about_path]
     assert about.title == "About the PyScript Collective"
     assert "<h1>Helping" in about.body
+
+
+def test_is_local_broken_path() -> None:
+    """Test the local case where a directory will not exist."""
+    test_path = Path("/xxx")
+    actual = is_local(test_path)
+    assert not actual

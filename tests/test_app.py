@@ -58,27 +58,15 @@ def test_examples_listing(client_page: PageT) -> None:
     first_example = examples_soup.select_one("p.title a")
     assert first_example
     first_href = first_example.get("href")
-    assert first_href == "../gallery/examples/hello_world/"
+    assert first_href == "../gallery/examples/altair/"
     hello_soup = client_page(first_href)
     assert hello_soup
     title = hello_soup.select_one("title")
     assert title
-    assert title.text == "Hello World | PyScript Collective"
+    assert title.text == "Altair Visualization | PyScript Collective"
 
 
 def test_static(test_client: TestClient) -> None:
     """Ensure the app provides a /static/ route."""
     response = test_client.get("/static/bulma.min.css")
-    assert response.status_code == 200
-
-
-def test_pyscript(test_client: TestClient) -> None:
-    """Ensure the app provides a path to the ``pyscript`` static dir."""
-    response = test_client.get("/pyscript/pyscript.js")
-    assert response.status_code == 200
-
-
-def test_pyodide(test_client: TestClient) -> None:
-    """Ensure the app provides a path to the ``pyodide`` static dir."""
-    response = test_client.get("/pyodide/pyodide.js")
     assert response.status_code == 200
