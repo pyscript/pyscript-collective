@@ -1,10 +1,10 @@
 """Construct the various kinds of resources: example, page, contributor."""
-from pathlib import PurePath
+from pathlib import PurePath, Path
 
 import pytest
 from bs4 import BeautifulSoup
 
-from psc.resources import Example
+from psc.resources import Example, is_local
 from psc.resources import Page
 from psc.resources import get_body_content
 from psc.resources import get_head_nodes
@@ -72,8 +72,8 @@ def test_example() -> None:
     this_example = Example(path=PurePath("hello_world"))
     assert this_example.title == "Hello World"
     assert (
-        this_example.subtitle
-        == "The classic hello world, but in Python -- in a browser!"
+            this_example.subtitle
+            == "The classic hello world, but in Python -- in a browser!"
     )
     assert "hello_world.css" in this_example.extra_head
     assert "<h1>Hello ...</h1>" in this_example.body
@@ -117,8 +117,8 @@ def test_get_resources() -> None:
     hello_world = resources.examples[hello_world_path]
     assert hello_world.title == "Hello World"
     assert (
-        hello_world.subtitle
-        == "The classic hello world, but in Python -- in a browser!"
+            hello_world.subtitle
+            == "The classic hello world, but in Python -- in a browser!"
     )
 
     # Page
@@ -126,3 +126,16 @@ def test_get_resources() -> None:
     about = resources.pages[about_path]
     assert about.title == "About the PyScript Collective"
     assert "<h1>Helping" in about.body
+
+
+def test_is_local_no_path() -> None:
+    """Test the local case where a directory exists."""
+    actual = is_local()
+    assert actual
+
+
+def test_is_local_broken_path() -> None:
+    """Test the local case where a directory will not exist."""
+    test_path = Path("/xxxxxx")
+    actual = is_local(test_path)
+    assert not actual

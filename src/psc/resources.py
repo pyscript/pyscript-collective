@@ -4,7 +4,7 @@ We use paths as the "id" values. More specifically, PurePath.
 """
 from dataclasses import dataclass
 from dataclasses import field
-from pathlib import PurePath
+from pathlib import PurePath, Path
 from typing import cast
 
 import frontmatter
@@ -12,15 +12,14 @@ from bs4 import BeautifulSoup
 from bs4 import Tag
 from markdown_it import MarkdownIt
 
-from psc.here import HERE
-
+from psc.here import HERE, PYODIDE
 
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
 
 def tag_filter(
-    tag: Tag,
-    exclusions: tuple[str, ...] = EXCLUSIONS,
+        tag: Tag,
+        exclusions: tuple[str, ...] = EXCLUSIONS,
 ) -> bool:
     """Filter nodes from example that should not get included."""
     attr = "href" if tag.name == "link" else "src"
@@ -44,6 +43,12 @@ def get_head_nodes(s: BeautifulSoup) -> str:
     if head_nodes:
         return "\n".join(head_nodes)
     return ""
+
+
+def is_local(test_path: Path | None = PYODIDE) -> bool:
+    """Use a policy to decide local vs. CDN mode."""
+
+    return test_path.exists()
 
 
 def get_body_content(s: BeautifulSoup) -> str:
