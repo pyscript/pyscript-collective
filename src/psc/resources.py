@@ -4,6 +4,7 @@ We use paths as the "id" values. More specifically, PurePath.
 """
 from dataclasses import dataclass
 from dataclasses import field
+from operator import attrgetter
 from pathlib import Path
 from pathlib import PurePath
 from typing import cast
@@ -16,13 +17,12 @@ from markdown_it import MarkdownIt
 from psc.here import HERE
 from psc.here import PYODIDE
 
-
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
 
 def tag_filter(
-    tag: Tag,
-    exclusions: tuple[str, ...] = EXCLUSIONS,
+        tag: Tag,
+        exclusions: tuple[str, ...] = EXCLUSIONS,
 ) -> bool:
     """Filter nodes from example that should not get included."""
     attr = "href" if tag.name == "link" else "src"
@@ -155,14 +155,19 @@ class Resources:
     pages: dict[PurePath, Page] = field(default_factory=dict)
 
 
+def get_sorted_examples() -> list[PurePath]:
+    """Return an alphabetized listing of the examples."""
+    examples_dir = HERE / "gallery/examples"
+    examples = [e for e in examples_dir.iterdir() if e.is_dir()]
+    return sorted(examples, key=attrgetter("name"))
+
+
 def get_resources() -> Resources:
     """Factory to construct all the resources in the site."""
     resources = Resources()
 
     # Load the examples
-    examples_dir = HERE / "gallery/examples"
-    examples = [e for e in examples_dir.iterdir() if e.is_dir()]
-    for example in examples:
+    for example in get_sorted_examples():
         this_path = PurePath(example.name)
         this_example = Example(path=this_path)
         resources.examples[this_path] = this_example
