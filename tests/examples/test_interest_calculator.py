@@ -30,7 +30,7 @@ def test_calculator_setup(
     from psc.gallery.examples.interest_calculator.calculator import setup
 
     fake_document.values["calc"] = "Calculate"
-    setup()
+    setup()  # type: ignore
     node = fake_document.nodes["calc"]
     assert "Removed disabled" == node.element.log[0]
 

@@ -5,13 +5,15 @@ from pathlib import PurePath
 import pytest
 from bs4 import BeautifulSoup
 
-from psc.resources import Example, get_sorted_examples
+from psc.resources import Example
 from psc.resources import Page
 from psc.resources import get_body_content
 from psc.resources import get_head_nodes
 from psc.resources import get_resources
+from psc.resources import get_sorted_examples
 from psc.resources import is_local
 from psc.resources import tag_filter
+
 
 IS_LOCAL = is_local()
 
@@ -116,8 +118,8 @@ def test_example() -> None:
     this_example = Example(path=PurePath("hello_world"))
     assert this_example.title == "Hello World"
     assert (
-            this_example.subtitle
-            == "The classic hello world, but in Python -- in a browser!"
+        this_example.subtitle
+        == "The classic hello world, but in Python -- in a browser!"
     )
     assert "hello_world.css" in this_example.extra_head
     assert "<h1>Hello ...</h1>" in this_example.body
@@ -153,6 +155,7 @@ def test_missing_page() -> None:
 
 
 def test_sorted_examples() -> None:
+    """Ensure a stable listing."""
     examples = get_sorted_examples()
     first_example = examples[0]
     assert "altair" == first_example.name
@@ -167,8 +170,8 @@ def test_get_resources() -> None:
     hello_world = resources.examples[hello_world_path]
     assert hello_world.title == "Hello World"
     assert (
-            hello_world.subtitle
-            == "The classic hello world, but in Python -- in a browser!"
+        hello_world.subtitle
+        == "The classic hello world, but in Python -- in a browser!"
     )
 
     # Page

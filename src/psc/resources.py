@@ -17,12 +17,13 @@ from markdown_it import MarkdownIt
 from psc.here import HERE
 from psc.here import PYODIDE
 
+
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
 
 def tag_filter(
-        tag: Tag,
-        exclusions: tuple[str, ...] = EXCLUSIONS,
+    tag: Tag,
+    exclusions: tuple[str, ...] = EXCLUSIONS,
 ) -> bool:
     """Filter nodes from example that should not get included."""
     attr = "href" if tag.name == "link" else "src"
