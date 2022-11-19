@@ -1,15 +1,20 @@
 """Construct the various kinds of resources: example, page, contributor."""
-from pathlib import PurePath, Path
+from pathlib import Path
+from pathlib import PurePath
 
 import pytest
 from bs4 import BeautifulSoup
 
-from psc.resources import Example, is_local
+from psc.resources import Example
 from psc.resources import Page
 from psc.resources import get_body_content
 from psc.resources import get_head_nodes
 from psc.resources import get_resources
+from psc.resources import is_local
 from psc.resources import tag_filter
+
+
+IS_LOCAL = is_local()
 
 
 @pytest.fixture
@@ -58,30 +63,47 @@ def test_get_main() -> None:
     example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
     soup = BeautifulSoup(example_html, "html5lib")
     body = get_body_content(soup)
-    assert body == '<py-config src="../py_config.local.toml">abc</py-config>'
+    if IS_LOCAL:
+        assert body == '<py-config src="../py_config.local.toml">abc</py-config>'
+    else:
+        assert body == '<py-config src="../py_config.cdn.toml">abc</py-config>'
 
 
 def test_get_py_config_local() -> None:
-    """Return the main node and test setting py-config src."""
+    """Return the body node and test setting py-config src."""
     example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
     soup = BeautifulSoup(example_html, "html5lib")
     body = get_body_content(soup)
     body_soup = BeautifulSoup(body, "html5lib")
-    py_config = body_soup.find("py-config")
-    actual = py_config["src"]
-    assert "../py_config.local.toml" == actual
+    py_config = body_soup.select_one("py-config")
+    if py_config:
+        actual = py_config.attrs["src"]
+        if IS_LOCAL:
+            assert "../py_config.local.toml" == actual
+        else:
+            assert "../py_config.cdn.toml" == actual
 
 
 def test_get_py_config_cdn() -> None:
-    """Return the main node and test setting py-config src."""
+    """Return the body node and test setting py-config src."""
     example_html = '<body><py-config src="../x.toml">abc</py-config></body>'
     soup = BeautifulSoup(example_html, "html5lib")
     test_path = Path("/x")
     body = get_body_content(soup, test_path=test_path)
     body_soup = BeautifulSoup(body, "html5lib")
-    py_config = body_soup.find("py-config")
-    actual = py_config["src"]
-    assert "../py_config.cdn.toml" == actual
+    py_config = body_soup.select_one("py-config")
+    if py_config:
+        actual = py_config.attrs["src"]
+        assert "../py_config.cdn.toml" == actual
+
+
+def test_get_py_config_no_body() -> None:
+    """There is not a body node to get py-config from."""
+    example_html = "<div></div>"
+    soup = BeautifulSoup(example_html, "html5lib")
+    test_path = Path("/x")
+    body = get_body_content(soup, test_path=test_path)
+    assert "" == body
 
 
 def test_example_bad_path() -> None:
@@ -95,8 +117,8 @@ def test_example() -> None:
     this_example = Example(path=PurePath("hello_world"))
     assert this_example.title == "Hello World"
     assert (
-            this_example.subtitle
-            == "The classic hello world, but in Python -- in a browser!"
+        this_example.subtitle
+        == "The classic hello world, but in Python -- in a browser!"
     )
     assert "hello_world.css" in this_example.extra_head
     assert "<h1>Hello ...</h1>" in this_example.body
@@ -140,8 +162,8 @@ def test_get_resources() -> None:
     hello_world = resources.examples[hello_world_path]
     assert hello_world.title == "Hello World"
     assert (
-            hello_world.subtitle
-            == "The classic hello world, but in Python -- in a browser!"
+        hello_world.subtitle
+        == "The classic hello world, but in Python -- in a browser!"
     )
 
     # Page
@@ -149,12 +171,6 @@ def test_get_resources() -> None:
     about = resources.pages[about_path]
     assert about.title == "About the PyScript Collective"
     assert "<h1>Helping" in about.body
-
-
-def test_is_local_no_path() -> None:
-    """Test the local case where a directory exists."""
-    actual = is_local()
-    assert actual
 
 
 def test_is_local_broken_path() -> None:

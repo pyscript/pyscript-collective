@@ -4,7 +4,8 @@ We use paths as the "id" values. More specifically, PurePath.
 """
 from dataclasses import dataclass
 from dataclasses import field
-from pathlib import PurePath, Path
+from pathlib import Path
+from pathlib import PurePath
 from typing import cast
 
 import frontmatter
@@ -12,14 +13,16 @@ from bs4 import BeautifulSoup
 from bs4 import Tag
 from markdown_it import MarkdownIt
 
-from psc.here import HERE, PYODIDE
+from psc.here import HERE
+from psc.here import PYODIDE
+
 
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
 
 def tag_filter(
-        tag: Tag,
-        exclusions: tuple[str, ...] = EXCLUSIONS,
+    tag: Tag,
+    exclusions: tuple[str, ...] = EXCLUSIONS,
 ) -> bool:
     """Filter nodes from example that should not get included."""
     attr = "href" if tag.name == "link" else "src"
@@ -45,24 +48,25 @@ def get_head_nodes(s: BeautifulSoup) -> str:
     return ""
 
 
-def is_local(test_path: Path | None = PYODIDE) -> bool:
+def is_local(test_path: Path = PYODIDE) -> bool:
     """Use a policy to decide local vs. CDN mode."""
-
     return test_path.exists()
 
 
-def get_body_content(s: BeautifulSoup, test_path: Path | None = PYODIDE) -> str:
+def get_body_content(s: BeautifulSoup, test_path: Path = PYODIDE) -> str:
     """Get the body node but raise an exception if not present."""
-
     # Choose the correct TOML file for local vs remote.
     toml_name = "local" if is_local(test_path) else "cdn"
     src = f"../py_config.{toml_name}.toml"
 
     # Get the body and patch the py_config src
     body_element = s.select_one("body")
-    py_config = body_element.find("py-config")
-    py_config["src"] = src
-    return f"{body_element.decode_contents()}"
+    if body_element:
+        py_config = body_element.select_one("py-config")
+        if py_config:
+            py_config.attrs["src"] = src
+            return f"{body_element.decode_contents()}"
+    return ""
 
 
 @dataclass
@@ -100,7 +104,7 @@ class Example(Resource):
 
         # Main, extra head example's HTML file.
         index_html_file = HERE / "gallery/examples" / self.path / "index.html"
-        if not index_html_file.exists():
+        if not index_html_file.exists():  # pragma: nocover
             raise ValueError(f"No example at {self.path}")
         soup = BeautifulSoup(index_html_file.read_text(), "html5lib")
         self.extra_head = get_head_nodes(soup)

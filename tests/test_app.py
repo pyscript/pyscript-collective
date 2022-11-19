@@ -70,15 +70,3 @@ def test_static(test_client: TestClient) -> None:
     """Ensure the app provides a /static/ route."""
     response = test_client.get("/static/bulma.min.css")
     assert response.status_code == 200
-
-
-def test_pyscript(test_client: TestClient) -> None:
-    """Ensure the app provides a path to the ``pyscript`` static dir."""
-    response = test_client.get("/pyscript/pyscript.js")
-    assert response.status_code == 200
-
-
-def test_pyodide(test_client: TestClient) -> None:
-    """Ensure the app provides a path to the ``pyodide`` static dir."""
-    response = test_client.get("/pyodide/pyodide.js")
-    assert response.status_code == 200
