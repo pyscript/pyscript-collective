@@ -20,7 +20,6 @@ from psc.resources import Example
 from psc.resources import Resources
 from psc.resources import get_resources
 
-
 templates = Jinja2Templates(directory=HERE / "templates")
 
 
@@ -68,6 +67,14 @@ async def example(request: Request) -> _TemplateResponse:
     this_example = resources.examples[example_path]
     root_path = "../../.."
 
+    # Set the pyscript URL to the CDN if we are being built from
+    # the ``psc build`` command.
+    user_agent = request.headers["user-agent"]
+    if user_agent == "testclient":
+        pyscript_url = "https://pyscript.net/latest/pyscript.js"
+    else:
+        pyscript_url = f"{root_path}/pyscript/pyscript.js"
+
     return templates.TemplateResponse(
         "example.jinja2",
         dict(
@@ -77,6 +84,7 @@ async def example(request: Request) -> _TemplateResponse:
             body=this_example.body,
             request=request,
             root_path=root_path,
+            pyscript_url=pyscript_url,
         ),
     )
 

@@ -1,7 +1,7 @@
 {% extends "layout.jinja2" %}
 {% block extra_head %}
     <meta name="subtitle" content="{{ subtitle }}">
-    <script defer src="{{ root_path }}/pyscript/pyscript.js"></script>
+    <script defer src="{{ pyscript_url }}"></script>
     {{ extra_head | safe }}{% endblock %}
 {% block main %}
     <main id="main_container" class="container">
