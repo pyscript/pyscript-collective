@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>xkcd Antigravity Code | PyScript Collective</title>
+    <link rel="icon" href="../../../favicon.png">
+    <link rel="stylesheet" href="../../../static/psc.css">
+    <link rel="stylesheet" href="../../../static/bulma.min.css">
+    
+    <script src="../../../static/prism.js"></script>
+    <script defer>Prism.plugins.customClass.prefix("prism--");</script>
+    <link rel="stylesheet" href="../../../static/prism.css">
+
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="../../../static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="../../../index.html">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a id="navbarGallery" class="navbar-item" href="../../../gallery">
+                Gallery
+            </a>
+            <a id="navbarAuthors" class="navbar-item" href="../../../authors">
+                Authors
+            </a>
+            <a id="navbarJoin" class="navbar-item" href="../../../pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="../../../pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="../../../pages/about.html">
+                About
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main id="main_container" class="container">
+        <a class="button is-pulled-right" href="./index.html">Back to Demo</a>
+        <h1 class="title">xkcd Antigravity Code</h1>
+        <div class="content">
+            
+                <h2>index.html</h2>
+                <pre class="prism-code"><code class="language-html"
+                                              data-prismjs-copy="Copy the snippet">&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+    &lt;title&gt;xkcd Antigravity&lt;/title&gt;
+    &lt;link rel=&#34;icon&#34; type=&#34;image/png&#34; href=&#34;../../../favicon.png&#34;&gt;
+    &lt;script defer src=&#34;../../../pyscript/pyscript.js&#34;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;py-config src=&#34;../py_config.local.toml&#34;&gt;
+    paths = [&#34;./antigravity.py&#34;]
+&lt;/py-config&gt;
+&lt;strong&gt;Based on xkcd: antigravity https://xkcd.com/353/.&lt;/strong&gt;
+&lt;py-script&gt;
+    import antigravity
+
+    antigravity.fly()
+&lt;/py-script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+            
+                <h2>antigravity.py</h2>
+                <pre class="prism-code"><code class="language-python"
+                                              data-prismjs-copy="Copy the snippet">&#34;&#34;&#34;Animate the xkcd comic.&#34;&#34;&#34;
+import random
+import sys
+
+from js import DOMParser
+from js import document
+from js import setInterval
+from pyodide.ffi import create_proxy
+from pyodide.http import open_url
+
+
+class Antigravity:
+    &#34;&#34;&#34;Implement antigravity.&#34;&#34;&#34;
+
+    url = &#34;./antigravity.svg&#34;
+
+    def __init__(self, target=None, interval=10, append=True, fly=False):
+        &#34;&#34;&#34;Construct antigravity.&#34;&#34;&#34;
+        target = target or sys.stdout._out
+        self.target = (
+            document.getElementById(target) if isinstance(target, str) else target
+        )
+        doc = DOMParser.new().parseFromString(
+            open_url(self.url).read(), &#34;image/svg+xml&#34;
+        )
+        self.node = doc.documentElement
+        if append:
+            self.target.append(self.node)
+        else:
+            self.target.replaceChildren(self.node)
+        self.xoffset, self.yoffset = 0, 0
+        self.interval = interval
+        if fly:
+            self.fly()
+
+    def fly(self):
+        &#34;&#34;&#34;Schedule a taking off-and-fly.&#34;&#34;&#34;
+        setInterval(create_proxy(self.move), self.interval)
+
+    def move(self):
+        &#34;&#34;&#34;Move the item.&#34;&#34;&#34;
+        char = self.node.getElementsByTagName(&#34;g&#34;)[1]
+        char.setAttribute(&#34;transform&#34;, f&#34;translate({self.xoffset}, {-self.yoffset})&#34;)
+        self.xoffset += random.normalvariate(0, 1) / 20
+        if self.yoffset &lt; 50:
+            self.yoffset += 0.1
+        else:
+            self.yoffset += random.normalvariate(0, 1) / 20
+
+
+_auto = Antigravity(append=True)
+fly = _auto.fly
+</code></pre>
+            
+        </div>
+    </main>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

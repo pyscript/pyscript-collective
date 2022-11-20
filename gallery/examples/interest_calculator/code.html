@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compound Interest Calculator Code | PyScript Collective</title>
+    <link rel="icon" href="../../../favicon.png">
+    <link rel="stylesheet" href="../../../static/psc.css">
+    <link rel="stylesheet" href="../../../static/bulma.min.css">
+    
+    <script src="../../../static/prism.js"></script>
+    <script defer>Prism.plugins.customClass.prefix("prism--");</script>
+    <link rel="stylesheet" href="../../../static/prism.css">
+
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="../../../static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="../../../index.html">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a id="navbarGallery" class="navbar-item" href="../../../gallery">
+                Gallery
+            </a>
+            <a id="navbarAuthors" class="navbar-item" href="../../../authors">
+                Authors
+            </a>
+            <a id="navbarJoin" class="navbar-item" href="../../../pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="../../../pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="../../../pages/about.html">
+                About
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main id="main_container" class="container">
+        <a class="button is-pulled-right" href="./index.html">Back to Demo</a>
+        <h1 class="title">Compound Interest Calculator Code</h1>
+        <div class="content">
+            
+                <h2>index.html</h2>
+                <pre class="prism-code"><code class="language-html"
+                                              data-prismjs-copy="Copy the snippet">&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+    &lt;title&gt;Interest Calculator&lt;/title&gt;
+    &lt;link rel=&#34;icon&#34; type=&#34;image/png&#34; href=&#34;../../../favicon.png&#34;&gt;
+    &lt;link rel=&#34;stylesheet&#34; href=&#34;styles.css&#34;/&gt;
+    &lt;script defer src=&#34;../../../pyscript/pyscript.js&#34;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;section class=&#34;calculator-demo&#34;&gt;
+    &lt;section class=&#34;calculator-inner&#34;&gt;
+        &lt;div class=&#34;flexelement&#34; id=&#34;first_div&#34;&gt;
+            &lt;p id=&#34;first_p&#34;&gt;
+                Welcome to the &#34;Simple and Compound Interest Calculator!&#34;
+                &lt;br/&gt;
+                &lt;strong&gt;&#34;how does it work?&#34;&lt;/strong&gt;
+                to use the &#34;Simple and Compound Interest Calculator&#34;, please enter the input data into the form.
+                after clicking &#34;Calculate&#34;, your result will be shown at the bottom of the form.
+            &lt;/p&gt;
+
+            &lt;div style=&#34;margin-left: 15%;&#34;&gt;
+                &lt;div style=&#34;width: 100%;&#34;&gt;
+                    &lt;input type=&#34;radio&#34; name=&#39;expander&#39; id=&#34;expander-1&#34;&gt;
+                    &lt;label class=&#34;expander_label&#34; for=&#34;expander-1&#34;&gt;Compound Interest Formula &amp;#187;&lt;/label&gt;
+                    &lt;img src=&#34;compound-interest.png&#34; alt=&#34;Compound Interest&#34;
+                         style=&#34;height: 200px;&#34;/&gt;
+                &lt;/div&gt;
+
+                &lt;div style=&#34;margin-top: 25px;&#34;&gt;
+                    &lt;input type=&#34;radio&#34; name=&#39;expander&#39; id=&#34;expander-2&#34;&gt;
+                    &lt;label class=&#34;expander_label&#34; for=&#34;expander-2&#34;&gt;Simple Interest Formula &amp;#187;&lt;/label&gt;
+                    &lt;img src=&#34;simple-interest.png&#34; alt=&#34;Simple Interest&#34;
+                         style=&#34;height: 150px;&#34;/&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+
+        &lt;div class=&#34;flexelement&#34;&gt;
+
+            &lt;div id=&#34;form&#34;&gt;
+
+                &lt;div&gt;
+                    &lt;label&gt;Principal
+                        &lt;input id=&#34;principal&#34; type=&#34;number&#34; step=&#34;1&#34; , style=&#34;color: black; min-height: 60px;&#34;/&gt;&lt;/label&gt;
+                    &lt;br/&gt;&lt;br&gt;
+                    &lt;label&gt;Interest rate
+                        &lt;input id=&#34;interest_rate&#34; type=&#34;number&#34; step=&#34;0.1&#34; style=&#34;color: black; min-height: 60px;&#34;
+                               placeholder=&#34;Decimal, f.e. 0.8&#34;/&gt;
+                    &lt;/label&gt;
+                    &lt;br&gt;
+                    &lt;br/&gt;
+
+                    &lt;label&gt;Time
+                        &lt;input id=&#34;time&#34; type=&#34;number&#34; step=&#34;1&#34; min=&#34;0&#34; style=&#34;color: black; min-height: 60px;&#34;
+                               placeholder=&#34;in years&#34;/&gt;&lt;/label&gt;
+                    &lt;br&gt; &lt;br/&gt;
+
+                    &lt;button py-click=&#34;interest()&#34; id=&#34;calc&#34; style=&#34;min-height: 60px;&#34; disabled&gt;Calculate&lt;/button&gt;
+
+                    &lt;div style=&#34;margin-top: 2%;&#34;&gt;
+                        &lt;span id=&#34;simple_interest&#34;&gt;&lt;/span&gt;
+                        &lt;br/&gt;
+                        &lt;span id=&#34;compound_interest&#34;&gt;&lt;/span&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;py-config src=&#34;../py_config.toml&#34;&gt;&lt;/py-config&gt;
+        &lt;py-script src=&#34;calculator.py&#34;&gt;&lt;/py-script&gt;
+        &lt;py-script&gt;
+                setup()
+        &lt;/py-script&gt;
+    &lt;/section&gt;
+&lt;/section&gt;
+
+&lt;footer&gt;
+    &lt;p id=&#34;footer_p&#34;&gt;
+        Thank you for using the &#34;Simple and Compound
+        Interest Calculator!&#34;, powered by PyScript!
+    &lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+            
+                <h2>calculator.py</h2>
+                <pre class="prism-code"><code class="language-python"
+                                              data-prismjs-copy="Copy the snippet">&#34;&#34;&#34;Calculate the interest.&#34;&#34;&#34;
+
+
+def interest(*args, **kwargs):
+    &#34;&#34;&#34;Main interest calculation function.&#34;&#34;&#34;
+    # Signal that PyScript is alive by setting the ``Calculate``
+    # button away from disabled.
+    calculate_button = Element(&#34;calc&#34;)  # noqa
+    # calculate_button.element.setAttribute(&#34;disabled&#34;)
+
+    # Now get the various inputs
+    element_principal = Element(&#34;principal&#34;)  # noqa
+    element_rate = Element(&#34;interest_rate&#34;)  # noqa
+    element_time = Element(&#34;time&#34;)  # noqa
+    principal = float(element_principal.value)
+    rate = float(element_rate.value)
+    time = float(element_time.value)
+    output1 = Element(&#34;simple_interest&#34;)  # noqa
+    output2 = Element(&#34;compound_interest&#34;)  # noqa
+    res1 = round(principal + (principal * rate * time))
+    res2 = round(principal * ((1 + rate) ** time))
+    output1.write(f&#34;simple interest: {res1}&#34;)
+    output2.write(f&#34;compound interest: {res2}&#34;)
+
+
+def setup():
+    &#34;&#34;&#34;When Pyodide starts up, enable the Calculate button.&#34;&#34;&#34;
+    calculate_button = Element(&#34;calc&#34;)  # noqa
+    calculate_button.element.removeAttribute(&#34;disabled&#34;)
+</code></pre>
+            
+                <h2>styles.css</h2>
+                <pre class="prism-code"><code class="language-css"
+                                              data-prismjs-copy="Copy the snippet">﻿section.calculator-demo {
+    background-color: #F3F6F8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,&#34;Segoe UI&#34;,Helvetica,Arial,sans-serif,&#34;Apple Color Emoji&#34;,&#34;Segoe UI Emoji&#34;;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+section.calculator-inner {
+    display: flex;
+    flex-direction: row;
+}
+
+img {
+    flex: 1;
+    margin: 5%;
+    margin-left: 20%;
+}
+
+#first_div {
+    align-content: center;
+    margin: 1%;
+    flex: 1.25;
+}
+
+#first_p {
+    margin: 3.5%;
+    margin-left: 15%;
+    font-family: Tahoma, sans-serif;
+}
+
+.flexelement {
+    flex: 1;
+    padding: 2%;
+}
+
+
+
+#form {
+    margin-top: 7%;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#form input[type=number] {
+    border: 1px solid white;
+    border-radius: 0.3em;
+    height: 12%;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+
+#form button {
+    width: 100%;
+    height: 12%;
+    margin-bottom: 5px;
+    border: 0;
+}
+
+#form button:disabled, #form button[disabled] {
+    background-color: #0097e863;
+}
+
+header {
+    height: 100px;
+}
+
+footer {
+    margin-top: auto;
+    height: 57px;
+}
+
+header, footer {
+    background-color: #1A1A27;
+}
+
+#header_h1 {
+    padding-top: 2.2%;
+    margin-left: 40%;
+    font-weight: bold;
+    color: white;
+}
+
+input[type=number] {
+    padding: 1%;
+}
+
+#principal, #interest_rate, #time {
+    width: 25%;
+}
+
+#calc {
+    width: 25%;
+    padding: 1%;
+    font-weight: bold;
+    margin-top: 2%;
+    color: white;
+    background-color: #0095E8;
+}
+
+#simple_interest, #compound_interest {
+    color: black;
+    font-weight: bold;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+input[type=radio] ~ img {
+    animation: close 1.5;
+    display: none;
+    height: 0;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+input[type=radio]:checked ~ img {
+    animation: open 1.5s;
+    display: block;
+    height: auto;
+    max-height: 500px;
+}
+
+@keyframes open {
+    from {
+        max-height: 0;
+    }
+
+    to {
+        max-height: auto;
+    }
+}
+
+@keyframes close {
+    from {
+        display: block;
+        max-height: auto;
+    }
+
+    to {
+        display: none;
+        height: 0;
+    }
+}
+
+.expander_label {
+    border: 1px solid #0095E8;
+    border-radius: 0.1em;
+    padding: 1%;
+    font-weight: 500;
+    color: white;
+    background-color: #0095E8;
+    background-color: #0095E8;
+}
+
+#footer_p {
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    color: white;
+    vertical-align: central;
+    padding: 1.2%;
+}
+</code></pre>
+            
+        </div>
+    </main>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>
