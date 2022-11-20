@@ -80,6 +80,7 @@ jobs:
 
       - name: Build Gallery
         run: |
+          poetry install
           poetry run psc build
 
       - name: Deploy Gallery
