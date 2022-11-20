@@ -51,7 +51,8 @@ def get_head_nodes(s: BeautifulSoup) -> str:
 
 def is_local(test_path: Path = PYODIDE) -> bool:
     """Use a policy to decide local vs. CDN mode."""
-    return test_path.exists()
+    pyscript_file = test_path / "pyscript.js"
+    return pyscript_file.exists()
 
 
 def get_body_content(s: BeautifulSoup, test_path: Path = PYODIDE) -> str:
