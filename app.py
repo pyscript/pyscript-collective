@@ -66,6 +66,7 @@ async def example(request: Request) -> _TemplateResponse:
     example_path = PurePath(request.path_params["example_name"])
     resources: Resources = request.app.state.resources
     this_example = resources.examples[example_path]
+    root_path = "../../.."
 
     return templates.TemplateResponse(
         "example.jinja2",
@@ -75,6 +76,7 @@ async def example(request: Request) -> _TemplateResponse:
             extra_head=this_example.extra_head,
             body=this_example.body,
             request=request,
+            root_path=root_path,
         ),
     )
 
@@ -109,8 +111,8 @@ routes = [
     Mount("/static", StaticFiles(directory=HERE / "static")),
 ]
 if PYODIDE.exists():
-    Mount("/pyscript", StaticFiles(directory=PYSCRIPT)),
-    Mount("/pyodide", StaticFiles(directory=PYODIDE)),
+    routes.append(Mount("/pyscript", StaticFiles(directory=PYSCRIPT)))
+    routes.append(Mount("/pyodide", StaticFiles(directory=PYODIDE)))
 
 
 @contextlib.asynccontextmanager  # type: ignore
