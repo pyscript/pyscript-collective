@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "psc"
-version = "0.1.0"
+version = "0.1.1"
 description = "PyScript Collective"
 authors = ["Paul Everitt <pauleveritt@me.com>"]
 license = "Apache-2.0"
