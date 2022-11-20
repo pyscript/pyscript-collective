@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello World | PyScript Collective</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/static/psc.css">
+    <link rel="stylesheet" href="/static/bulma.min.css">
+    
+    <meta name="subtitle" content="The classic hello world, but in Python -- in a browser!">
+    <script defer src="/pyscript/pyscript.js"></script>
+    <link href="hello_world.css" rel="stylesheet"/>
+
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="/static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="/index.html">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a id="navbarGallery" class="navbar-item" href="/gallery">
+                Gallery
+            </a>
+            <a id="navbarJoin" class="navbar-item" href="/pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="/pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="/pages/about.html">
+                About
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main id="main_container" class="container">
+        <h1 class="title">Hello World</h1>
+        <h1 class="subtitle">The classic hello world, but in Python -- in a browser!</h1>
+        <div class="content">
+<py-config src="../py_config.local.toml"></py-config>
+<h1>Hello ...</h1>
+<div id="output"></div>
+<h6>More Info</h6>
+<py-script>
+        pyscript.write("output", "...world")
+</py-script>
+
+
+</div>
+    </main>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

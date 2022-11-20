@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compound Interest Calculator | PyScript Collective</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/static/psc.css">
+    <link rel="stylesheet" href="/static/bulma.min.css">
+    
+    <meta name="subtitle" content="The classic hello world, but in Python -- in a browser!">
+    <script defer src="/pyscript/pyscript.js"></script>
+    <link href="styles.css" rel="stylesheet"/>
+
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="/static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="/index.html">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a id="navbarGallery" class="navbar-item" href="/gallery">
+                Gallery
+            </a>
+            <a id="navbarJoin" class="navbar-item" href="/pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="/pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="/pages/about.html">
+                About
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main id="main_container" class="container">
+        <h1 class="title">Compound Interest Calculator</h1>
+        <h1 class="subtitle">The classic hello world, but in Python -- in a browser!</h1>
+        <div class="content">
+
+<section class="calculator-demo">
+    <section class="calculator-inner">
+        <div class="flexelement" id="first_div">
+            <p id="first_p">
+                Welcome to the "Simple and Compound Interest Calculator!"
+                <br/>
+                <strong>"how does it work?"</strong>
+                to use the "Simple and Compound Interest Calculator", please enter the input data into the form.
+                after clicking "Calculate", your result will be shown at the bottom of the form.
+            </p>
+
+            <div style="margin-left: 15%;">
+                <div style="width: 100%;">
+                    <input id="expander-1" name="expander" type="radio"/>
+                    <label class="expander_label" for="expander-1">Compound Interest Formula »</label>
+                    <img alt="Compound Interest" src="compound-interest.png" style="height: 200px;"/>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <input id="expander-2" name="expander" type="radio"/>
+                    <label class="expander_label" for="expander-2">Simple Interest Formula »</label>
+                    <img alt="Simple Interest" src="simple-interest.png" style="height: 150px;"/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flexelement">
+
+            <div id="form">
+
+                <div>
+                    <label>Principal
+                        <input ,="" id="principal" step="1" style="color: black; min-height: 60px;" type="number"/></label>
+                    <br/><br/>
+                    <label>Interest rate
+                        <input id="interest_rate" placeholder="Decimal, f.e. 0.8" step="0.1" style="color: black; min-height: 60px;" type="number"/>
+                    </label>
+                    <br/>
+                    <br/>
+
+                    <label>Time
+                        <input id="time" min="0" placeholder="in years" step="1" style="color: black; min-height: 60px;" type="number"/></label>
+                    <br/> <br/>
+
+                    <button disabled="" id="calc" py-click="interest()" style="min-height: 60px;">Calculate</button>
+
+                    <div style="margin-top: 2%;">
+                        <span id="simple_interest"></span>
+                        <br/>
+                        <span id="compound_interest"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <py-config src="../py_config.local.toml"></py-config>
+        <py-script src="calculator.py"></py-script>
+        <py-script>
+                setup()
+        </py-script>
+    </section>
+</section>
+
+<footer>
+    <p id="footer_p">
+        Thank you for using the "Simple and Compound
+        Interest Calculator!", powered by PyScript!
+    </p>
+</footer>
+
+
+
+
+</div>
+    </main>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

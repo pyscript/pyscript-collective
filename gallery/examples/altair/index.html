@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Altair Visualization | PyScript Collective</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/static/psc.css">
+    <link rel="stylesheet" href="/static/bulma.min.css">
+    
+    <meta name="subtitle" content="Declarative statistical visualization library.">
+    <script defer src="/pyscript/pyscript.js"></script>
+    
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="/static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="/index.html">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a id="navbarGallery" class="navbar-item" href="/gallery">
+                Gallery
+            </a>
+            <a id="navbarJoin" class="navbar-item" href="/pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="/pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="/pages/about.html">
+                About
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main id="main_container" class="container">
+        <h1 class="title">Altair Visualization</h1>
+        <h1 class="subtitle">Declarative statistical visualization library.</h1>
+        <div class="content">
+<py-config src="../py_config.local.toml">
+    packages=[
+    "altair",
+    "pandas",
+    "vega_datasets"
+    ]
+</py-config>
+<div id="altair" style="width: 100%; height: 100%"></div>
+<py-script output="altair">
+        import altair as alt
+        from vega_datasets import data
+
+        source = data.movies.url
+
+        pts = alt.selection(type="single", encodings=['x'])
+
+        rect = alt.Chart(data.movies.url).mark_rect().encode(
+            alt.X('IMDB_Rating:Q', bin=True),
+            alt.Y('Rotten_Tomatoes_Rating:Q', bin=True),
+            alt.Color('count()',
+                      scale=alt.Scale(scheme='greenblue'),
+                      legend=alt.Legend(title='Total Records')
+                      )
+        )
+
+        circ = rect.mark_point().encode(
+            alt.ColorValue('grey'),
+            alt.Size('count()',
+                     legend=alt.Legend(title='Records in Selection')
+                     )
+        ).transform_filter(
+            pts
+        )
+
+        bar = alt.Chart(source).mark_bar().encode(
+            x='Major_Genre:N',
+            y='count()',
+            color=alt.condition(pts, alt.ColorValue("steelblue"), alt.ColorValue("grey"))
+        ).properties(
+            width=550,
+            height=200
+        ).add_selection(pts)
+
+        alt.vconcat(
+            rect + circ,
+            bar
+        ).resolve_legend(
+            color="independent",
+            size="independent"
+        )
+</py-script>
+
+
+</div>
+    </main>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

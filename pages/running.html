@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Running the Gallery | PyScript Collective</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/static/psc.css">
+    <link rel="stylesheet" href="/static/bulma.min.css">
+    
+    
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="/static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="/index.html">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a id="navbarGallery" class="navbar-item" href="/gallery">
+                Gallery
+            </a>
+            <a id="navbarJoin" class="navbar-item" href="/pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="/pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="/pages/about.html">
+                About
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main id="main_container" class="container">
+        <div class="columns">
+            <div class="column is-three-quarters">
+                <h1 class="title is-1">Running the Gallery</h1>
+                <h1 class="subtitle">Different ways to run the Gallery for different kinds of uses.</h1>
+                <div class="content"><body>
+ <p>
+  The PyScript Gallery is a website with browseable, runnable examples.
+ </p>
+ <p>
+  But wait -- it's also a running Python
+  <em>
+   application
+  </em>
+  ! You can run it with
+  <code>
+   pipx
+  </code>
+  or a local
+    virtualenv! It's also a Python
+  <em>
+   package
+  </em>
+  . You can install it into your own project and run it from there.
+ </p>
+ <p>
+  Let's look at the ways different kinds of uses can run the Gallery.
+ </p>
+ <section>
+  <a id="viewer">
+  </a>
+  <h2>
+   Viewer
+  </h2>
+  <p>
+   Go to the website, click the link, and PyScript runs the Python code in your browser. Yeh, duh, we all know
+        that.
+  </p>
+ </section>
+ <section>
+  <a id="coder">
+  </a>
+  <h2>
+   Coder
+  </h2>
+  <p>
+   What if you want to run offline? Or poke around locally? It's a Python package, and
+   <code>
+    pipx
+   </code>
+   makes it
+        easy to run applications. This will fire up a local Starlette server.
+   <em>
+    Everything
+   </em>
+   -- including Pyodide -- will be served
+        locally. (Unless one of the examples has to make an API request.)
+  </p>
+  <p>
+   You'll get the same Gallery you're seeing on the website. It's just statically dumped from Starlette
+  </p>
+ </section>
+ <section>
+  <a id="contributor">
+  </a>
+  <h1>
+   Contributor
+  </h1>
+  <p>
+   Maybe you're not up on
+   <code>
+    pipx
+   </code>
+   . Or maybe -- just maybe! -- you'd like to create and contribute an example.
+  </p>
+  <p>
+   Use virtualenv or Conda to make a project, install
+   <code>
+    psg
+   </code>
+   as a dependency.
+  </p>
+ </section>
+</body></div>
+            </div>
+        </div>
+    </main>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

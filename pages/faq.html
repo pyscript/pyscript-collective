@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FAQ | PyScript Collective</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/static/psc.css">
+    <link rel="stylesheet" href="/static/bulma.min.css">
+    
+    
+</head>
+<body>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://pyscript.net/">
+            <img alt="Logo" src="/static/pyscript-sticker-black.svg" height="28">
+        </a>
+        <a class="navbar-item" href="/index.html">
+            PyScript Collective
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a id="navbarGallery" class="navbar-item" href="/gallery">
+                Gallery
+            </a>
+            <a id="navbarJoin" class="navbar-item" href="/pages/contributing.html">
+                Join
+            </a>
+            <a id="navbarFAQ" class="navbar-item" href="/pages/faq.html">
+                FAQ
+            </a>
+            <a id="navbarAbout" class="navbar-item" href="/pages/about.html">
+                About
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main id="main_container" class="container">
+        <div class="columns">
+            <div class="column is-three-quarters">
+                <h1 class="title is-1">FAQ</h1>
+                <h1 class="subtitle">Questions about the Collective, the Gallery, the examples...answered.</h1>
+                <div class="content"><p>The Collective...it's kind of an odd little ducky.
+The Gallery?
+Ditto.</p>
+<p>Let's answer some questions.</p>
+<h1>Why should I care?</h1>
+<ul>
+<li>A slick, supported web app for browsing quality examples</li>
+<li>A cool, fast testing regime with <code>TestClient</code> plus Playwright <em>interceptors</em></li>
+<li>An installable package to run/hack examples without needing a network connection</li>
+<li>No <code>package.json</code></li>
+<li>Hands-free GitHub Actions</li>
+</ul>
+<h1>Gallery</h1>
+<p>The Gallery is the web application and static website for browsing examples, contributors, etc.</p>
+<h3>Why bundle your own everything?</h3>
+<p>The Gallery has a fork of PyScript and -- you heard it right -- a private copy of Pyodide.
+Why?</p>
+<p>To let us run offline or in low-bandwidth settings.
+When I wrote the Gallery, I was on a <em>slow</em> connection.
+It was super-painful.
+Consuming the Gallery and contributing should be more joyful.</p>
+<p>Also, we want a stable checkpoint in time.
+The examples will work against a known set of stuff, because we'll bundle that set of stuff.</p>
+<p>If you're interested in such stuff, take a look at the docs for the prototype repo.
+In there is a step-by-step diary of the journey taken for all of these decisions.</p>
+<h3>What's up with testing?</h3>
+<p>Well, glad you asked!
+I'm a big fan of test-first.
+The existing PyScript testing regime has some rough edges and I wanted to explore alternatives and propose changes.</p>
+<p>The Collective will have to stand behind the Gallery and the examples.
+We need it to be productive.</p>
+<h3>No <code>pyscript.css</code>?</h3>
+<p>Yep, the Gallery and the website don't use the PyScript styling.
+The PyScript core team doesn't plan to force folks to use PyScript itself as the application.
+The Gallery is an exemplar of that ethos.
+It's an app that made some choices.</p>
+<h3>Why Bulma?</h3>
+<p>Cuz I like it.
+And I know it.
+I wanted a mature, off-the-shelf style package that looks great without me thinking.
+And if I want more, I get the SASS package and hack away.</p>
+<p>But perhaps you noticed -- there's no <code>package.json</code> here.
+No tooling.
+Pleasureville.</p>
+<h3>PWA offline-first?</h3>
+<p>Wouldn't it be cool to work offline, like an installable app on a mobile device?
+It could happen!
+Maybe with <code>htmx</code> to smooth page changes.</p>
+<p>Why stop there?
+Let's have a hot-reloading Gallery that pushes incremental changes to fragments over SSE.</p>
+<h1>Examples</h1>
+<p>Examples are the heart of the Gallery and Collective.</p>
+<h3>Why all that tooling crap!?!</h3>
+<p><code>mypy</code> and type hints? <code>Flake8</code>? <code>nox</code>? GitHub Actions? Are you <em>insane</em>?</p>
+<p>You know what's insane?
+The answer to the next question.
+Yes, the tooling is a tax, and we're open to lowering taxes.
+But taxes serve the public good, and our job is to deliver a Gallery that works, now in the future...based on examples from <em>other people</em>.</p>
+<p>To some degree, it's also a teaching tool for &quot;best practices.&quot;
+But that -- like &quot;Pythonic&quot; -- is an expression sure to get an eye-roll.
+So consider the &quot;we want examples that are good teaching tools&quot; as a secondary benefit.</p>
+<h3>Wait, YOU are going to hold the bag...forever? Thanks!</h3>
+<p>Yes, when an example is accepted, the people in the Collective promise to co-own it.
+Keep it working, fix bugs people report, rebuild Frankenstein when PyScript/Pyodide go off in some new direction.
+It's there on the tin: &quot;Collective&quot;.
+We're all in this together.</p>
+<h3>Oh, you're tricking me into joining!</h3>
+<p>Yep, freely admitted.
+We want a fun, joyous place where Python newcomers feel valued and valuable.
+We want your example -- but we also want <em>you</em>!</p>
+<p>There's lots we can teach you.
+Managing Git, releasing packages, writing tests, fighting <code>mypy</code>.
+As well as the Gallery itself -- add new features, help write tests, make videos.</p>
+<p>In a perfect world, &quot;Collaborator for the PyScript Collective&quot; will be a treasured listing on your LinkedIn profile.
+You'll use us for a job reference, and we'll get you a sweet career upgrade.</p>
+<p>In exchange, we'll ask you to help us trick the next person into joining the Collective, then &quot;coach them up&quot; to being a star and moving to a better job.</p>
+<p>No, no, no...this does NOT sound like a Ponzi scheme.</p>
+</div>
+            </div>
+        </div>
+    </main>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/pyscript/pyscript-collective"><strong>PyScript Collective</strong></a> is
+            licensed under
+            <a href="https://github.com/pyscript/pyscript-collective/blob/main/LICENSE.md">Apache 2.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

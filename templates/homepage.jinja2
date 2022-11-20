@@ -1,0 +1,153 @@
+{% extends "layout.jinja2" %}
+{% block main %}
+    <section class="hero p-1 is-warning">
+        <div class="hero-body">
+            <div class="columns">
+                <div class="column is-two-thirds m-6">
+                    <p class="title">
+                        PyScript Collective
+                    </p>
+                    <p class="subtitle">
+                        Software and people, from and for the PyScript Community.
+                    </p>
+                </div>
+                <div class="column is-2">
+                    <a href="{{ root_path }}/gallery/examples/hello_world/index.html">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-square">
+                                    <img alt="placeholder" src="{{ root_path }}/gallery/examples/hello_world/screenshot.png">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="content">
+                                    Hello World
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section has-background-info-light">
+        <div class="columns">
+            <div class="column is-half ml-6 mr-6">
+                <div class=" has-text-centered">
+                    <h2 class="is-size-3">Want to <strong>learn PyScript</strong>?<br>Want to join others to
+                        <strong>help
+                            learners?</strong></h2>
+                </div>
+                <div class=" is-half is-offset-one-fifth is-size-6 content">
+                    The PyScript Collective is a community project to make learning PyScript <em>fun</em> through
+                    curated, maintained examples...all packed into a convenient gallery.
+                    <ul>
+                        <li>Run <a href="{{ root_path }}/pages/running.html#viewer">the Gallery</a> from this site, or
+                            through <a
+                                    href="{{ root_path }}/pages/running.html#coder">pipx</a>, or
+                            when <a href="{{ root_path }}/pages/running#contributor">making your own example</a>.
+                        </li>
+                        <li>Each example is <a href="{{ root_path }}/pages/gallery.html#integrated">curated, polished, and
+                            maintained</a> by
+                            the <a href="{{ root_path }}/pages/about.html">the
+                                Collective team</a>.
+                        </li>
+                        <li>Join us by <a href="{{ root_path }}/pages/contributing.html#contributor">becoming a
+                            contributor</a> or <a
+                                href="{{ root_path }}//pages/contributing.html#collaborator">even becoming a
+                            collaborator.</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column">
+                <figure class="image is-16by9">
+                    <iframe class="has-ratio"
+                            width="560" height="315" src="https://www.youtube.com/embed/a9MDiAMf7Kw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <section class="section has-background-primary">
+        <h1 class="title has-text-light">Top Examples</h1>
+        <h2 class="subtitle has-text-light">
+            Check out a selection from our <a href="{{ root_path }}/gallery">integrated</a> and <a
+                href="{{ root_path }}/gallery">secondary</a>
+            examples.
+        </h2>
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title">xxxHello World</p>
+                    <p class="subtitle">What is up?</p>
+                    <div class="content">
+                        This is the <em>description</em> for this example.
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title">xxxHello World</p>
+                    <p class="subtitle">What is up?</p>
+                    <div class="content">
+                        This is the <em>description</em> for this example.
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title">xxxHello World</p>
+                    <p class="subtitle">What is up?</p>
+                    <div class="content">
+                        <p>This is the <em>description</em> for this example.</p>
+                        <p>This is the <em>description</em> for this example.</p>
+                        <p>This is the <em>description</em> for this example.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <h1 class="title">Collective</h1>
+        <h2 class="subtitle">
+            Join us! The PyScript Collective is a fun, rewarding place to share expertise and help others.
+        </h2>
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title"><a href="{{ root_path }}/pages/contributing.html#viewer">Viewers</a></p>
+                    <p class="subtitle">Browse examples from the website.</p>
+                    <div class="content">
+                        This is the <em>description</em> for this example.
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title"><a href="{{ root_path }}/pages/contributing.html#coders">Coders</a></p>
+                    <p class="subtitle">Run examples in your local Python.</p>
+                    <div class="content">
+                        This is the <em>description</em> for this example.
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title"><a href="{{ root_path }}/pages/contributing.html#contributors">Contributors</a></p>
+                    <p class="subtitle">Provide a new PyScript example.</p>
+                    <div class="content">
+                        This is the <em>description</em> for this example.
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title"><a href="{{ root_path }}/pages/contributing.html#collaborators">Collaborators</a></p>
+                    <p class="subtitle">Maintain examples and onboard newcomers.</p>
+                    <div class="content">
+                        <p>This is the <em>description</em> for this example.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+{% endblock %}
