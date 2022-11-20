@@ -11,20 +11,22 @@
         </div>
     </section>
     <main id="main_container" class="container">
-        <div class="tile is-ancestor">
-            {% for example in examples %}
-                <div class="tile is-parent is-4">
-                    <article class="tile is-child box">
-                        <p class="title"><a
-                                href="{{ root_path }}/gallery/examples/{{ example.path.name }}/">{{ example.title }}</a>
-                        </p>
-                        <p class="subtitle">{{ example.subtitle }}</p>
-                        <div class="content">
-                            {{ example.description | safe }}
-                        </div>
-                    </article>
-                </div>
-            {% endfor %}
-        </div>
+        {% for row in examples | batch(3) %}
+            <div class="tile is-ancestor">
+                {% for example in row %}
+                    <div class="tile is-parent is-4">
+                        <article class="tile is-child box">
+                            <p class="title"><a
+                                    href="{{ root_path }}/gallery/examples/{{ example.name }}/">{{ example.title }}</a>
+                            </p>
+                            <p class="subtitle">{{ example.subtitle }}</p>
+                            {% if example.author %}
+                                <p style="margin-top: 1em">By <a href="../authors/{{ example.author }}.html">{{ authors[example.author].title }}</a></p>
+                            {% endif %}
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
     </main>
 {% endblock %}

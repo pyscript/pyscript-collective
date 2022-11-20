@@ -1,0 +1,8 @@
+{% extends "layout.jinja2" %}
+{% block extra_head %}
+{% block main %}
+    <main id="main_container" class="container">
+        <h1 class="title">{{ title }}</h1>
+        <div class="content">{{ body | safe }}</div>
+    </main>
+{% endblock %}

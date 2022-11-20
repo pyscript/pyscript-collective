@@ -1,0 +1,29 @@
+{% extends "layout.jinja2" %}
+{% block main %}
+    <section class="hero is-small is-dark">
+        <div class="hero-body">
+            <p class="title">
+                PyScript Authors
+            </p>
+            <p class="subtitle">
+                All the contributors to authors and more.
+            </p>
+        </div>
+    </section>
+    <main id="main_container" class="container">
+        <div class="tile is-ancestor">
+            {% for author in authors %}
+                <div class="tile is-parent is-4">
+                    <article class="tile is-child box">
+                        <p class="title"><a
+                                href="{{ root_path }}/authors/{{ author.name }}.html/">{{ author.title }}</a>
+                        </p>
+                        <div class="content">
+                            {{ author.body | safe }}
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

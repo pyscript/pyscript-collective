@@ -6,6 +6,9 @@
 {% block main %}
     <main id="main_container" class="container">
         <h1 class="title">{{ title }}</h1>
+        {% if author %}
+            <p>By <a href="../authors/{{ author.name }}.html">{{ author.title  }}</a></p>
+        {% endif %}
         <h1 class="subtitle">{{ subtitle }}</h1>
         <div class="content">{{ body | safe }}</div>
     </main>

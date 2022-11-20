@@ -75,7 +75,7 @@ def get_body_content(s: BeautifulSoup, test_path: Path = PYODIDE) -> str:
 class Resource:
     """Base dataclass used for all resources."""
 
-    path: PurePath
+    name: str
     title: str = ""
     body: str = ""
     extra_head: str = ""
@@ -91,26 +91,41 @@ class Example(Resource):
     Meaning, HERE / "examples" / name / "index.html".
     """
 
-    description: str = ""
     subtitle: str = ""
+    description: str = ""
+    author: str | None = None
 
     def __post_init__(self) -> None:
         """Extract most of the data from the HTML file."""
-        # Title, subtitle, description come from the example's MD file.
-        index_md_file = HERE / "gallery/examples" / self.path / "index.md"
+        # Title, subtitle, body come from the example's MD file.
+        index_md_file = HERE / "gallery/examples" / self.name / "index.md"
         md_fm = frontmatter.load(index_md_file)
         self.title = md_fm.get("title", "")
+        self.author = md_fm.get("author", "")
         self.subtitle = md_fm.get("subtitle", "")
         md = MarkdownIt()
         self.description = str(md.render(md_fm.content))
 
         # Main, extra head example's HTML file.
-        index_html_file = HERE / "gallery/examples" / self.path / "index.html"
+        index_html_file = HERE / "gallery/examples" / self.name / "index.html"
         if not index_html_file.exists():  # pragma: nocover
-            raise ValueError(f"No example at {self.path}")
+            raise ValueError(f"No example at {self.name}")
         soup = BeautifulSoup(index_html_file.read_text(), "html5lib")
         self.extra_head = get_head_nodes(soup)
         self.body = get_body_content(soup)
+
+
+@dataclass
+class Author(Resource):
+    """Information about an author, from Markdown."""
+
+    def __post_init__(self) -> None:
+        """Initialize the rest of the fields from the Markdown."""
+        md_file = HERE / "gallery/authors" / f"{self.name}.md"
+        md_fm = frontmatter.load(md_file)
+        self.title = md_fm.get("title", "")
+        md = MarkdownIt()
+        self.body = str(md.render(md_fm.content))
 
 
 @dataclass
@@ -118,14 +133,13 @@ class Page(Resource):
     """A Markdown+frontmatter driven content page."""
 
     subtitle: str = ""
-    body: str = ""
 
     def __post_init__(self) -> None:
         """Extract content from either Markdown or HTML file."""
-        md_file = HERE / "pages" / f"{self.path}.md"
-        html_file = HERE / "pages" / f"{self.path}.html"
+        md_file = HERE / "pages" / f"{self.name}.md"
+        html_file = HERE / "pages" / f"{self.name}.html"
 
-        # If this self.path resolves to a Markdown file, use it first
+        # If this self.name resolves to a Markdown file, use it first
         if md_file.exists():
             md_fm = frontmatter.load(md_file)
             self.title = md_fm.get("title", "")
@@ -146,40 +160,49 @@ class Page(Resource):
             if body_node and isinstance(body_node, Tag):
                 self.body = body_node.prettify()
         else:  # pragma: no cover
-            raise ValueError(f"No page at {self.path}")
+            raise ValueError(f"No page at {self.name}")
 
 
 @dataclass
 class Resources:
     """Container for all resources in site."""
 
-    examples: dict[PurePath, Example] = field(default_factory=dict)
-    pages: dict[PurePath, Page] = field(default_factory=dict)
+    authors: dict[str, Author] = field(default_factory=dict)
+    examples: dict[str, Example] = field(default_factory=dict)
+    pages: dict[str, Page] = field(default_factory=dict)
 
 
-def get_sorted_examples() -> list[PurePath]:
+def get_sorted_paths(target_dir: Path, only_dirs: bool = True) -> list[PurePath]:
     """Return an alphabetized listing of the examples."""
-    examples_dir = HERE / "gallery/examples"
-    examples = [e for e in examples_dir.iterdir() if e.is_dir()]
-    return sorted(examples, key=attrgetter("name"))
+    if only_dirs:
+        paths = [e for e in target_dir.iterdir() if e.is_dir()]
+    else:
+        paths = [e for e in target_dir.iterdir()]
+
+    return sorted(paths, key=attrgetter("name"))
 
 
 def get_resources() -> Resources:
     """Factory to construct all the resources in the site."""
     resources = Resources()
 
+    # Load the authors
+    authors = HERE / "gallery/authors"
+    for author in get_sorted_paths(authors, only_dirs=False):
+        this_author = Author(name=author.stem)
+        resources.authors[author.stem] = this_author
+
     # Load the examples
-    for example in get_sorted_examples():
-        this_path = PurePath(example.name)
-        this_example = Example(path=this_path)
-        resources.examples[this_path] = this_example
+    examples = HERE / "gallery/examples"
+    for example in get_sorted_paths(examples):
+        this_example = Example(example.stem)
+        resources.examples[example.stem] = this_example
 
     # Load the Pages
     pages_dir = HERE / "pages"
     pages = [e for e in pages_dir.iterdir()]
     for page in pages:
-        this_path = PurePath(page.stem)
-        this_page = Page(path=this_path)
-        resources.pages[this_path] = this_page
+        this_page = Page(name=page.stem)
+        resources.pages[page.stem] = this_page
 
     return resources
