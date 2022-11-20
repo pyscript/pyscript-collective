@@ -1,0 +1,19 @@
+{% extends "layout.jinja2" %}
+{% block extra_head %}
+    <script src="{{ root_path }}/static/prism.js"></script>
+    <script defer>Prism.plugins.customClass.prefix("prism--");</script>
+    <link rel="stylesheet" href="{{ root_path }}/static/prism.css">
+{% endblock %}
+{% block main %}
+    <main id="main_container" class="container">
+        <a class="button is-pulled-right" href="./index.html">Back to Demo</a>
+        <h1 class="title">{{ title }}</h1>
+        <div class="content">
+            {% for linked_file in linked_files %}
+                <h2>{{ linked_file.path.name }}</h2>
+                <pre class="prism-code"><code class="language-{{ linked_file.language }}"
+                                              data-prismjs-copy="Copy the snippet">{{ linked_file.body }}</code></pre>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
