@@ -102,15 +102,15 @@ def build() -> None:  # pragma: no cover
         # Now for each page
         resources = get_resources()
         for page in resources.pages.values():
-            response = test_client.get(f"/pages/{page.path.stem}.html")
-            output = public / f"pages/{page.path.stem}.html"
+            response = test_client.get(f"/pages/{page.name}.html")
+            output = public / f"pages/{page.name}.html"
             output.write_text(response.text)
 
         # And for each example
         for example in resources.examples.values():
-            url = f"/gallery/examples/{example.path.stem}/index.html"
+            url = f"/gallery/examples/{example.name}/index.html"
             response = test_client.get(url)
-            output = public / f"gallery/examples/{example.path.stem}/index.html"
+            output = public / f"gallery/examples/{example.name}/index.html"
             output.write_text(response.text)
 
 

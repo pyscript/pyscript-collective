@@ -1,19 +1,20 @@
 """Construct the various kinds of resources: example, page, contributor."""
 from pathlib import Path
-from pathlib import PurePath
 
 import pytest
 from bs4 import BeautifulSoup
 
 from psc.here import HERE
-from psc.resources import Example, Resources
+from psc.resources import Example
 from psc.resources import Page
+from psc.resources import Resources
 from psc.resources import get_body_content
 from psc.resources import get_head_nodes
 from psc.resources import get_resources
 from psc.resources import get_sorted_paths
 from psc.resources import is_local
 from psc.resources import tag_filter
+
 
 IS_LOCAL = is_local()
 
@@ -32,6 +33,7 @@ def head_soup() -> BeautifulSoup:
 
 @pytest.fixture(scope="module")
 def resources() -> Resources:
+    """Cache the generation of resources for this test file."""
     return get_resources()
 
 
@@ -115,16 +117,16 @@ def test_get_py_config_no_body() -> None:
 def test_example_bad_path() -> None:
     """Point at an example that does not exist, get ValueError."""
     with pytest.raises(FileNotFoundError):
-        Example(path=PurePath("XXXX"))
+        Example(name="XXX")
 
 
 def test_example() -> None:
     """Construct an ``Example`` and ensure it has all the template bits."""
-    this_example = Example(path=PurePath("hello_world"))
+    this_example = Example(name="hello_world")
     assert this_example.title == "Hello World"
     assert (
-            this_example.subtitle
-            == "The classic hello world, but in Python -- in a browser!"
+        this_example.subtitle
+        == "The classic hello world, but in Python -- in a browser!"
     )
     assert "hello_world.css" in this_example.extra_head
     assert "<h1>Hello ...</h1>" in this_example.body
@@ -132,14 +134,14 @@ def test_example() -> None:
 
 def test_markdown_page() -> None:
     """Make an instance of a Page resource and test it."""
-    this_page = Page(path=PurePath("about"))
+    this_page = Page(name="about")
     assert this_page.title == "About the PyScript Collective"
     assert "<h1>Helping" in this_page.body
 
 
 def test_html_page() -> None:
     """Make an instance of a .html Page resource and test it."""
-    this_page = Page(path=PurePath("contributing"))
+    this_page = Page(name="contributing")
     assert this_page.title == "Contributing"
     assert this_page.subtitle == "How to get involved in the PyScript Collective."
     assert 'id="viewer"' in this_page.body
@@ -147,7 +149,7 @@ def test_html_page() -> None:
 
 def test_page_optional_subtitle() -> None:
     """Frontmatter does not specify a subtitle."""
-    this_page = Page(path=PurePath("contact"))
+    this_page = Page(name="contact")
     assert this_page.title == "Contact Us"
     assert this_page.subtitle == ""
 
@@ -155,7 +157,7 @@ def test_page_optional_subtitle() -> None:
 def test_missing_page() -> None:
     """Make a missing Page resource and test that it raises exception."""
     with pytest.raises(ValueError) as exc:
-        Page(path=PurePath("xxx"))
+        Page(name="xxx")
     assert str(exc.value) == "No page at xxx"
 
 
@@ -175,19 +177,14 @@ def test_sorted_authors() -> None:
 
 def test_get_resources(resources: Resources) -> None:
     """Ensure the dict-of-dicts is generated with PurePath keys."""
-
     # Example
-    hello_world_path = PurePath("hello_world")
-    hello_world = resources.examples[hello_world_path]
-    assert hello_world.title == "Hello World"
-    assert (
-            hello_world.subtitle
-            == "The classic hello world, but in Python -- in a browser!"
-    )
+    interest_calculator = resources.examples["interest_calculator"]
+    assert interest_calculator.title == "Compound Interest Calculator"
+    assert interest_calculator.subtitle == "Enter some numbers, get some numbers."
+    assert "meg-1" == interest_calculator.author
 
     # Page
-    about_path = PurePath("about")
-    about = resources.pages[about_path]
+    about = resources.pages["about"]
     assert about.title == "About the PyScript Collective"
     assert "<h1>Helping" in about.body
 
@@ -203,4 +200,4 @@ def test_authors(resources: Resources) -> None:
     """Get the list of authors as defined in Markdown files."""
     authors = resources.authors
     first_author = list(authors.values())[0]
-    assert "meg-1" == first_author.path.name
+    assert "meg-1" == first_author.name

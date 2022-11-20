@@ -9,7 +9,8 @@ def test_authors_page(client_page: PageT) -> None:
     assert page_title and "Authors | PyScript Collective" == page_title.text
 
     authors = soup.select_one("article.tile p.title")
-    assert "Margaret" == authors.text.strip()
+    if authors:
+        assert "Margaret" == authors.text.strip()
 
 
 def test_author_page(client_page: PageT) -> None:
@@ -19,4 +20,5 @@ def test_author_page(client_page: PageT) -> None:
     assert page_title and "Margaret | PyScript Collective" == page_title.text
 
     author = soup.select_one("main h1")
-    assert "Margaret" == author.text.strip()
+    if author:
+        assert "Margaret" == author.text.strip()
