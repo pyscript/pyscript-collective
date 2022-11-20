@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 from psc.here import HERE
 from psc.resources import Example
+from psc.resources import LinkedFile
 from psc.resources import Page
 from psc.resources import Resources
 from psc.resources import get_body_content
@@ -122,14 +123,21 @@ def test_example_bad_path() -> None:
 
 def test_example() -> None:
     """Construct an ``Example`` and ensure it has all the template bits."""
-    this_example = Example(name="hello_world")
-    assert this_example.title == "Hello World"
-    assert (
-        this_example.subtitle
-        == "The classic hello world, but in Python -- in a browser!"
-    )
-    assert "hello_world.css" in this_example.extra_head
-    assert "<h1>Hello ...</h1>" in this_example.body
+    this_example = Example(name="interest_calculator")
+    assert this_example.title == "Compound Interest Calculator"
+    assert this_example.subtitle == "Enter some numbers, get some numbers."
+    assert "styles.css" in this_example.extra_head
+    assert "Welcome to the" in this_example.body
+
+    linked_files = this_example.linked_files
+    assert "html" == linked_files[0].language
+
+
+def test_linked_file() -> None:
+    """Correctly create a LinkedFile."""
+    linked_path = HERE / "gallery/examples/altair/index.html"
+    linked_file = LinkedFile(path=linked_path)
+    assert "html" == linked_file.language
 
 
 def test_markdown_page() -> None:
