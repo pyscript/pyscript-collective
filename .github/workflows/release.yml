@@ -77,3 +77,12 @@ jobs:
           tag: ${{ steps.check-version.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Gallery
+        run: |
+          poetry run psc build
+
+      - name: Deploy Gallery
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/public
