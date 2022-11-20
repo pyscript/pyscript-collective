@@ -1,7 +1,6 @@
 """Provide a web server to browse the examples."""
 import contextlib
 from collections.abc import Iterator
-from pathlib import PurePath
 from typing import AsyncContextManager
 
 from starlette.applications import Starlette
@@ -47,8 +46,10 @@ async def homepage(request: Request) -> _TemplateResponse:
 
 async def gallery(request: Request) -> _TemplateResponse:
     """Handle the gallery listing page."""
-    these_examples: Iterator[Example] = request.app.state.resources.examples.values()
+    resources = request.app.state.resources
+    these_examples: Iterator[Example] = resources.examples.values()
     root_path = ".."
+    these_authors = resources.authors
 
     return templates.TemplateResponse(
         "gallery.jinja2",
@@ -57,16 +58,56 @@ async def gallery(request: Request) -> _TemplateResponse:
             examples=these_examples,
             root_path=root_path,
             request=request,
+            authors=these_authors,
+        ),
+    )
+
+
+async def authors(request: Request) -> _TemplateResponse:
+    """Handle the author listing page."""
+    these_authors: Iterator[Example] = request.app.state.resources.authors.values()
+    root_path = ".."
+
+    return templates.TemplateResponse(
+        "authors.jinja2",
+        dict(
+            title="Authors",
+            authors=these_authors,
+            root_path=root_path,
+            request=request,
+        ),
+    )
+
+
+async def author(request: Request) -> _TemplateResponse:
+    """Handle an author page."""
+    author_name = request.path_params["author_name"]
+    resources: Resources = request.app.state.resources
+    this_author = resources.authors[author_name]
+    root_path = "../../.."
+
+    return templates.TemplateResponse(
+        "example.jinja2",
+        dict(
+            title=this_author.title,
+            body=this_author.body,
+            request=request,
+            root_path=root_path,
         ),
     )
 
 
 async def example(request: Request) -> _TemplateResponse:
     """Handle an example page."""
-    example_path = PurePath(request.path_params["example_name"])
+    example_name = request.path_params["example_name"]
     resources: Resources = request.app.state.resources
-    this_example = resources.examples[example_path]
+    this_example = resources.examples[example_name]
     root_path = "../../.."
+    author_name = this_example.author
+    if author_name:
+        this_author = resources.authors.get(author_name, None)
+    else:
+        this_author = None
 
     # Set the pyscript URL to the CDN if we are being built from
     # the ``psc build`` command.
@@ -86,15 +127,16 @@ async def example(request: Request) -> _TemplateResponse:
             request=request,
             root_path=root_path,
             pyscript_url=pyscript_url,
+            author=this_author,
         ),
     )
 
 
 async def content_page(request: Request) -> _TemplateResponse:
     """Handle a content page."""
-    page_path = PurePath(request.path_params["page_name"])
+    page_name = request.path_params["page_name"]
     resources: Resources = request.app.state.resources
-    this_page = resources.pages[page_path]
+    this_page = resources.pages[page_name]
 
     return templates.TemplateResponse(
         "page.jinja2",
@@ -113,6 +155,9 @@ routes = [
     Route("/favicon.png", favicon),
     Route("/gallery/index.html", gallery),
     Route("/gallery", gallery),
+    Route("/authors/index.html", authors),
+    Route("/authors", authors),
+    Route("/authors/{author_name}.html", author),
     Route("/gallery/examples/{example_name}/index.html", example),
     Route("/gallery/examples/{example_name}/", example),
     Route("/pages/{page_name}.html", content_page),

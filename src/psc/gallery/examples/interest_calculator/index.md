@@ -1,5 +1,6 @@
 ---
 title: Compound Interest Calculator
-subtitle: The classic hello world, but in Python -- in a browser!
+subtitle: Enter some numbers, get some numbers.
+author: meg-1
 ---
 The *body* description.
