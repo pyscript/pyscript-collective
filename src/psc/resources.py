@@ -17,13 +17,12 @@ from markdown_it import MarkdownIt
 from psc.here import HERE
 from psc.here import PYODIDE
 
-
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
 
 def tag_filter(
-    tag: Tag,
-    exclusions: tuple[str, ...] = EXCLUSIONS,
+        tag: Tag,
+        exclusions: tuple[str, ...] = EXCLUSIONS,
 ) -> bool:
     """Filter nodes from example that should not get included."""
     attr = "href" if tag.name == "link" else "src"
@@ -81,6 +80,27 @@ class Resource:
     extra_head: str = ""
 
 
+linked_file_mapping = dict(
+    py="python",
+    css="css",
+    html="html"
+)
+
+
+@dataclass
+class LinkedFile:
+    """A source file on disk that gets attached to an example."""
+
+    path: Path
+    language: str = field(init=False)
+    body: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        """Read the file contents into the body."""
+        self.language = linked_file_mapping[self.path.suffix[1:]]
+        self.body = self.path.read_text()
+
+
 @dataclass
 class Example(Resource):
     """Create an example from an HTML location on disk.
@@ -91,9 +111,10 @@ class Example(Resource):
     Meaning, HERE / "examples" / name / "index.html".
     """
 
-    subtitle: str = ""
-    description: str = ""
-    author: str | None = None
+    subtitle: str = field(init=False)
+    description: str = field(init=False)
+    author: str = field(init=False)
+    linked_files: list[LinkedFile] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """Extract most of the data from the HTML file."""
@@ -107,12 +128,21 @@ class Example(Resource):
         self.description = str(md.render(md_fm.content))
 
         # Main, extra head example's HTML file.
-        index_html_file = HERE / "gallery/examples" / self.name / "index.html"
+        this_example_path = HERE / "gallery/examples" / self.name
+        index_html_file = this_example_path / "index.html"
         if not index_html_file.exists():  # pragma: nocover
             raise ValueError(f"No example at {self.name}")
-        soup = BeautifulSoup(index_html_file.read_text(), "html5lib")
+        index_html_text = index_html_file.read_text()
+        soup = BeautifulSoup(index_html_text, "html5lib")
         self.extra_head = get_head_nodes(soup)
         self.body = get_body_content(soup)
+
+        # Process any linked files
+        linked_paths = [*["index.html"], *md_fm.get("linked_files", [])]
+        for linked_name in linked_paths:
+            linked_path = this_example_path / linked_name
+            linked_file = LinkedFile(path=linked_path)
+            self.linked_files.append(linked_file)
 
 
 @dataclass
