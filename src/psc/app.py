@@ -20,7 +20,6 @@ from psc.resources import Example
 from psc.resources import Resources
 from psc.resources import get_resources
 
-
 templates = Jinja2Templates(directory=HERE / "templates")
 
 
@@ -57,6 +56,40 @@ async def gallery(request: Request) -> _TemplateResponse:
             examples=these_examples,
             root_path=root_path,
             request=request,
+        ),
+    )
+
+
+async def authors(request: Request) -> _TemplateResponse:
+    """Handle the author listing page."""
+    these_authors: Iterator[Example] = request.app.state.resources.authors.values()
+    root_path = ".."
+
+    return templates.TemplateResponse(
+        "authors.jinja2",
+        dict(
+            title="Authors",
+            authors=these_authors,
+            root_path=root_path,
+            request=request,
+        ),
+    )
+
+
+async def author(request: Request) -> _TemplateResponse:
+    """Handle an author page."""
+    author_path = PurePath(request.path_params["author_name"])
+    resources: Resources = request.app.state.resources
+    this_author = resources.authors[author_path]
+    root_path = "../../.."
+
+    return templates.TemplateResponse(
+        "example.jinja2",
+        dict(
+            title=this_author.title,
+            body=this_author.body,
+            request=request,
+            root_path=root_path,
         ),
     )
 
@@ -113,6 +146,9 @@ routes = [
     Route("/favicon.png", favicon),
     Route("/gallery/index.html", gallery),
     Route("/gallery", gallery),
+    Route("/authors/index.html", authors),
+    Route("/authors", authors),
+    Route("/authors/{author_name}.html", author),
     Route("/gallery/examples/{example_name}/index.html", example),
     Route("/gallery/examples/{example_name}/", example),
     Route("/pages/{page_name}.html", content_page),

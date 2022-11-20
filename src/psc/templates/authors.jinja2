@@ -3,24 +3,23 @@
     <section class="hero is-small is-dark">
         <div class="hero-body">
             <p class="title">
-                PyScript Gallery
+                PyScript Authors
             </p>
             <p class="subtitle">
-                Curated examples, runnable from this website or locally installable.
+                All the contributors to authors and more.
             </p>
         </div>
     </section>
     <main id="main_container" class="container">
         <div class="tile is-ancestor">
-            {% for example in examples %}
+            {% for author in authors %}
                 <div class="tile is-parent is-4">
                     <article class="tile is-child box">
                         <p class="title"><a
-                                href="{{ root_path }}/gallery/examples/{{ example.path.name }}/">{{ example.title }}</a>
+                                href="{{ root_path }}/authors/{{ author.path.name }}.html/">{{ author.title }}</a>
                         </p>
-                        <p class="subtitle">{{ example.subtitle }}</p>
                         <div class="content">
-                            {{ example.body | safe }}
+                            {{ author.body | safe }}
                         </div>
                     </article>
                 </div>

@@ -90,18 +90,17 @@ class Example(Resource):
     Meaning, HERE / "examples" / name / "index.html".
     """
 
-    description: str = ""
     subtitle: str = ""
 
     def __post_init__(self) -> None:
         """Extract most of the data from the HTML file."""
-        # Title, subtitle, description come from the example's MD file.
+        # Title, subtitle, body come from the example's MD file.
         index_md_file = HERE / "gallery/examples" / self.path / "index.md"
         md_fm = frontmatter.load(index_md_file)
         self.title = md_fm.get("title", "")
         self.subtitle = md_fm.get("subtitle", "")
         md = MarkdownIt()
-        self.description = str(md.render(md_fm.content))
+        self.body = str(md.render(md_fm.content))
 
         # Main, extra head example's HTML file.
         index_html_file = HERE / "gallery/examples" / self.path / "index.html"
