@@ -113,6 +113,12 @@ def build() -> None:  # pragma: no cover
             output = public / f"gallery/examples/{example.name}/index.html"
             output.write_text(response.text)
 
+            # Now build the code page
+            url = f"/gallery/examples/{example.name}/code.html"
+            response = test_client.get(url)
+            output = public / f"gallery/examples/{example.name}/code.html"
+            output.write_text(response.text)
+
 
 # @app.callback(invoke_without_command=True)
 @app.command()
