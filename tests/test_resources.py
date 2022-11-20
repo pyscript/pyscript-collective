@@ -5,7 +5,8 @@ import pytest
 from bs4 import BeautifulSoup
 
 from psc.here import HERE
-from psc.resources import Example, LinkedFile
+from psc.resources import Example
+from psc.resources import LinkedFile
 from psc.resources import Page
 from psc.resources import Resources
 from psc.resources import get_body_content
@@ -14,6 +15,7 @@ from psc.resources import get_resources
 from psc.resources import get_sorted_paths
 from psc.resources import is_local
 from psc.resources import tag_filter
+
 
 IS_LOCAL = is_local()
 
@@ -123,10 +125,7 @@ def test_example() -> None:
     """Construct an ``Example`` and ensure it has all the template bits."""
     this_example = Example(name="interest_calculator")
     assert this_example.title == "Compound Interest Calculator"
-    assert (
-            this_example.subtitle
-            == "Enter some numbers, get some numbers."
-    )
+    assert this_example.subtitle == "Enter some numbers, get some numbers."
     assert "styles.css" in this_example.extra_head
     assert "Welcome to the" in this_example.body
 

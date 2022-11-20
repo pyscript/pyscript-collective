@@ -2,12 +2,14 @@
 {% block extra_head %}
     <meta name="subtitle" content="{{ subtitle }}">
     <script defer src="{{ pyscript_url }}"></script>
-    {{ extra_head | safe }}{% endblock %}
+    {{ extra_head | safe }}
+{% endblock %}
 {% block main %}
     <main id="main_container" class="container">
+        <a class="button is-pulled-right" href="./code.html">Show Code</a>
         <h1 class="title">{{ title }}</h1>
         {% if author %}
-            <p>By <a href="../authors/{{ author.name }}.html">{{ author.title  }}</a></p>
+            <p>By <a href="../authors/{{ author.name }}.html">{{ author.title }}</a></p>
         {% endif %}
         <h1 class="subtitle">{{ subtitle }}</h1>
         <div class="content">{{ body | safe }}</div>

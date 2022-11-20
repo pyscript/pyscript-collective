@@ -132,6 +132,25 @@ async def example(request: Request) -> _TemplateResponse:
     )
 
 
+async def example_code(request: Request) -> _TemplateResponse:
+    """Handle the linked files for the code example."""
+    example_name = request.path_params["example_name"]
+    resources: Resources = request.app.state.resources
+    this_example = resources.examples[example_name]
+    root_path = "../../.."
+
+    return templates.TemplateResponse(
+        "example_code.jinja2",
+        dict(
+            title=f"{this_example.title} Code",
+            extra_head=this_example.extra_head,
+            request=request,
+            root_path=root_path,
+            linked_files=this_example.linked_files,
+        ),
+    )
+
+
 async def content_page(request: Request) -> _TemplateResponse:
     """Handle a content page."""
     page_name = request.path_params["page_name"]
@@ -159,6 +178,7 @@ routes = [
     Route("/authors", authors),
     Route("/authors/{author_name}.html", author),
     Route("/gallery/examples/{example_name}/index.html", example),
+    Route("/gallery/examples/{example_name}/code.html", example_code),
     Route("/gallery/examples/{example_name}/", example),
     Route("/pages/{page_name}.html", content_page),
     Mount("/gallery", StaticFiles(directory=HERE / "gallery")),

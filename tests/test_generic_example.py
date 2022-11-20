@@ -10,8 +10,7 @@ def test_hello_world(client_page: PageT) -> None:
 
     # Title and subtitle
     title = soup.select_one("title")
-    assert title
-    assert title.text == "Hello World | PyScript Collective"
+    assert title and title.text == "Hello World | PyScript Collective"
     subtitle = soup.select_one('meta[name="subtitle"]')
     assert subtitle
     assert (
@@ -33,8 +32,27 @@ def test_hello_world(client_page: PageT) -> None:
     py_scripts = soup.select("py-script")
     assert len(py_scripts) == 1
 
+    # Back to code button
+    button = soup.select_one("a.is-pulled-right")
+    assert button and "Show Code" == button.text
+
 
 def test_hello_world_js(test_client: TestClient) -> None:
     """Test the static assets for Hello World."""
     response = test_client.get("/gallery/examples/hello_world/hello_world.js")
     assert response.status_code == 200
+
+
+def test_hello_world_code(client_page: PageT) -> None:
+    """Test code samples for hello world example."""
+    soup = client_page("/gallery/examples/hello_world/code.html")
+    title = soup.select_one("title")
+    assert title
+    assert "Hello World Code | PyScript Collective" == title.text.strip()
+    linked_file_heading = soup.select_one("h2")
+    assert linked_file_heading
+    assert "index.html" == linked_file_heading.text
+
+    # Back to code button
+    button = soup.select_one("a.is-pulled-right")
+    assert button and "Back to Demo" == button.text
