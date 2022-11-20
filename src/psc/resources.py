@@ -17,13 +17,12 @@ from markdown_it import MarkdownIt
 from psc.here import HERE
 from psc.here import PYODIDE
 
-
 EXCLUSIONS = ("pyscript.css", "pyscript.js", "favicon.png")
 
 
 def tag_filter(
-    tag: Tag,
-    exclusions: tuple[str, ...] = EXCLUSIONS,
+        tag: Tag,
+        exclusions: tuple[str, ...] = EXCLUSIONS,
 ) -> bool:
     """Filter nodes from example that should not get included."""
     attr = "href" if tag.name == "link" else "src"
@@ -114,6 +113,19 @@ class Example(Resource):
 
 
 @dataclass
+class Author(Resource):
+    """Information about an author, from Markdown."""
+
+    def __post_init__(self) -> None:
+        """Initialize the rest of the fields from the Markdown."""
+        md_file = HERE / "gallery/authors" / f"{self.path}.md"
+        md_fm = frontmatter.load(md_file)
+        self.title = md_fm.get("title", "")
+        md = MarkdownIt()
+        self.body = str(md.render(md_fm.content))
+
+
+@dataclass
 class Page(Resource):
     """A Markdown+frontmatter driven content page."""
 
@@ -153,15 +165,19 @@ class Page(Resource):
 class Resources:
     """Container for all resources in site."""
 
+    authors: dict[PurePath, Author] = field(default_factory=dict)
     examples: dict[PurePath, Example] = field(default_factory=dict)
     pages: dict[PurePath, Page] = field(default_factory=dict)
 
 
-def get_sorted_examples() -> list[PurePath]:
+def get_sorted_paths(target_dir: Path, only_dirs: bool = True) -> list[PurePath]:
     """Return an alphabetized listing of the examples."""
-    examples_dir = HERE / "gallery/examples"
-    examples = [e for e in examples_dir.iterdir() if e.is_dir()]
-    return sorted(examples, key=attrgetter("name"))
+    if only_dirs:
+        paths = [e for e in target_dir.iterdir() if e.is_dir()]
+    else:
+        paths = [e for e in target_dir.iterdir()]
+
+    return sorted(paths, key=attrgetter("name"))
 
 
 def get_resources() -> Resources:
@@ -169,10 +185,18 @@ def get_resources() -> Resources:
     resources = Resources()
 
     # Load the examples
-    for example in get_sorted_examples():
+    examples = HERE / "gallery/examples"
+    for example in get_sorted_paths(examples):
         this_path = PurePath(example.name)
         this_example = Example(path=this_path)
         resources.examples[this_path] = this_example
+
+    # Load the authors
+    authors = HERE / "gallery/authors"
+    for author in get_sorted_paths(authors, only_dirs=False):
+        this_path = PurePath(author.stem)
+        this_author = Author(path=this_path)
+        resources.authors[this_path] = this_author
 
     # Load the Pages
     pages_dir = HERE / "pages"

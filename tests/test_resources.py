@@ -5,15 +5,15 @@ from pathlib import PurePath
 import pytest
 from bs4 import BeautifulSoup
 
-from psc.resources import Example
+from psc.here import HERE
+from psc.resources import Example, Resources
 from psc.resources import Page
 from psc.resources import get_body_content
 from psc.resources import get_head_nodes
 from psc.resources import get_resources
-from psc.resources import get_sorted_examples
+from psc.resources import get_sorted_paths
 from psc.resources import is_local
 from psc.resources import tag_filter
-
 
 IS_LOCAL = is_local()
 
@@ -28,6 +28,11 @@ def head_soup() -> BeautifulSoup:
 <script src="example.js"></script>
     """
     return BeautifulSoup(head, "html5lib")
+
+
+@pytest.fixture(scope="module")
+def resources() -> Resources:
+    return get_resources()
 
 
 def test_tag_filter(head_soup: BeautifulSoup) -> None:
@@ -118,8 +123,8 @@ def test_example() -> None:
     this_example = Example(path=PurePath("hello_world"))
     assert this_example.title == "Hello World"
     assert (
-        this_example.subtitle
-        == "The classic hello world, but in Python -- in a browser!"
+            this_example.subtitle
+            == "The classic hello world, but in Python -- in a browser!"
     )
     assert "hello_world.css" in this_example.extra_head
     assert "<h1>Hello ...</h1>" in this_example.body
@@ -155,23 +160,29 @@ def test_missing_page() -> None:
 
 
 def test_sorted_examples() -> None:
-    """Ensure a stable listing."""
-    examples = get_sorted_examples()
+    """Ensure a stable listing of dirs."""
+    examples = get_sorted_paths(HERE / "gallery/examples")
     first_example = examples[0]
     assert "altair" == first_example.name
 
 
-def test_get_resources() -> None:
+def test_sorted_authors() -> None:
+    """Ensure a stable listing of files."""
+    authors = get_sorted_paths(HERE / "gallery/authors", only_dirs=False)
+    first_author = authors[0]
+    assert "meg-1.md" == first_author.name
+
+
+def test_get_resources(resources: Resources) -> None:
     """Ensure the dict-of-dicts is generated with PurePath keys."""
-    resources = get_resources()
 
     # Example
     hello_world_path = PurePath("hello_world")
     hello_world = resources.examples[hello_world_path]
     assert hello_world.title == "Hello World"
     assert (
-        hello_world.subtitle
-        == "The classic hello world, but in Python -- in a browser!"
+            hello_world.subtitle
+            == "The classic hello world, but in Python -- in a browser!"
     )
 
     # Page
@@ -186,3 +197,10 @@ def test_is_local_broken_path() -> None:
     test_path = Path("/xxx")
     actual = is_local(test_path)
     assert not actual
+
+
+def test_authors(resources: Resources) -> None:
+    """Get the list of authors as defined in Markdown files."""
+    authors = resources.authors
+    first_author = list(authors.values())[0]
+    assert "meg-1" == first_author.path.name
