@@ -20,6 +20,7 @@ from psc.resources import Example
 from psc.resources import Resources
 from psc.resources import get_resources
 
+
 templates = Jinja2Templates(directory=HERE / "templates")
 
 
