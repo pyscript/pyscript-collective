@@ -84,7 +84,7 @@ async def author(request: Request) -> _TemplateResponse:
     author_name = request.path_params["author_name"]
     resources: Resources = request.app.state.resources
     this_author = resources.authors[author_name]
-    root_path = "../../.."
+    root_path = "../.."
 
     return templates.TemplateResponse(
         "example.jinja2",
