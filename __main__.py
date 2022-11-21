@@ -95,12 +95,27 @@ def build() -> None:  # pragma: no cover
         response = test_client.get("/gallery/index.html")
         assert response.status_code == 200
         html = response.text
-        # output = public / "gallery/index.html"
         with open(public / "gallery/index.html", "w") as f:
             f.write(html)
 
         # Now for each page
         resources = get_resources()
+        for page in resources.pages.values():
+            response = test_client.get(f"/pages/{page.name}.html")
+            output = public / f"pages/{page.name}.html"
+            output.write_text(response.text)
+
+        # Now for authors and each author
+        response = test_client.get("/authors/index.html")
+        assert response.status_code == 200
+        html = response.text
+        with open(public / "gallery/authors/index.html", "w") as f:
+            f.write(html)
+        for author in resources.authors.values():
+            response = test_client.get(f"/authors/{author.name}.html")
+            output = public / f"gallery/authors/{author.name}.html"
+            output.write_text(response.text)
+
         for page in resources.pages.values():
             response = test_client.get(f"/pages/{page.name}.html")
             output = public / f"pages/{page.name}.html"
