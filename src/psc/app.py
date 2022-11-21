@@ -66,7 +66,7 @@ async def gallery(request: Request) -> _TemplateResponse:
 async def authors(request: Request) -> _TemplateResponse:
     """Handle the author listing page."""
     these_authors: Iterator[Example] = request.app.state.resources.authors.values()
-    root_path = ".."
+    root_path = "../.."
 
     return templates.TemplateResponse(
         "authors.jinja2",
