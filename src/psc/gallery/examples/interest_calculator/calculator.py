@@ -27,3 +27,6 @@ def setup():
     """When Pyodide starts up, enable the Calculate button."""
     calculate_button = Element("calc")  # noqa
     calculate_button.element.removeAttribute("disabled")
+
+
+setup()
