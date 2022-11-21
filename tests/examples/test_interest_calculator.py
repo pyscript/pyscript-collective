@@ -10,14 +10,14 @@ from psc.fixtures import PageT
 
 def test_calculator(fake_document: FakeDocument, fake_element: FakeElement) -> None:
     """Ensure the loaded interest function works correctly."""
-    from psc.gallery.examples.interest_calculator.calculator import interest
-
     fake_document.values["principal"] = "100"
     fake_document.values["interest_rate"] = "0.1"
     fake_document.values["time"] = "10"
     fake_document.values["simple_interest"] = "0.1"
     fake_document.values["compound_interest"] = "0.1"
     fake_document.values["calc"] = "Calculate"
+    from psc.gallery.examples.interest_calculator.calculator import interest
+
     interest()  # type: ignore
     assert fake_document.log[0] == "simple interest: 200"
     assert fake_document.log[1] == "compound interest: 259"
