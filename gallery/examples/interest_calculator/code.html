@@ -126,10 +126,7 @@
         &lt;/div&gt;
 
         &lt;py-config src=&#34;../py_config.toml&#34;&gt;&lt;/py-config&gt;
-        &lt;py-script src=&#34;calculator.py&#34;&gt;&lt;/py-script&gt;
-        &lt;py-script&gt;
-                setup()
-        &lt;/py-script&gt;
+        &lt;py-script src=&#34;./calculator.py&#34;&gt;&lt;/py-script&gt;
     &lt;/section&gt;
 &lt;/section&gt;
 
@@ -176,6 +173,9 @@ def setup():
     &#34;&#34;&#34;When Pyodide starts up, enable the Calculate button.&#34;&#34;&#34;
     calculate_button = Element(&#34;calc&#34;)  # noqa
     calculate_button.element.removeAttribute(&#34;disabled&#34;)
+
+
+setup()
 </code></pre>
             
                 <h2>styles.css</h2>
