@@ -20,6 +20,7 @@ section.contacts-demo {
 .number_template {
     color: black;
 }
+
 .name_template {
     color: black;
 }
@@ -91,21 +92,21 @@ img {
     justify-content: center;
 }
 
-#form input[type=number] {
-    border: 1px solid white;
-    border-radius: 0.3em;
-    height: 12%;
-    width: 100%;
-    margin-bottom: 5px;
-}
+    #form input[type=number] {
+        border: 1px solid white;
+        border-radius: 0.3em;
+        height: 12%;
+        width: 100%;
+        margin-bottom: 5px;
+    }
 
 
-#form button {
-    width: 100%;
-    height: 12%;
-    margin-bottom: 5px;
-    border: 0;
-}
+    #form button {
+        width: 100%;
+        height: 12%;
+        margin-bottom: 5px;
+        border: 0;
+    }
 
 header {
     height: 100px;
